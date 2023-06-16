@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_embedded_help_role">
+    <sys_embedded_help_role action="INSERT_OR_UPDATE">
+        <order>1000</order>
+        <role display_value="x_648117_tmf_mock.user" name="x_648117_tmf_mock.user">f313f65047232110acf69a21336d438c</role>
+        <sys_class_name>sys_embedded_help_role</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-06-16 19:26:13</sys_created_on>
+        <sys_id>8023f65047232110acf69a21336d438e</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>f313f65047232110acf69a21336d438c</sys_name>
+        <sys_package display_value="TMF Mock Payload Generator" source="x_648117_tmf_mock">3b03be1447232110acf69a21336d4362</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="TMF Mock Payload Generator">3b03be1447232110acf69a21336d4362</sys_scope>
+        <sys_update_name>sys_embedded_help_role_8023f65047232110acf69a21336d438e</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-06-16 19:26:13</sys_updated_on>
+    </sys_embedded_help_role>
+</record_update>
