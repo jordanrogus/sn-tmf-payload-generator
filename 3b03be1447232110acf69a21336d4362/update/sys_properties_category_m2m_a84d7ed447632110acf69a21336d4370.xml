@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_properties_category_m2m">
+    <sys_properties_category_m2m action="INSERT_OR_UPDATE">
+        <category display_value="TMF Mock Payload Generator">482dbad447632110acf69a21336d43ef</category>
+        <order>100</order>
+        <property display_value="x_648117_tmf_mock.base_api_reference_url" name="x_648117_tmf_mock.base_api_reference_url">82ecb6d447632110acf69a21336d432b</property>
+        <sys_class_name>sys_properties_category_m2m</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-06-16 20:10:30</sys_created_on>
+        <sys_id>a84d7ed447632110acf69a21336d4370</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>x_648117_tmf_mock.base_api_reference_url.TMF Mock Payload Generator</sys_name>
+        <sys_package display_value="TMF Mock Payload Generator" source="x_648117_tmf_mock">3b03be1447232110acf69a21336d4362</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="TMF Mock Payload Generator">3b03be1447232110acf69a21336d4362</sys_scope>
+        <sys_update_name>sys_properties_category_m2m_a84d7ed447632110acf69a21336d4370</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-06-16 20:10:30</sys_updated_on>
+    </sys_properties_category_m2m>
+</record_update>

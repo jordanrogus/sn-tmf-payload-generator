@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element db_object_id="a9028fd847632110acf69a21336d4394" label="Data Input" max_length="40" name="x_648117_tmf_mock_data_input" type="collection">
+        <element attributes="ignore_filter_on_new=true" default="javascript:global.getNextObjNumberPadded();" label="Number" max_length="40" name="number" type="string"/>
+        <element label="Payload Generator" mandatory="true" max_length="32" name="payload_generator" read_only="true" reference="x_648117_tmf_mock_payload_generator" reference_cascade_rule="delete" type="reference"/>
+        <index name="index">
+            <element name="payload_generator"/>
+        </index>
+    </element>
+</database>
