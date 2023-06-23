@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_include">
+    <sys_script_include action="INSERT_OR_UPDATE">
+        <access>package_private</access>
+        <active>true</active>
+        <api_name>x_648117_tmf_mock.TMFPayloadUtils</api_name>
+        <caller_access/>
+        <client_callable>false</client_callable>
+        <description>General functions to be used across TMF services</description>
+        <name>TMFPayloadUtils</name>
+        <script><![CDATA[var TMFPayloadUtils = Class.create();
+TMFPayloadUtils.prototype = {
+    initialize: function() {
+        this.utilsSI = new x_648117_tmf_mock.Utils();
+    },
+
+    channelArray(channelSysID) {
+        if (!channelSysID) {
+            return null;
+        }
+        var recordGR = this.utilsSI.getRecordFromSysID('sn_prd_pm_distribution_channel', channelSysID);
+        if (!recordGR) {
+            return null;
+        }
+
+        var array = [];
+        var obj = {
+            "id": this.getRecordIdentifier('sn_prd_pm_distribution_channel', channelSysID),
+            "name": recordGR.getValue('name')
+        };
+        array.push(obj);
+        return array;
+    },
+
+    relatedPartyArray(contactSysID, accountSysID) {
+        if (!contactSysID || !accountSysID) {
+            return null;
+        }
+        var array = [];
+        if (typeof this.customerContactObj(contactSysID) == "object") {
+            array.push(this.customerContactObj(contactSysID));
+        }
+        if (typeof this.customerObj(accountSysID) == "object") {
+            array.push(this.customerObj(accountSysID));
+        }
+        if (array.length == 0) {
+            return null;
+        } else {
+            return array;
+        }
+    },
+
+    customerContactObj(contactSysID) {
+        if (!contactSysID) {
+            return null;
+        }
+        var recordGR = this.utilsSI.getRecordFromSysID('customer_contact', contactSysID);
+        if (!recordGR) {
+            return null;
+        }
+
+        var obj = {};
+        obj.id = this.getRecordIdentifier('customer_contact', contactSysID);
+        obj.name = recordGR.getValue('name');
+        obj['@type'] = 'RelatedParty';
+        obj['@referredType'] = 'CustomerContact';
+        return obj;
+    },
+
+    customerObj(accountSysID) {
+        if (!accountSysID) {
+            return null;
+        }
+        var recordGR = this.utilsSI.getRecordFromSysID('customer_account', accountSysID);
+        if (!recordGR) {
+            return null;
+        }
+
+        var obj = {};
+        obj.id = this.getRecordIdentifier('customer_account', accountSysID);
+        obj.name = recordGR.getValue('name');
+        obj['@type'] = 'RelatedParty';
+        obj['@referredType'] = 'Customer';
+        return obj;
+    },
+
+    checkForProductChars(orderableItemsGR) {
+        var productCharsGR = this.utilsSI.getRecords('x_648117_tmf_mock_item_characteristic', 'item=' + orderableItemsGR.getUniqueValue());
+        if (productCharsGR) {
+            return true;
+        }
+        return false;
+    },
+
+    productCharsArray(orderableItemsGR) {
+        var array = [];
+        var productCharsGR = this.utilsSI.getRecords('x_648117_tmf_mock_item_characteristic', 'item=' + orderableItemsGR.getUniqueValue());
+        if (productCharsGR) {
+            while (productCharsGR.next()) {
+				
+				var charDefinitionGR = this.utilsSI.getRecordFromSysID('sn_prd_pm_characteristic', productCharsGR.getValue('characteristic'));
+				
+                obj = {
+                    "name": charDefinitionGR.getValue('name'),
+                    "value": productCharsGR.getValue('characteristic_value')
+                };
+                array.push(obj);
+            }
+        }
+        return array;
+    },
+
+    productSpecObj(productSpecSysID) {
+        if (!productSpecSysID) {
+            return null;
+        }
+        var recordGR = this.utilsSI.getRecordFromSysID('sn_prd_pm_product_specification', productSpecSysID);
+        if (!recordGR) {
+            return null;
+        }
+
+        var obj = {};
+
+        if (recordGR.getValue('external_id') != null) {
+            obj.id = recordGR.getValue('external_id');
+        } else {
+            obj.id = recordGR.getValue('initial_version');
+        }
+        obj.internalVersion = recordGR.getValue('version');
+        obj.name = recordGR.getValue('name');
+        if (recordGR.getValue('external_version') != null) {
+            obj.version = recordGR.getValue('external_version');
+        }
+        obj['@type'] = 'ProductSpecificationRef';
+        return obj;
+    },
+
+    placeObj(locationSysID) {
+        if (!locationSysID) {
+            return null;
+        }
+        var recordGR = this.utilsSI.getRecordFromSysID('cmn_location', locationSysID);
+        if (!recordGR) {
+            return null;
+        }
+
+        var obj = {};
+        obj.id = this.getRecordIdentifier('cmn_location', locationSysID);
+        obj['@type'] = 'Place';
+        return obj;
+    },
+
+    checkForProductRelationship(orderableItemsGR) {
+        var productRelationshipsGR = this.utilsSI.getRecords('x_648117_tmf_mock_item_relationship', 'source_item=' + orderableItemsGR.getUniqueValue() + '^relationship_class=productRelationship');
+        if (productRelationshipsGR) {
+            return true;
+        }
+        return false;
+    },
+
+    productRelationshipArray(orderableItemsGR) {
+        var array = [];
+        var productRelationshipsGR = this.utilsSI.getRecords('x_648117_tmf_mock_item_relationship', 'source_item=' + orderableItemsGR.getUniqueValue() + '^relationship_class=productRelationship');
+        if (productRelationshipsGR) {
+            while (productRelationshipsGR.next()) {
+                obj = {
+                    "id": this.getRecordIdentifier('sn_prd_invt_product_inventory', productRelationshipsGR.getValue('product_inventory')),
+                    "relationshipType": productRelationshipsGR.getValue('relationship_type')
+                };
+                array.push(obj);
+            }
+        }
+        return array;
+    },
+	
+	checkForProductOrderItemRelationship(orderableItemsGR) {
+        var productOrderItemRelationshipGR = this.utilsSI.getRecords('x_648117_tmf_mock_item_relationship', 'source_item=' + orderableItemsGR.getUniqueValue() + '^relationship_class=productOrderItemRelationship');
+        if (productOrderItemRelationshipGR) {
+            return true;
+        }
+        return false;
+    },
+	
+	productOrderItemRelationshipArray(orderableItemsGR) {
+        var array = [];
+        var productOrderItemRelationshipGR = this.utilsSI.getRecords('x_648117_tmf_mock_item_relationship', 'source_item=' + orderableItemsGR.getUniqueValue() + '^relationship_class=productOrderItemRelationship');
+        if (productOrderItemRelationshipGR) {
+            while (productOrderItemRelationshipGR.next()) {
+                obj = {
+                    "id": productOrderItemRelationshipGR.getValue('target_item'),
+                    "relationshipType": productOrderItemRelationshipGR.getValue('relationship_type')
+                };
+                array.push(obj);
+            }
+        }
+        return array;
+    },
+
+    productOfferingObj(productOfferingSysID) {
+        if (!productOfferingSysID) {
+            return null;
+        }
+        var recordGR = this.utilsSI.getRecordFromSysID('sn_prd_pm_product_offering', productOfferingSysID);
+        if (!recordGR) {
+            return null;
+        }
+
+        var obj = {};
+		
+		if (recordGR.getValue('external_id') != null) {
+            obj.id = recordGR.getValue('external_id');
+        } else {
+            obj.id = recordGR.getValue('initial_version');
+        }
+        obj.internalVersion = recordGR.getValue('version');
+        obj.name = recordGR.getValue('name');
+        if (recordGR.getValue('external_version') != null) {
+            obj.version = recordGR.getValue('external_version');
+        }
+        return obj;
+    },
+
+    // Returns external_id if found instead of sys_id
+    // Multiple field names for external ID used:
+    // sn_tmt_core_external_id, external_id, sn_prd_invt_external_id
+    getRecordIdentifier(table, sys_id) {
+        var recordGR = this.utilsSI.getRecordFromSysID(table, sys_id);
+        if (recordGR) {
+            if (recordGR.isValidField('sn_tmt_core_external_id')) {
+                if (!recordGR.sn_tmt_core_external_id.nil()) {
+                    return recordGR.getValue('sn_tmt_core_external_id');
+                }
+            } else if (recordGR.isValidField('external_id')) {
+                if (!recordGR.external_id.nil()) {
+                    return recordGR.getValue('external_id');
+                }
+            } else if (recordGR.isValidField('sn_prd_invt_external_id')) {
+                if (!recordGR.sn_prd_invt_external_id.nil()) {
+                    return recordGR.getValue('sn_prd_invt_external_id');
+                }
+            }
+            return recordGR.getUniqueValue();
+        } else {
+            return null;
+        }
+    },
+
+    type: 'TMFPayloadUtils'
+};]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-06-23 13:33:19</sys_created_on>
+        <sys_id>dd6569a247232110acf69a21336d4300</sys_id>
+        <sys_mod_count>29</sys_mod_count>
+        <sys_name>TMFPayloadUtils</sys_name>
+        <sys_package display_value="TMF Mock Payload Generator" source="x_648117_tmf_mock">3b03be1447232110acf69a21336d4362</sys_package>
+        <sys_policy>read</sys_policy>
+        <sys_scope display_value="TMF Mock Payload Generator">3b03be1447232110acf69a21336d4362</sys_scope>
+        <sys_update_name>sys_script_include_dd6569a247232110acf69a21336d4300</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-06-23 18:56:26</sys_updated_on>
+    </sys_script_include>
+</record_update>

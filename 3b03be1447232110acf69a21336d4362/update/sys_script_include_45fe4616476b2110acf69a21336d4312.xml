@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_include">
+    <sys_script_include action="INSERT_OR_UPDATE">
+        <access>package_private</access>
+        <active>true</active>
+        <api_name>x_648117_tmf_mock.TMFProductOrderPayloadGenerationService</api_name>
+        <caller_access/>
+        <client_callable>false</client_callable>
+        <description/>
+        <name>TMFProductOrderPayloadGenerationService</name>
+        <script><![CDATA[var TMFProductOrderPayloadGenerationService = Class.create();
+TMFProductOrderPayloadGenerationService.prototype = {
+    initialize: function() {
+        this.utilsSI = new x_648117_tmf_mock.Utils();
+        this.tmfPayloadUtilsSI = new x_648117_tmf_mock.TMFPayloadUtils();
+    },
+
+    // Assumes 1 account/contact max 
+    generatePayload(payloadGeneratorSysID) {
+
+        var payload = {};
+
+        var rootElements = ['orderCurrency', 'externalId', 'requestedCompletionDate', 'requestedStartDate'];
+        var coreOrderDataGR = this.utilsSI.getRecords('x_648117_tmf_mock_core_order_data', 'payload_generator=' + payloadGeneratorSysID);
+        var noteArray = [];
+        var channel = '';
+        var account = '';
+        var contact = '';
+        if (coreOrderDataGR) {
+            while (coreOrderDataGR.next()) {
+                var attribute = coreOrderDataGR.getValue('attribute');
+                var attributeValue = coreOrderDataGR.getValue('value');
+                var recordValue = coreOrderDataGR.getValue('record');
+                // Generate root elements -> Function
+                if (rootElements.indexOf(attribute) > -1) {
+                    if (attributeValue) {
+                        payload[attribute] = attributeValue;
+                    }
+                }
+                // Generate note array
+                if (attribute == 'channel') {
+                    channel = recordValue;
+                }
+                // Generate note array
+                if (attribute == 'note') {
+                    noteArray.push({
+                        "text": attributeValue
+                    });
+                }
+                if (attribute == 'account') {
+                    account = recordValue;
+                }
+                if (attribute == 'contact') {
+                    contact = recordValue;
+                }
+            }
+        }
+        payload.channel = this.tmfPayloadUtilsSI.channelArray(channel);
+        payload.note = noteArray;
+        payload.productOrderItem = this._generateProductOrderItemArray(payloadGeneratorSysID);
+        payload.relatedParty = this.tmfPayloadUtilsSI.relatedPartyArray(contact, account);
+
+        payload['@type'] = 'ProductOrder';
+        return JSON.stringify(payload);
+    },
+
+    _generateProductOrderItemArray(payloadGeneratorSysID) {
+        var array = [];
+        var orderableItemsGR = this.utilsSI.getRecords('x_648117_tmf_mock_items', 'payload_generator=' + payloadGeneratorSysID);
+        if (orderableItemsGR) {
+            while (orderableItemsGR.next()) {
+                if (orderableItemsGR.getValue('unique_line_item') == true) {
+                    for (i = 1; i < parseInt(orderableItemsGR.getValue('quantity')) + 1; i++) {
+                        array.push(this._generateProductOrderItemObj(orderableItemsGR, i));
+                    }
+                } else {
+                    // Generate object 1 time
+                    array.push(this._generateProductOrderItemObj(orderableItemsGR));
+                }
+            }
+        }
+        return array;
+    },
+
+    _generateProductOrderItemObj(orderableItemsGR, i) {
+        var obj = {};
+        if (orderableItemsGR.getValue('unique_line_item') == true) {
+            if ((i != "") && (i != null)) {
+                obj.id = orderableItemsGR.getUniqueValue() + '_' + i;
+            } else {
+                obj.id = orderableItemsGR.getUniqueValue();
+            }
+            obj.quantity = 1;
+        } else {
+            obj.id = orderableItemsGR.getUniqueValue();
+            obj.quantity = orderableItemsGR.getValue('quantity');
+        }
+        obj.action = orderableItemsGR.getValue('action');
+        obj.product = this._generateProductObj(orderableItemsGR);
+        obj.productOffering = this.tmfPayloadUtilsSI.productOfferingObj(orderableItemsGR.getValue('product_offering'));
+        if (this.tmfPayloadUtilsSI.checkForProductOrderItemRelationship(orderableItemsGR) == true) {
+            obj.productOrderItemRelationship = this.tmfPayloadUtilsSI.productOrderItemRelationshipArray(orderableItemsGR);
+        }
+        obj["@type"] = "ProductOrderItem";
+        return obj;
+    },
+
+    _generateProductObj(orderableItemsGR) {
+        var obj = {};
+        if (orderableItemsGR.getValue('action') != "add") {
+            obj.id = this.tmfPayloadUtilsSI.getRecordIdentifier('sn_prd_invt_product_inventory', orderableItemsGR.getValue('product_inventory'));
+        }
+        obj["@type"] = "Product";
+        if (this.tmfPayloadUtilsSI.checkForProductChars(orderableItemsGR) == true) {
+            obj.productCharacteristic = this.tmfPayloadUtilsSI.productCharsArray(orderableItemsGR);
+        }
+        obj.productSpecification = this.tmfPayloadUtilsSI.productSpecObj(orderableItemsGR.getValue('specification'));
+		
+        if (!orderableItemsGR.location.nil()) {
+            obj.place = this.tmfPayloadUtilsSI.placeObj(orderableItemsGR.getValue('location'));
+        }
+		
+        if (this.tmfPayloadUtilsSI.checkForProductRelationship(orderableItemsGR) == true) {
+            obj.productRelationship = this.tmfPayloadUtilsSI.productRelationshipArray(orderableItemsGR);
+        }
+        return obj;
+    },
+
+    type: 'TMFProductOrderPayloadGenerationService'
+};]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-06-22 21:56:29</sys_created_on>
+        <sys_id>45fe4616476b2110acf69a21336d4312</sys_id>
+        <sys_mod_count>53</sys_mod_count>
+        <sys_name>TMFProductOrderPayloadGenerationService</sys_name>
+        <sys_package display_value="TMF Mock Payload Generator" source="x_648117_tmf_mock">3b03be1447232110acf69a21336d4362</sys_package>
+        <sys_policy>read</sys_policy>
+        <sys_scope display_value="TMF Mock Payload Generator">3b03be1447232110acf69a21336d4362</sys_scope>
+        <sys_update_name>sys_script_include_45fe4616476b2110acf69a21336d4312</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-06-23 18:54:28</sys_updated_on>
+    </sys_script_include>
+</record_update>

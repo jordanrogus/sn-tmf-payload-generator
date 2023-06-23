@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_script">
+    <sys_script action="INSERT_OR_UPDATE">
+        <abort_action>false</abort_action>
+        <access>package_private</access>
+        <action_delete>false</action_delete>
+        <action_insert>true</action_insert>
+        <action_query>false</action_query>
+        <action_update>false</action_update>
+        <active>true</active>
+        <add_message>false</add_message>
+        <advanced>true</advanced>
+        <change_fields>false</change_fields>
+        <client_callable>false</client_callable>
+        <collection>x_648117_tmf_mock_items</collection>
+        <condition/>
+        <description/>
+        <execute_function>false</execute_function>
+        <filter_condition table="x_648117_tmf_mock_items">specificationISNOTEMPTY^product_offeringISNOTEMPTY^EQ<item endquery="false" field="specification" goto="false" newquery="false" operator="ISNOTEMPTY" or="false" value=""/>
+            <item endquery="false" field="product_offering" goto="false" newquery="false" operator="ISNOTEMPTY" or="false" value=""/>
+            <item endquery="true" field="" goto="false" newquery="false" operator="=" or="false" value=""/>
+        </filter_condition>
+        <is_rest>false</is_rest>
+        <message/>
+        <name>Generate Characteristics</name>
+        <order>100</order>
+        <priority>100</priority>
+        <rest_method/>
+        <rest_method_text/>
+        <rest_service/>
+        <rest_service_text/>
+        <rest_variables/>
+        <role_conditions/>
+        <script><![CDATA[(function executeRule(current, previous /*null when async*/ ) {
+
+    var item = current.getUniqueValue();
+    var productOffering = current.getValue('product_offering');
+    var specification = current.getValue('specification');
+    var populateData = current.getValue('populate_chars');
+
+    // Get chars as an array of objects
+    var chars = [];
+    var grCharsPerSpecOffering = new GlideRecord('sn_prd_pm_product_offering_characteristic');
+    grCharsPerSpecOffering.addQuery('product_offering', productOffering);
+    grCharsPerSpecOffering.addQuery('specification', specification);
+    grCharsPerSpecOffering.query();
+    while (grCharsPerSpecOffering.next()) {
+
+        // Check if an object in the array has the characteristic already
+        // If so, and it is a choice, add the choice to the object
+        var charFound = false;
+        for (j = 0; j < chars.length; j++) {
+            if (chars[j].char == grCharsPerSpecOffering.getValue('characteristic')) {
+                charFound = true;
+                if (grCharsPerSpecOffering.getValue('characteristic_option') != null) {
+                    chars[j].options.push(grCharsPerSpecOffering.getDisplayValue('characteristic_option'));
+                }
+            }
+        }
+
+        // If characteristic is not found, create object and add to array
+        // Only create options attribute if chaacteristic uses options
+        if (!charFound) {
+            var map = {};
+            map.char = grCharsPerSpecOffering.getValue('characteristic');
+            map.mandatory = grCharsPerSpecOffering.getValue('is_mandatory');
+            if (grCharsPerSpecOffering.getValue('characteristic_option') != null) {
+                map.options = [grCharsPerSpecOffering.getDisplayValue('characteristic_option')];
+            }
+            chars.push(map);
+        }
+
+    }
+
+    // For each characteristic, generate record if not found
+    for (i = 0; i < chars.length; i++) {
+        var grItemChars = new GlideRecord('x_648117_tmf_mock_item_characteristic');
+        grItemChars.addQuery('item', item);
+        grItemChars.addQuery('characteristic', chars[i].char);
+        if (!grItemChars.next()) {
+            generateItemChar(chars[i], item, populateData);
+        }
+    }
+
+})(current, previous);
+
+// Generate record
+function generateItemChar(charMap, item, populateData) {
+    var grInsertItemChar = new GlideRecord('x_648117_tmf_mock_item_characteristic');
+    grInsertItemChar.newRecord();
+    grInsertItemChar.item = item;
+    grInsertItemChar.characteristic = charMap.char;
+
+    // If user asked for data to be auto-generated for all chars
+    if (populateData == 1) {
+        this._populateData(charMap, grInsertItemChar);
+
+        // Only populate data for mandatory chars
+    } else {
+        if (charMap.mandatory == 1) {
+            this._populateData(charMap, grInsertItemChar);
+        }
+    }
+    grInsertItemChar.insert();
+}
+
+// Populate char data
+function _populateData(charMap, grObj) {
+    if (charMap.hasOwnProperty('options') == true) {
+        grObj.characteristic_value = charMap.options[this._randomIntFromInterval(0, charMap.options.length - 1)];
+    } else {
+        grObj.characteristic_value = _randomString(10);
+    }
+}
+
+// Get a random number between a given min and max
+function _randomIntFromInterval(min, max) {
+    return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
+// Generate a random string of a given length
+function _randomString(length) {
+    var result = '';
+    var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var charactersLength = characters.length;
+    var counter = 0;
+    while (counter < length) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+        counter += 1;
+    }
+    return result;
+}]]></script>
+        <sys_class_name>sys_script</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-06-21 14:02:08</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>de87dbb147ab6110acf69a21336d4380</sys_id>
+        <sys_mod_count>29</sys_mod_count>
+        <sys_name>Generate Characteristics</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="TMF Mock Payload Generator" source="x_648117_tmf_mock">3b03be1447232110acf69a21336d4362</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="TMF Mock Payload Generator">3b03be1447232110acf69a21336d4362</sys_scope>
+        <sys_update_name>sys_script_de87dbb147ab6110acf69a21336d4380</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-06-21 16:26:39</sys_updated_on>
+        <template/>
+        <when>after</when>
+    </sys_script>
+    <sys_translated_text action="delete_multiple" query="documentkey=de87dbb147ab6110acf69a21336d4380"/>
+</record_update>

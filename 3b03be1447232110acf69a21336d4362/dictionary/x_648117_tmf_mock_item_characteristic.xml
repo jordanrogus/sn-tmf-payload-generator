@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element db_object_id="4324147147ab2110acf69a21336d43a6" label="Item Characteristic" max_length="40" name="x_648117_tmf_mock_item_characteristic" type="collection">
+        <element label="Characteristic" mandatory="true" max_length="32" name="characteristic" read_only="true" reference="sn_prd_pm_characteristic" type="reference"/>
+        <element label="Characteristic Value" mandatory="true" max_length="2000" name="characteristic_value" type="string"/>
+        <element attributes="readonly_clickthrough=true" label="Item" mandatory="true" max_length="32" name="item" read_only="true" reference="x_648117_tmf_mock_items" reference_cascade_rule="delete" type="reference"/>
+        <element attributes="ignore_filter_on_new=true" default="javascript:global.getNextObjNumberPadded();" label="Number" max_length="40" name="number" read_only="true" type="string"/>
+        <index name="index">
+            <element name="characteristic"/>
+        </index>
+        <index name="index2">
+            <element name="item"/>
+        </index>
+    </element>
+</database>

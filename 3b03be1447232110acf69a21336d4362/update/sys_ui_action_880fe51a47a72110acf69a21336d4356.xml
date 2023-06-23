@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_ui_action">
+    <sys_ui_action action="INSERT_OR_UPDATE">
+        <action_name>copy_item</action_name>
+        <active>true</active>
+        <client>true</client>
+        <client_script_v2><![CDATA[function onClick(g_form) {
+
+}]]></client_script_v2>
+        <comments/>
+        <condition>current.canWrite() &amp;&amp; !current.isNewRecord();</condition>
+        <form_action>true</form_action>
+        <form_button>true</form_button>
+        <form_button_v2>false</form_button_v2>
+        <form_context_menu>false</form_context_menu>
+        <form_link>false</form_link>
+        <form_menu_button_v2>false</form_menu_button_v2>
+        <form_style/>
+        <format_for_configurable_workspace>false</format_for_configurable_workspace>
+        <hint/>
+        <isolate_script>false</isolate_script>
+        <list_action>false</list_action>
+        <list_banner_button>false</list_banner_button>
+        <list_button>false</list_button>
+        <list_choice>false</list_choice>
+        <list_context_menu>false</list_context_menu>
+        <list_link>false</list_link>
+        <list_save_with_form_button>false</list_save_with_form_button>
+        <list_style/>
+        <messages/>
+        <name>Copy Item</name>
+        <onclick>copyItem()</onclick>
+        <order>100</order>
+        <script><![CDATA[function copyItem() {
+    var answer = confirm("Please confirm you want to copy this item to the same payload generator. New characteristics will be generated, and the item relationships will persist.");
+    if (answer == true) {
+        gsftSubmit(null, g_form.getFormElement(), 'copy_item');
+    } else {
+        return false;
+    }
+}
+
+if (typeof window == 'undefined') {
+    copyItemFunction();
+}
+
+function copyItemFunction() {
+	new x_648117_tmf_mock.ProductItemUtils().copyItemAndRelationships(current.getUniqueValue());
+
+	// Redirect to payload generator
+	var payloadGeneratorSysID = current.getValue('payload_generator');
+	action.setRedirectURL("x_648117_tmf_mock_payload_generator.do?sys_id=" + payloadGeneratorSysID);
+}
+
+]]></script>
+        <show_insert>true</show_insert>
+        <show_multiple_update>false</show_multiple_update>
+        <show_query>false</show_query>
+        <show_update>true</show_update>
+        <sys_class_name>sys_ui_action</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-06-22 19:38:04</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>880fe51a47a72110acf69a21336d4356</sys_id>
+        <sys_mod_count>10</sys_mod_count>
+        <sys_name>Copy Item</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="TMF Mock Payload Generator" source="x_648117_tmf_mock">3b03be1447232110acf69a21336d4362</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="TMF Mock Payload Generator">3b03be1447232110acf69a21336d4362</sys_scope>
+        <sys_update_name>sys_ui_action_880fe51a47a72110acf69a21336d4356</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-06-22 21:17:25</sys_updated_on>
+        <table>x_648117_tmf_mock_items</table>
+        <ui11_compatible>true</ui11_compatible>
+        <ui16_compatible>false</ui16_compatible>
+    </sys_ui_action>
+</record_update>

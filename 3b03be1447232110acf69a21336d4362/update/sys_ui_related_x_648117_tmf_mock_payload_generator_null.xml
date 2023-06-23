@@ -2,17 +2,31 @@
     <sys_ui_related sys_domain="global" table="x_648117_tmf_mock_payload_generator" version="2" view="">
         <sys_ui_related_list_entry action="INSERT_OR_UPDATE">
             <filter/>
-            <list_id display_value="Payload Generator - Default view" name="x_648117_tmf_mock_payload_generator" related_list="NULL" sys_domain="global" view="Default view">46e2c75c47632110acf69a21336d432a</list_id>
+            <list_id display_value="Payload Generator - Default view" name="x_648117_tmf_mock_payload_generator" related_list="NULL" sys_domain="global" view="Default view">f82c8035476b2110acf69a21336d43d6</list_id>
             <order_by/>
             <position>0</position>
-            <related_list>x_648117_tmf_mock_data_input.payload_generator</related_list>
+            <related_list>x_648117_tmf_mock_core_order_data.payload_generator</related_list>
             <sys_class_name>sys_ui_related_list_entry</sys_class_name>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2023-06-16 20:35:10</sys_created_on>
-            <sys_id>c6e24bdc47632110acf69a21336d4314</sys_id>
+            <sys_created_on>2023-06-20 23:07:32</sys_created_on>
+            <sys_id>7c2c8035476b2110acf69a21336d43d7</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2023-06-16 20:35:10</sys_updated_on>
+            <sys_updated_on>2023-06-20 23:07:32</sys_updated_on>
+        </sys_ui_related_list_entry>
+        <sys_ui_related_list_entry action="INSERT_OR_UPDATE">
+            <filter/>
+            <list_id display_value="Payload Generator - Default view" name="x_648117_tmf_mock_payload_generator" related_list="NULL" sys_domain="global" view="Default view">f82c8035476b2110acf69a21336d43d6</list_id>
+            <order_by/>
+            <position>1</position>
+            <related_list>x_648117_tmf_mock_items.payload_generator</related_list>
+            <sys_class_name>sys_ui_related_list_entry</sys_class_name>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2023-06-20 23:07:32</sys_created_on>
+            <sys_id>742c8035476b2110acf69a21336d43d8</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2023-06-20 23:07:32</sys_updated_on>
         </sys_ui_related_list_entry>
         <sys_ui_related_list action="INSERT_OR_UPDATE">
             <calculated_name>Payload Generator - Default view</calculated_name>
@@ -23,10 +37,10 @@
             <related_list/>
             <sys_class_name>sys_ui_related_list</sys_class_name>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2023-06-16 20:35:10</sys_created_on>
+            <sys_created_on>2023-06-20 23:07:32</sys_created_on>
             <sys_domain>global</sys_domain>
             <sys_domain_path>/</sys_domain_path>
-            <sys_id>46e2c75c47632110acf69a21336d432a</sys_id>
+            <sys_id>f82c8035476b2110acf69a21336d43d6</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_name>Payload Generator - Default view</sys_name>
             <sys_package display_value="TMF Mock Payload Generator" source="x_648117_tmf_mock">3b03be1447232110acf69a21336d4362</sys_package>
@@ -34,7 +48,7 @@
             <sys_scope display_value="TMF Mock Payload Generator">3b03be1447232110acf69a21336d4362</sys_scope>
             <sys_update_name>sys_ui_related_x_648117_tmf_mock_payload_generator_null</sys_update_name>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2023-06-16 20:35:10</sys_updated_on>
+            <sys_updated_on>2023-06-20 23:07:32</sys_updated_on>
             <sys_user/>
             <view display_value="Default view" name="NULL">Default view</view>
             <view_name/>

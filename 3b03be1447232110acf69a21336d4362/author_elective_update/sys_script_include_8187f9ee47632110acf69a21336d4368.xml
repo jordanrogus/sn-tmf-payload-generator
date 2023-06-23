@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_include">
+    <sys_script_include action="DELETE">
+        <access>package_private</access>
+        <active>true</active>
+        <api_name>x_648117_tmf_mock.TMFProductOrderPayloadGenerationService</api_name>
+        <caller_access/>
+        <client_callable>false</client_callable>
+        <description/>
+        <name>TMFProductOrderPayloadGenerationService</name>
+        <script><![CDATA[var TMFProductOrderPayloadGenerationService = Class.create();
+TMFProductOrderPayloadGenerationService.prototype = {
+    initialize: function() {
+        this.utilsSI = new x_648117_tmf_mock.Utils();
+        this.tmfPayloadUtilsSI = new x_648117_tmf_mock.TMFPayloadUtils();
+    },
+
+	// Assumes 1 account/contact max 
+    generatePayload(payloadGeneratorSysID) {
+		var payloadGeneratorGR = this.utilsSI.getRecordFromSysID('x_648117_tmf_mock_payload_generator', payloadGeneratorSysID);
+
+        var payload = {};
+
+        var rootElements = ['currencyCode', 'externalId', 'requestedCompletionDate', 'requestedStartDate'];
+        var coreOrderDataGR = this.utilsSI.getRecords('x_648117_tmf_mock_core_order_data', 'payload_generator=' + payloadGeneratorSysID);
+		var noteArray = [];
+		var channel = '';
+		var account = '';
+		var contact = '';
+        if (coreOrderDataGR) {
+            while (coreOrderDataGR.next()) {
+				var attribute = coreOrderDataGR.getValue('attribute');
+				var attributeValue = coreOrderDataGR.getValue('value');
+				var recordValue = coreOrderDataGR.getValue('record');
+				// Generate root elements -> Function
+				if(rootElements.indexOf(attribute) > -1){
+					if(attributeValue){
+						payload[attribute] = attributeValue;
+					}
+				}
+				// Generate note array
+				if(attribute == 'channel'){
+					channel = recordValue;
+				}
+				// Generate note array
+				if(attribute == 'note'){
+					noteArray.push({"text": attributeValue});
+				}
+				if(attribute == 'account'){
+					account = recordValue;
+				}
+				if(attribute == 'contact'){
+					contact = recordValue;
+				}
+            }
+        }
+		payload.channel = this.tmfPayloadUtilsSI.channelArray(channel);
+		payload.note = noteArray;
+		payload.productOrderItem = this._generateProductOrderItemArray(payloadGeneratorGR);
+		payload.relatedParty = this.tmfPayloadUtilsSI.relatedPartyArray(contact, account);
+		
+		payload['@type'] = 'ProductOrder';
+        return JSON.stringify(payload);
+    },
+	
+	_generateProductOrderItemArray(payloadGeneratorGR){
+		return [];
+	},
+
+    type: 'TMFProductOrderPayloadGenerationService'
+};]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-06-23 14:52:07</sys_created_on>
+        <sys_id>8187f9ee47632110acf69a21336d4368</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>TMFProductOrderPayloadGenerationService</sys_name>
+        <sys_package display_value="TMF Mock Payload Generator" source="x_648117_tmf_mock">3b03be1447232110acf69a21336d4362</sys_package>
+        <sys_policy>read</sys_policy>
+        <sys_scope display_value="TMF Mock Payload Generator">3b03be1447232110acf69a21336d4362</sys_scope>
+        <sys_update_name>sys_script_include_8187f9ee47632110acf69a21336d4368</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-06-23 14:52:07</sys_updated_on>
+    </sys_script_include>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="TMF Mock Payload Generator">3b03be1447232110acf69a21336d4362</application>
+        <file_path/>
+        <instance_id>8e22f7acdbc3ec10ad8dd7c8f4961939</instance_id>
+        <instance_name>dev107202</instance_name>
+        <name>sys_script_include_8187f9ee47632110acf69a21336d4368</name>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="sys_script_include"&gt;&lt;sys_script_include action="INSERT_OR_UPDATE"&gt;&lt;access&gt;package_private&lt;/access&gt;&lt;active&gt;true&lt;/active&gt;&lt;api_name&gt;x_648117_tmf_mock.TMFProductOrderPayloadGenerationService&lt;/api_name&gt;&lt;caller_access/&gt;&lt;client_callable&gt;false&lt;/client_callable&gt;&lt;description/&gt;&lt;name&gt;TMFProductOrderPayloadGenerationService&lt;/name&gt;&lt;script&gt;&lt;![CDATA[var TMFProductOrderPayloadGenerationService = Class.create();
+TMFProductOrderPayloadGenerationService.prototype = {
+    initialize: function() {
+        this.utilsSI = new x_648117_tmf_mock.Utils();
+        this.tmfPayloadUtilsSI = new x_648117_tmf_mock.TMFPayloadUtils();
+    },
+
+	// Assumes 1 account/contact max 
+    generatePayload(payloadGeneratorSysID) {
+		var payloadGeneratorGR = this.utilsSI.getRecordFromSysID('x_648117_tmf_mock_payload_generator', payloadGeneratorSysID);
+
+        var payload = {};
+
+        var rootElements = ['currencyCode', 'externalId', 'requestedCompletionDate', 'requestedStartDate'];
+        var coreOrderDataGR = this.utilsSI.getRecords('x_648117_tmf_mock_core_order_data', 'payload_generator=' + payloadGeneratorSysID);
+		var noteArray = [];
+		var channel = '';
+		var account = '';
+		var contact = '';
+        if (coreOrderDataGR) {
+            while (coreOrderDataGR.next()) {
+				var attribute = coreOrderDataGR.getValue('attribute');
+				var attributeValue = coreOrderDataGR.getValue('value');
+				var recordValue = coreOrderDataGR.getValue('record');
+				// Generate root elements -&gt; Function
+				if(rootElements.indexOf(attribute) &gt; -1){
+					if(attributeValue){
+						payload[attribute] = attributeValue;
+					}
+				}
+				// Generate note array
+				if(attribute == 'channel'){
+					channel = recordValue;
+				}
+				// Generate note array
+				if(attribute == 'note'){
+					noteArray.push({"text": attributeValue});
+				}
+				if(attribute == 'account'){
+					account = recordValue;
+				}
+				if(attribute == 'contact'){
+					contact = recordValue;
+				}
+            }
+        }
+		payload.channel = this.tmfPayloadUtilsSI.channelArray(channel);
+		payload.note = noteArray;
+		payload.productOrderItem = this._generateProductOrderItemArray(payloadGeneratorGR);
+		payload.relatedParty = this.tmfPayloadUtilsSI.relatedPartyArray(contact, account);
+		
+		payload['@type'] = 'ProductOrder';
+        return JSON.stringify(payload);
+    },
+	
+	_generateProductOrderItemArray(payloadGeneratorGR){
+		return [];
+	},
+
+    type: 'TMFProductOrderPayloadGenerationService'
+};]]&gt;&lt;/script&gt;&lt;sys_class_name&gt;sys_script_include&lt;/sys_class_name&gt;&lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2023-06-23 14:52:07&lt;/sys_created_on&gt;&lt;sys_id&gt;8187f9ee47632110acf69a21336d4368&lt;/sys_id&gt;&lt;sys_mod_count&gt;0&lt;/sys_mod_count&gt;&lt;sys_name&gt;TMFProductOrderPayloadGenerationService&lt;/sys_name&gt;&lt;sys_package display_value="TMF Mock Payload Generator" source="x_648117_tmf_mock"&gt;3b03be1447232110acf69a21336d4362&lt;/sys_package&gt;&lt;sys_policy&gt;read&lt;/sys_policy&gt;&lt;sys_scope display_value="TMF Mock Payload Generator"&gt;3b03be1447232110acf69a21336d4362&lt;/sys_scope&gt;&lt;sys_update_name&gt;sys_script_include_8187f9ee47632110acf69a21336d4368&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2023-06-23 14:52:07&lt;/sys_updated_on&gt;&lt;/sys_script_include&gt;&lt;/record_update&gt;</payload>
+        <payload_hash>-1020509698</payload_hash>
+        <record_name>TMFProductOrderPayloadGenerationService</record_name>
+        <reverted_from/>
+        <source>3c84f65847232110acf69a21336d4344</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-06-23 14:52:07</sys_created_on>
+        <sys_id>cd87bdee47632110acf69a21336d4379</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>188e8bdb8d70000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-06-23 14:52:07</sys_updated_on>
+        <type>Script Include</type>
+        <update_guid>0587bdee8d63211048a04605212ba679</update_guid>
+        <update_guid_history>0587bdee8d63211048a04605212ba679:-1020509698</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete/>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-06-23 14:52:36</sys_created_on>
+        <sys_db_object display_value="" name="sys_script_include">sys_script_include</sys_db_object>
+        <sys_id>2f2c8c82a9c84598bafd20b5bc7eb610</sys_id>
+        <sys_metadata>8187f9ee47632110acf69a21336d4368</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>TMFProductOrderPayloadGenerationService</sys_name>
+        <sys_package display_value="TMF Mock Payload Generator" source="x_648117_tmf_mock">3b03be1447232110acf69a21336d4362</sys_package>
+        <sys_parent/>
+        <sys_policy>read</sys_policy>
+        <sys_scope display_value="TMF Mock Payload Generator">3b03be1447232110acf69a21336d4362</sys_scope>
+        <sys_scope_delete display_value="">0c35d3e32cda4d5c8f4377e805ad9a10</sys_scope_delete>
+        <sys_update_name>sys_script_include_8187f9ee47632110acf69a21336d4368</sys_update_name>
+        <sys_update_version display_value="sys_script_include_8187f9ee47632110acf69a21336d4368">cd87bdee47632110acf69a21336d4379</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-06-23 14:52:36</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

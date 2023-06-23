@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_ui_action">
+    <sys_ui_action action="INSERT_OR_UPDATE">
+        <action_name>send_api_request</action_name>
+        <active>true</active>
+        <client>true</client>
+        <client_script_v2><![CDATA[function onClick(g_form) {
+
+}]]></client_script_v2>
+        <comments/>
+        <condition>gs.hasRole('x_648117_tmf_mock.api_user') &amp;&amp; current.state == 'ready' &amp;&amp; !current.isNewRecord() &amp;&amp; current.payload != "";</condition>
+        <form_action>true</form_action>
+        <form_button>true</form_button>
+        <form_button_v2>false</form_button_v2>
+        <form_context_menu>false</form_context_menu>
+        <form_link>false</form_link>
+        <form_menu_button_v2>false</form_menu_button_v2>
+        <form_style>destructive</form_style>
+        <format_for_configurable_workspace>false</format_for_configurable_workspace>
+        <hint/>
+        <isolate_script>true</isolate_script>
+        <list_action>false</list_action>
+        <list_banner_button>false</list_banner_button>
+        <list_button>false</list_button>
+        <list_choice>false</list_choice>
+        <list_context_menu>false</list_context_menu>
+        <list_link>false</list_link>
+        <list_save_with_form_button>false</list_save_with_form_button>
+        <list_style/>
+        <messages/>
+        <name>Send API Request</name>
+        <onclick>sendAPI()</onclick>
+        <order>0</order>
+        <script><![CDATA[function sendAPI() {
+    var answer = confirm("Confirm you want to attempt a REST API call with this payload.");
+    if (answer == true) {
+        gsftSubmit(null, g_form.getFormElement(), 'send_api_request');
+    } else {
+        return false;
+    }
+}
+
+if (typeof window == 'undefined') {
+    sendAPISS();
+}
+
+function sendAPISS() {
+	var instanceURL = gs.getProperty('glide.servlet.uri');
+	var request = new sn_ws.RESTMessageV2();
+	request.setEndpoint(instanceURL + 'api/sn_ind_tmt_orm/order/productOrder');
+	request.setHttpMethod('POST');
+	request.setAuthenticationProfile('basic', gs.getProperty('x_648117_tmf_mock.basic_auth_config'));
+	request.setRequestHeader("Accept","application/json");
+	request.setRequestBody(current.getValue('payload').toString());
+	var response = request.execute();
+	var statusCode = response.getStatusCode();
+	var responseBody = JSON.parse(response.getBody());
+	if(statusCode == '200' || statusCode == '201'){
+		var id = responseBody.id.toString();
+		gs.addInfoMessage(gs.getMessage("Order was generated with ID: ") + id);
+	} else {
+		if(responseBody.details[0].message){
+			var error_msg = responseBody.details[0].message;
+			gs.addErrorMessage(gs.getMessage("The API encountered the following error: " + error_msg));
+		} else {
+			gs.addErrorMessage(gs.getMessage("There was an error with the API. Please contact an admin to troubleshoot."));
+		}
+	}
+    action.setRedirectURL(current);
+}]]></script>
+        <show_insert>true</show_insert>
+        <show_multiple_update>false</show_multiple_update>
+        <show_query>false</show_query>
+        <show_update>true</show_update>
+        <sys_class_name>sys_ui_action</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-06-23 17:29:36</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>c89b12ae47272110acf69a21336d4334</sys_id>
+        <sys_mod_count>17</sys_mod_count>
+        <sys_name>Send API Request</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="TMF Mock Payload Generator" source="x_648117_tmf_mock">3b03be1447232110acf69a21336d4362</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="TMF Mock Payload Generator">3b03be1447232110acf69a21336d4362</sys_scope>
+        <sys_update_name>sys_ui_action_c89b12ae47272110acf69a21336d4334</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-06-23 18:26:23</sys_updated_on>
+        <table>x_648117_tmf_mock_payload_generator</table>
+        <ui11_compatible>true</ui11_compatible>
+        <ui16_compatible>false</ui16_compatible>
+    </sys_ui_action>
+</record_update>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update>
+    <sys_choice action="INSERT_OR_UPDATE" field="data_type" table="x_648117_tmf_mock_data_input" version="3">
+        <sys_choice_set action="INSERT_OR_UPDATE">
+            <element>data_type</element>
+            <name>x_648117_tmf_mock_data_input</name>
+            <sys_class_name>sys_choice_set</sys_class_name>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2023-06-20 17:57:37</sys_created_on>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_name>data_type</sys_name>
+            <sys_package display_value="TMF Mock Payload Generator" source="x_648117_tmf_mock">3b03be1447232110acf69a21336d4362</sys_package>
+            <sys_policy/>
+            <sys_scope display_value="TMF Mock Payload Generator">3b03be1447232110acf69a21336d4362</sys_scope>
+            <sys_update_name>sys_choice_x_648117_tmf_mock_data_input_data_type</sys_update_name>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2023-06-20 17:57:37</sys_updated_on>
+        </sys_choice_set>
+    </sys_choice>
+</record_update>

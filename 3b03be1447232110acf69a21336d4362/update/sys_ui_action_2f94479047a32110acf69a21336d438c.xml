@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_ui_action">
     <sys_ui_action action="INSERT_OR_UPDATE">
-        <action_name/>
+        <action_name>ready</action_name>
         <active>true</active>
         <client>false</client>
         <client_script_v2><![CDATA[function onClick(g_form) {
@@ -14,7 +14,7 @@
         <form_context_menu>false</form_context_menu>
         <form_link>false</form_link>
         <form_menu_button_v2>false</form_menu_button_v2>
-        <form_style/>
+        <form_style>primary</form_style>
         <format_for_configurable_workspace>false</format_for_configurable_workspace>
         <hint/>
         <isolate_script>false</isolate_script>
@@ -30,9 +30,10 @@
         <name>Ready</name>
         <onclick/>
         <order>0</order>
-        <script><![CDATA[current.state = 'ready';
-action.setRedirectURL(current);
-current.update();]]></script>
+        <script><![CDATA[new x_648117_tmf_mock.CoreOrderDataInitializationService().tmf622productOrderPostSkeleton(current.getUniqueValue());
+current.state = 'ready';
+current.update();
+action.setRedirectURL(current);]]></script>
         <show_insert>true</show_insert>
         <show_multiple_update>false</show_multiple_update>
         <show_query>false</show_query>
@@ -43,7 +44,7 @@ current.update();]]></script>
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>2f94479047a32110acf69a21336d438c</sys_id>
-        <sys_mod_count>0</sys_mod_count>
+        <sys_mod_count>4</sys_mod_count>
         <sys_name>Ready</sys_name>
         <sys_overrides/>
         <sys_package display_value="TMF Mock Payload Generator" source="x_648117_tmf_mock">3b03be1447232110acf69a21336d4362</sys_package>
@@ -51,7 +52,7 @@ current.update();]]></script>
         <sys_scope display_value="TMF Mock Payload Generator">3b03be1447232110acf69a21336d4362</sys_scope>
         <sys_update_name>sys_ui_action_2f94479047a32110acf69a21336d438c</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2023-06-16 20:44:42</sys_updated_on>
+        <sys_updated_on>2023-06-22 21:55:46</sys_updated_on>
         <table>x_648117_tmf_mock_payload_generator</table>
         <ui11_compatible>true</ui11_compatible>
         <ui16_compatible>false</ui16_compatible>

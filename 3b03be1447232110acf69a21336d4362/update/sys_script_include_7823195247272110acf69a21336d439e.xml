@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_include">
+    <sys_script_include action="INSERT_OR_UPDATE">
+        <access>package_private</access>
+        <active>true</active>
+        <api_name>x_648117_tmf_mock.ProductItemUtils</api_name>
+        <caller_access/>
+        <client_callable>false</client_callable>
+        <description/>
+        <name>ProductItemUtils</name>
+        <script><![CDATA[var ProductItemUtils = Class.create();
+ProductItemUtils.prototype = {
+    initialize: function() {
+        this.utilsSI = new x_648117_tmf_mock.Utils();
+    },
+
+    getRelatedOrderItems(sourceItem) {
+
+        var grGetPayloadGenerator = new GlideRecord('x_648117_tmf_mock_items');
+        if (grGetPayloadGenerator.get(sourceItem)) {
+            var sourceItemPayloadGenerator = grGetPayloadGenerator.getValue('payload_generator');
+        } else {
+            return;
+        }
+
+        var items = [];
+
+        var grItems = new GlideRecord('x_648117_tmf_mock_items');
+        grItems.addQuery('payload_generator', sourceItemPayloadGenerator);
+        grItems.addQuery('sys_id', '!=', sourceItem.toString());
+        grItems.query();
+        while (grItems.next()) {
+            items.push(grItems.getUniqueValue());
+        }
+
+        return 'sys_idIN' + items.toString();
+    },
+
+	// itsmSysID - The item to duplicate
+	// payload Generator - Optional, the new payload generator to associate the duplicated item to. If passed in all relationships will be cleared in the newly duplicated hierarchy
+    copyItemAndRelationships(itemSysID, payloadGenerator) {
+        var itemGR = this.utilsSI.getRecordFromSysID('x_648117_tmf_mock_items', itemSysID);
+		var dupItem;
+		if(payloadGenerator){
+			var fieldMapItem = {payload_generator: payloadGenerator};
+			dupItem = this.utilsSI.duplicateRecord('x_648117_tmf_mock_items', itemSysID, fieldMapItem);
+		} else {
+			dupItem = this.utilsSI.duplicateRecord('x_648117_tmf_mock_items', itemSysID);
+		}
+        var itemRelationshipsGR = this.utilsSI.getRecords('x_648117_tmf_mock_item_relationship', 'source_item=' + itemSysID);
+        if (itemRelationshipsGR) {
+            while (itemRelationshipsGR.next()) {
+				var fieldMapIR = {};
+				if(payloadGenerator){
+					fieldMapIR = {source_item: dupItem, target_item: ""};
+				} else {
+					fieldMapIR = {source_item: dupItem};
+				}
+                this.utilsSI.duplicateRecord('x_648117_tmf_mock_item_relationship', itemRelationshipsGR.getUniqueValue(), fieldMapIR);
+            }
+        }
+    },
+
+    type: 'ProductItemUtils'
+};]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-06-22 17:40:32</sys_created_on>
+        <sys_id>7823195247272110acf69a21336d439e</sys_id>
+        <sys_mod_count>29</sys_mod_count>
+        <sys_name>ProductItemUtils</sys_name>
+        <sys_package display_value="TMF Mock Payload Generator" source="x_648117_tmf_mock">3b03be1447232110acf69a21336d4362</sys_package>
+        <sys_policy>read</sys_policy>
+        <sys_scope display_value="TMF Mock Payload Generator">3b03be1447232110acf69a21336d4362</sys_scope>
+        <sys_update_name>sys_script_include_7823195247272110acf69a21336d439e</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-06-22 21:00:39</sys_updated_on>
+    </sys_script_include>
+</record_update>
