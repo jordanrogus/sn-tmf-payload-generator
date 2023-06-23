@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element db_object_id="15fa0cb1476b2110acf69a21336d4371" label="Core Order Data" max_length="40" name="x_648117_tmf_mock_core_order_data" type="collection">
+        <element attributes="edge_encryption_enabled=true" choice="1" label="Attribute" mandatory="true" max_length="40" name="attribute" type="string">
+            <choice>
+                <element inactive_on_update="false" label="Requested Completion Date" sequence="0" value="requestedCompletionDate"/>
+                <element inactive_on_update="false" label="Requested Start Date" sequence="1" value="requestedStartDate"/>
+                <element inactive_on_update="false" label="External ID" sequence="2" value="externalId"/>
+                <element inactive_on_update="false" label="Order Currency" sequence="3" value="orderCurrency"/>
+                <element inactive_on_update="false" label="Channel" sequence="4" value="channel"/>
+                <element inactive_on_update="false" label="Note" sequence="5" value="note"/>
+                <element inactive_on_update="false" label="Account" sequence="6" value="account"/>
+                <element inactive_on_update="false" label="Contact" sequence="7" value="contact"/>
+            </choice>
+        </element>
+        <element attributes="ignore_filter_on_new=true" default="javascript:global.getNextObjNumberPadded();" label="Number" max_length="40" name="number" read_only="true" type="string"/>
+        <element attributes="encode_utf8=false, readonly_clickthrough=true" label="Payload Generator" max_length="32" name="payload_generator" read_only="true" reference="x_648117_tmf_mock_payload_generator" reference_cascade_rule="delete" type="reference"/>
+        <element dependent="table" dependent_on_field="table" label="Record" max_length="32" name="record" type="document_id" use_dependent_field="true"/>
+        <element attributes="edge_encryption_enabled=true" label="Table" max_length="200" name="table" type="string"/>
+        <element attributes="edge_encryption_enabled=true" label="Value" max_length="40" name="value" type="string"/>
+        <index name="index">
+            <element name="payload_generator"/>
+        </index>
+        <index name="index2">
+            <element name="record"/>
+        </index>
+    </element>
+</database>

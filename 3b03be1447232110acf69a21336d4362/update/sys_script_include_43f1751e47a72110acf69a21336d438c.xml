@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_include">
+    <sys_script_include action="INSERT_OR_UPDATE">
+        <access>package_private</access>
+        <active>true</active>
+        <api_name>x_648117_tmf_mock.PayloadGeneratorUtils</api_name>
+        <caller_access/>
+        <client_callable>false</client_callable>
+        <description/>
+        <name>PayloadGeneratorUtils</name>
+        <script><![CDATA[var PayloadGeneratorUtils = Class.create();
+PayloadGeneratorUtils.prototype = {
+    initialize: function() {
+        this.utilsSI = new x_648117_tmf_mock.Utils();
+    },
+
+    copy(payloadGeneratorSysID) {
+		
+		// Duplicate Payload Generator record and clear out payload
+        var payloadGeneratorGR = this.utilsSI.getRecordFromSysID('x_648117_tmf_mock_payload_generator', payloadGeneratorSysID);
+        var dupPayloadGenerator = this.utilsSI.duplicateRecord('x_648117_tmf_mock_payload_generator', payloadGeneratorSysID, {payload:""});
+		
+		// Duplicate Core Order Data
+        var coreOrderDataGR = this.utilsSI.getRecords('x_648117_tmf_mock_core_order_data', 'payload_generator=' + payloadGeneratorSysID);
+        if (coreOrderDataGR) {
+            while (coreOrderDataGR.next()) {
+				var fieldMapCOD = {payload_generator: dupPayloadGenerator};
+                this.utilsSI.duplicateRecord('x_648117_tmf_mock_core_order_data', coreOrderDataGR.getUniqueValue(), fieldMapCOD);
+            }
+        }
+		
+		// Duplicate Order Items
+		var productItemUtilsSI = new x_648117_tmf_mock.ProductItemUtils();
+		var itemsGR = this.utilsSI.getRecords('x_648117_tmf_mock_items', 'payload_generator=' + payloadGeneratorSysID);
+        if (itemsGR) {
+            while (itemsGR.next()) {
+				productItemUtilsSI.copyItemAndRelationships(itemsGR.getUniqueValue(), dupPayloadGenerator);
+            }
+        }
+		
+		// Return sys_id of new Payload Generator record
+		return dupPayloadGenerator;
+    },
+
+    type: 'PayloadGeneratorUtils'
+};]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-06-22 19:49:28</sys_created_on>
+        <sys_id>43f1751e47a72110acf69a21336d438c</sys_id>
+        <sys_mod_count>9</sys_mod_count>
+        <sys_name>PayloadGeneratorUtils</sys_name>
+        <sys_package display_value="TMF Mock Payload Generator" source="x_648117_tmf_mock">3b03be1447232110acf69a21336d4362</sys_package>
+        <sys_policy>read</sys_policy>
+        <sys_scope display_value="TMF Mock Payload Generator">3b03be1447232110acf69a21336d4362</sys_scope>
+        <sys_update_name>sys_script_include_43f1751e47a72110acf69a21336d438c</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-06-23 18:31:06</sys_updated_on>
+    </sys_script_include>
+</record_update>

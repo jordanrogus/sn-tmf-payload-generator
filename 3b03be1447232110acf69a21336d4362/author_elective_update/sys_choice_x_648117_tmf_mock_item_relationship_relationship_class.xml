@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update>
+    <sys_choice action="INSERT_OR_UPDATE" field="relationship_class" table="x_648117_tmf_mock_item_relationship" version="3">
+        <sys_choice_set action="INSERT_OR_UPDATE">
+            <element>relationship_class</element>
+            <name>x_648117_tmf_mock_item_relationship</name>
+            <sys_class_name>sys_choice_set</sys_class_name>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2023-06-20 23:16:23</sys_created_on>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_name>relationship_class</sys_name>
+            <sys_package display_value="TMF Mock Payload Generator" source="x_648117_tmf_mock">3b03be1447232110acf69a21336d4362</sys_package>
+            <sys_policy/>
+            <sys_scope display_value="TMF Mock Payload Generator">3b03be1447232110acf69a21336d4362</sys_scope>
+            <sys_update_name>sys_choice_x_648117_tmf_mock_item_relationship_relationship_class</sys_update_name>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2023-06-20 23:16:23</sys_updated_on>
+        </sys_choice_set>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>relationship_class</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>Product Order Item Relationship</label>
+            <language>en</language>
+            <name>x_648117_tmf_mock_item_relationship</name>
+            <sequence>100</sequence>
+            <synonyms/>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2023-06-20 23:16:23</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2023-06-20 23:16:23</sys_updated_on>
+            <value>productOrderItemRelationship</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>relationship_class</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>Product Relationship</label>
+            <language>en</language>
+            <name>x_648117_tmf_mock_item_relationship</name>
+            <sequence>100</sequence>
+            <synonyms/>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2023-06-20 23:17:23</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2023-06-20 23:17:23</sys_updated_on>
+            <value>productRelationship</value>
+        </sys_choice>
+    </sys_choice>
+</record_update>

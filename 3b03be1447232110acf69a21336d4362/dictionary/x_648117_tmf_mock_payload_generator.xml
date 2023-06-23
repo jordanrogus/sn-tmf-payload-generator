@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><database>
     <element db_object_id="6ed3ba1847232110acf69a21336d4371" label="Payload Generator" max_length="40" name="x_648117_tmf_mock_payload_generator" type="collection">
         <element label="API Reference" max_length="1024" name="api_reference" read_only="true" type="url"/>
+        <element attributes="edge_encryption_enabled=true" label="Description" mandatory="true" max_length="20000" name="description" type="string"/>
         <element choice="3" default="post_sn_ind_tmt_orm_order_productOrder" dependent="tmf_api" dependent_on_field="tmf_api" label="Method &amp; Endpoint" mandatory="true" max_length="1000" name="method_and_endpoint" type="choice" use_dependent_field="true">
             <choice>
                 <element dependent_value="another_tmf_api" inactive_on_update="false" label="Another TMF API Method and Endpoint" value="another_tmf_api_method_and_endpoint"/>
@@ -8,16 +9,13 @@
                 <element dependent_value="tmf622" inactive_on_update="false" label="PATCH /sn_ind_tmt_orm/order/productOrder/{id}" sequence="1000" value="patch_sn_ind_tmt_orm_order_productOrder_id"/>
             </choice>
         </element>
-        <element attributes="edge_encryption_enabled=true" default="javascript:global.getNextObjNumberPadded();" label="Number" max_length="40" name="number" type="string"/>
+        <element attributes="edge_encryption_enabled=true" default="javascript:global.getNextObjNumberPadded();" label="Number" mandatory="true" max_length="40" name="number" read_only="true" type="string"/>
         <element default="javascript:gs.getUserID();" dynamic_default_value="2fd8e97bef3221002841f7f775c0fbc1" label="Owner" mandatory="true" max_length="32" name="owner" read_only="true" reference="sys_user" type="reference" use_dynamic_default="true"/>
         <element label="Payload" max_length="20000" name="payload" read_only="true" type="string"/>
-        <element attributes="edge_encryption_enabled=true" choice="3" default="draft" label="State" mandatory="true" max_length="40" name="state" type="choice">
+        <element attributes="edge_encryption_enabled=true" choice="3" default="draft" label="State" mandatory="true" max_length="40" name="state" read_only="true" type="choice">
             <choice>
                 <element inactive_on_update="false" label="Draft" sequence="0" value="draft"/>
                 <element inactive_on_update="false" label="Ready" sequence="1" value="ready"/>
-                <element inactive_on_update="false" label="Processing" sequence="2" value="processing"/>
-                <element inactive_on_update="false" label="Complete" sequence="3" value="complete"/>
-                <element inactive_on_update="false" label="Cancelled" sequence="4" value="cancelled"/>
             </choice>
         </element>
         <element choice="3" default="tmf622" label="TMF API" mandatory="true" max_length="40" name="tmf_api" type="choice">

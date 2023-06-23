@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element db_object_id="2fc6847d472b2110acf69a21336d43d4" label="Orderable Item" max_length="40" name="x_648117_tmf_mock_items" type="collection">
+        <element attributes="edge_encryption_enabled=true" choice="1" label="Action" mandatory="true" max_length="40" name="action" type="string">
+            <choice>
+                <element inactive_on_update="false" label="Add" sequence="0" value="add"/>
+                <element inactive_on_update="false" label="Change" sequence="1" value="change"/>
+                <element inactive_on_update="false" label="Delete" sequence="2" value="delete"/>
+            </choice>
+        </element>
+        <element attributes="encode_utf8=false" label="Location" max_length="32" name="location" reference="cmn_location" type="reference"/>
+        <element attributes="ignore_filter_on_new=true" default="javascript:global.getNextObjNumberPadded();" label="Number" max_length="40" name="number" read_only="true" type="string"/>
+        <element attributes="encode_utf8=false, readonly_clickthrough=true" label="Payload Generator" max_length="32" name="payload_generator" read_only="true" reference="x_648117_tmf_mock_payload_generator" reference_cascade_rule="delete" type="reference"/>
+        <element default="true" hint="If this is not selected, only mandatory characteristics will have data auto-populated." label="Populate all chars with data?" max_length="40" name="populate_chars" type="boolean"/>
+        <element label="Product Inventory" max_length="32" name="product_inventory" reference="sn_prd_invt_product_inventory" type="reference"/>
+        <element attributes="encode_utf8=false, readonly_clickthrough=true" label="Product Offering" max_length="32" name="product_offering" reference="sn_prd_pm_product_offering" reference_qual="status=published^EQ" reference_qual_condition="status=published^EQ" type="reference"/>
+        <element default="1" label="Quantity" max_length="40" name="quantity" type="integer"/>
+        <element attributes="encode_utf8=false, readonly_clickthrough=true" display="true" label="Specification" mandatory="true" max_length="32" name="specification" reference="sn_prd_pm_specification" reference_qual="javascript:'sys_idIN'+(new sn_prd_pm.ProductUtil().getSpecificationForOffering(current.product_offering +'').join());" type="reference" use_reference_qualifier="advanced"/>
+        <element hint="If selected, the characteristics for this item will be propagated to each unique line item and the quantity for each unique line item will be set to 1." label="Unique Line Item Per Qty?" max_length="40" name="unique_line_item" type="boolean"/>
+        <index name="index">
+            <element name="location"/>
+        </index>
+        <index name="index2">
+            <element name="payload_generator"/>
+        </index>
+        <index name="index3">
+            <element name="product_inventory"/>
+        </index>
+        <index name="index4">
+            <element name="product_offering"/>
+        </index>
+        <index name="index5">
+            <element name="specification"/>
+        </index>
+    </element>
+</database>

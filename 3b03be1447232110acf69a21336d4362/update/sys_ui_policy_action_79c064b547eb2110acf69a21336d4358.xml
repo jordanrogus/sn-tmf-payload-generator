@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ui_policy_action">
+    <sys_ui_policy_action action="INSERT_OR_UPDATE">
+        <cleared>false</cleared>
+        <disabled>true</disabled>
+        <field>product_inventory</field>
+        <mandatory>false</mandatory>
+        <sys_class_name>sys_ui_policy_action</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-06-21 00:37:50</sys_created_on>
+        <sys_id>79c064b547eb2110acf69a21336d4358</sys_id>
+        <sys_mod_count>7</sys_mod_count>
+        <sys_name>product_inventory</sys_name>
+        <sys_package display_value="TMF Mock Payload Generator" source="x_648117_tmf_mock">3b03be1447232110acf69a21336d4362</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="TMF Mock Payload Generator">3b03be1447232110acf69a21336d4362</sys_scope>
+        <sys_update_name>sys_ui_policy_action_79c064b547eb2110acf69a21336d4358</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-06-22 17:51:05</sys_updated_on>
+        <table>x_648117_tmf_mock_item_relationship</table>
+        <ui_policy display_value="Show relevant fields for product order item relationships">8470e87547eb2110acf69a21336d43cc</ui_policy>
+        <visible>false</visible>
+    </sys_ui_policy_action>
+</record_update>

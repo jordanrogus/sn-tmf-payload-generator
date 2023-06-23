@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element db_object_id="4f7d40f5476b2110acf69a21336d435a" label="Item Relationship" max_length="40" name="x_648117_tmf_mock_item_relationship" type="collection">
+        <element attributes="ignore_filter_on_new=true" default="javascript:global.getNextObjNumberPadded();" label="Number" max_length="40" name="number" type="string"/>
+        <element label="Product Inventory" max_length="32" name="product_inventory" reference="sn_prd_invt_product_inventory" type="reference"/>
+        <element choice="1" label="Relationship Class" mandatory="true" max_length="40" name="relationship_class" type="choice">
+            <choice>
+                <element inactive_on_update="false" label="Product Order Item Relationship" sequence="100" value="productOrderItemRelationship"/>
+                <element inactive_on_update="false" label="Product Relationship" sequence="100" value="productRelationship"/>
+            </choice>
+        </element>
+        <element choice="1" label="Relationship Type" mandatory="true" max_length="40" name="relationship_type" type="choice">
+            <choice>
+                <element inactive_on_update="false" label="Requires" sequence="100" value="Requires"/>
+                <element inactive_on_update="false" label="HasChild" sequence="200" value="HasChild"/>
+                <element inactive_on_update="false" label="HasParent" sequence="300" value="HasParent"/>
+            </choice>
+        </element>
+        <element attributes="readonly_clickthrough=true" label="Source Item" mandatory="true" max_length="32" name="source_item" read_only="true" reference="x_648117_tmf_mock_items" reference_cascade_rule="delete" type="reference"/>
+        <element label="Target Item" max_length="32" name="target_item" reference="x_648117_tmf_mock_items" reference_qual="javascript: new x_648117_tmf_mock.ProductItemUtils().getRelatedOrderItems(current.source_item);" type="reference" use_reference_qualifier="advanced"/>
+        <index name="index">
+            <element name="product_inventory"/>
+        </index>
+        <index name="index2">
+            <element name="source_item"/>
+        </index>
+        <index name="index3">
+            <element name="target_item"/>
+        </index>
+    </element>
+</database>

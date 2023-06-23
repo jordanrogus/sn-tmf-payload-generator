@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update>
+    <sys_choice action="INSERT_OR_UPDATE" field="relationship_type" table="x_648117_tmf_mock_item_relationship" version="3">
+        <sys_choice_set action="INSERT_OR_UPDATE">
+            <element>relationship_type</element>
+            <name>x_648117_tmf_mock_item_relationship</name>
+            <sys_class_name>sys_choice_set</sys_class_name>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2023-06-20 23:18:14</sys_created_on>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_name>relationship_type</sys_name>
+            <sys_package display_value="TMF Mock Payload Generator" source="x_648117_tmf_mock">3b03be1447232110acf69a21336d4362</sys_package>
+            <sys_policy/>
+            <sys_scope display_value="TMF Mock Payload Generator">3b03be1447232110acf69a21336d4362</sys_scope>
+            <sys_update_name>sys_choice_x_648117_tmf_mock_item_relationship_relationship_type</sys_update_name>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2023-06-20 23:18:14</sys_updated_on>
+        </sys_choice_set>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>relationship_type</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>Requires</label>
+            <language>en</language>
+            <name>x_648117_tmf_mock_item_relationship</name>
+            <sequence>100</sequence>
+            <synonyms/>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2023-06-20 23:18:30</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_mod_count>3</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2023-06-21 17:17:17</sys_updated_on>
+            <value>Requires</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>relationship_type</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>HasChild</label>
+            <language>en</language>
+            <name>x_648117_tmf_mock_item_relationship</name>
+            <sequence>200</sequence>
+            <synonyms/>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2023-06-20 23:18:14</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_mod_count>5</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2023-06-21 17:17:19</sys_updated_on>
+            <value>HasChild</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>relationship_type</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>HasParent</label>
+            <language>en</language>
+            <name>x_648117_tmf_mock_item_relationship</name>
+            <sequence>300</sequence>
+            <synonyms/>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2023-06-20 23:18:22</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_mod_count>5</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2023-06-21 17:17:22</sys_updated_on>
+            <value>HasParent</value>
+        </sys_choice>
+    </sys_choice>
+</record_update>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_script_client">
+    <sys_script_client action="DELETE">
+        <active>true</active>
+        <applies_extended>false</applies_extended>
+        <condition/>
+        <description/>
+        <field>product_offering</field>
+        <global>true</global>
+        <isolate_script>true</isolate_script>
+        <messages/>
+        <name>Validate Offering tied to Spec</name>
+        <order/>
+        <script><![CDATA[function onChange(control, oldValue, newValue, isLoading, isTemplate) {
+   if (isLoading || newValue === '') {
+      return;
+   }
+
+   //Type appropriate comment here, and begin script below
+   
+}]]></script>
+        <sys_class_name>sys_script_client</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-06-21 13:47:17</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>1a5517fd476b6110acf69a21336d4343</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Validate Offering tied to Spec</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="TMF Mock Payload Generator" source="x_648117_tmf_mock">3b03be1447232110acf69a21336d4362</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="TMF Mock Payload Generator">3b03be1447232110acf69a21336d4362</sys_scope>
+        <sys_update_name>sys_script_client_1a5517fd476b6110acf69a21336d4343</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-06-21 13:47:17</sys_updated_on>
+        <table>x_648117_tmf_mock_items</table>
+        <type>onChange</type>
+        <ui_type>10</ui_type>
+        <view/>
+    </sys_script_client>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="TMF Mock Payload Generator">3b03be1447232110acf69a21336d4362</application>
+        <file_path/>
+        <instance_id>8e22f7acdbc3ec10ad8dd7c8f4961939</instance_id>
+        <instance_name>dev107202</instance_name>
+        <name>sys_script_client_1a5517fd476b6110acf69a21336d4343</name>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update sys_domain="global" table="sys_script_client"&gt;&lt;sys_script_client action="INSERT_OR_UPDATE"&gt;&lt;active&gt;true&lt;/active&gt;&lt;applies_extended&gt;false&lt;/applies_extended&gt;&lt;condition/&gt;&lt;description/&gt;&lt;field&gt;product_offering&lt;/field&gt;&lt;global&gt;true&lt;/global&gt;&lt;isolate_script&gt;true&lt;/isolate_script&gt;&lt;messages/&gt;&lt;name&gt;Validate Offering tied to Spec&lt;/name&gt;&lt;order/&gt;&lt;script&gt;&lt;![CDATA[function onChange(control, oldValue, newValue, isLoading, isTemplate) {
+   if (isLoading || newValue === '') {
+      return;
+   }
+
+   //Type appropriate comment here, and begin script below
+   
+}]]&gt;&lt;/script&gt;&lt;sys_class_name&gt;sys_script_client&lt;/sys_class_name&gt;&lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2023-06-21 13:47:17&lt;/sys_created_on&gt;&lt;sys_domain&gt;global&lt;/sys_domain&gt;&lt;sys_domain_path&gt;/&lt;/sys_domain_path&gt;&lt;sys_id&gt;1a5517fd476b6110acf69a21336d4343&lt;/sys_id&gt;&lt;sys_mod_count&gt;0&lt;/sys_mod_count&gt;&lt;sys_name&gt;Validate Offering tied to Spec&lt;/sys_name&gt;&lt;sys_overrides/&gt;&lt;sys_package display_value="TMF Mock Payload Generator" source="x_648117_tmf_mock"&gt;3b03be1447232110acf69a21336d4362&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="TMF Mock Payload Generator"&gt;3b03be1447232110acf69a21336d4362&lt;/sys_scope&gt;&lt;sys_update_name&gt;sys_script_client_1a5517fd476b6110acf69a21336d4343&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2023-06-21 13:47:17&lt;/sys_updated_on&gt;&lt;table&gt;x_648117_tmf_mock_items&lt;/table&gt;&lt;type&gt;onChange&lt;/type&gt;&lt;ui_type&gt;10&lt;/ui_type&gt;&lt;view/&gt;&lt;/sys_script_client&gt;&lt;/record_update&gt;</payload>
+        <payload_hash>770190044</payload_hash>
+        <record_name>Validate Offering tied to Spec</record_name>
+        <reverted_from/>
+        <source>3c84f65847232110acf69a21336d4344</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-06-21 13:47:17</sys_created_on>
+        <sys_id>3775d7fd476b6110acf69a21336d4376</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>188de35a3a90000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-06-21 13:47:17</sys_updated_on>
+        <type>Client Script</type>
+        <update_guid>7b75d7fda96b6110f9840c772b755f75</update_guid>
+        <update_guid_history>7b75d7fda96b6110f9840c772b755f75:770190044</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete/>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-06-21 13:48:35</sys_created_on>
+        <sys_db_object display_value="" name="sys_script_client">sys_script_client</sys_db_object>
+        <sys_id>0fe436b822184040994d66644a841000</sys_id>
+        <sys_metadata>1a5517fd476b6110acf69a21336d4343</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Validate Offering tied to Spec</sys_name>
+        <sys_package display_value="TMF Mock Payload Generator" source="x_648117_tmf_mock">3b03be1447232110acf69a21336d4362</sys_package>
+        <sys_parent display_value="Orderable Item">2fc6847d472b2110acf69a21336d43d4</sys_parent>
+        <sys_policy/>
+        <sys_scope display_value="TMF Mock Payload Generator">3b03be1447232110acf69a21336d4362</sys_scope>
+        <sys_scope_delete display_value="">0c35d3e32cda4d5c8f4377e805ad9a10</sys_scope_delete>
+        <sys_update_name>sys_script_client_1a5517fd476b6110acf69a21336d4343</sys_update_name>
+        <sys_update_version display_value="sys_script_client_1a5517fd476b6110acf69a21336d4343">3775d7fd476b6110acf69a21336d4376</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-06-21 13:48:35</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>
