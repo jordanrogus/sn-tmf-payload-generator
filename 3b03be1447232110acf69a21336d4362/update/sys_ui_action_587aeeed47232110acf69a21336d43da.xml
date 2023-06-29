@@ -31,7 +31,7 @@
         <onclick>generatePayload()</onclick>
         <order>0</order>
         <script><![CDATA[function generatePayload() {
-    var answer = confirm("Confirm you want to try and generate a payload. If a payload has already been generated this will overwrite that payload.");
+    var answer = confirm(getMessage("Confirm you want to try and generate a payload. If a payload has already been generated this will overwrite that payload."));
     if (answer == true) {
         gsftSubmit(null, g_form.getFormElement(), 'generate_payload');
     } else {
@@ -44,7 +44,7 @@ if (typeof window == 'undefined') {
 }
 
 function generatePayloadSS() {
-    var payload = 	new x_648117_tmf_mock.TMFProductOrderPayloadGenerationService().generatePayload(current.getUniqueValue());
+    var payload = new x_648117_tmf_mock.TMFProductOrderPayloadGenerationService().generatePayload(current.getUniqueValue());
     current.setValue('payload', payload);
     current.update();
     action.setRedirectURL(current);
@@ -59,7 +59,7 @@ function generatePayloadSS() {
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>587aeeed47232110acf69a21336d43da</sys_id>
-        <sys_mod_count>13</sys_mod_count>
+        <sys_mod_count>15</sys_mod_count>
         <sys_name>Generate Payload</sys_name>
         <sys_overrides/>
         <sys_package display_value="TMF Mock Payload Generator" source="x_648117_tmf_mock">3b03be1447232110acf69a21336d4362</sys_package>
@@ -67,7 +67,7 @@ function generatePayloadSS() {
         <sys_scope display_value="TMF Mock Payload Generator">3b03be1447232110acf69a21336d4362</sys_scope>
         <sys_update_name>sys_ui_action_587aeeed47232110acf69a21336d43da</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2023-06-23 17:37:14</sys_updated_on>
+        <sys_updated_on>2023-06-29 21:04:44</sys_updated_on>
         <table>x_648117_tmf_mock_payload_generator</table>
         <ui11_compatible>true</ui11_compatible>
         <ui16_compatible>false</ui16_compatible>

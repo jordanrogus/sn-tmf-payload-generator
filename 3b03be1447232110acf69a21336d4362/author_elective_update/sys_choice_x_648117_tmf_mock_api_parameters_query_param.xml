@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update>
+    <sys_choice action="INSERT_OR_UPDATE" field="query_param" table="x_648117_tmf_mock_api_parameters" version="3">
+        <sys_choice_set action="INSERT_OR_UPDATE">
+            <element>query_param</element>
+            <name>x_648117_tmf_mock_api_parameters</name>
+            <sys_class_name>sys_choice_set</sys_class_name>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2023-06-26 17:12:37</sys_created_on>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_name>query_param</sys_name>
+            <sys_package display_value="TMF Mock Payload Generator" source="x_648117_tmf_mock">3b03be1447232110acf69a21336d4362</sys_package>
+            <sys_policy/>
+            <sys_scope display_value="TMF Mock Payload Generator">3b03be1447232110acf69a21336d4362</sys_scope>
+            <sys_update_name>sys_choice_x_648117_tmf_mock_api_parameters_query_param</sys_update_name>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2023-06-26 17:12:37</sys_updated_on>
+        </sys_choice_set>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value>query</dependent_value>
+            <element>query_param</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>Mode</label>
+            <language>en</language>
+            <name>x_648117_tmf_mock_api_parameters</name>
+            <sequence>100</sequence>
+            <synonyms/>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2023-06-26 17:12:37</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_mod_count>1</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2023-06-27 23:15:28</sys_updated_on>
+            <value>mode</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value>other</dependent_value>
+            <element>query_param</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>API Trigger Quantity</label>
+            <language>en</language>
+            <name>x_648117_tmf_mock_api_parameters</name>
+            <sequence>200</sequence>
+            <synonyms/>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2023-06-27 23:12:31</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_mod_count>4</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2023-06-27 23:15:30</sys_updated_on>
+            <value>api_trigger_quantity</value>
+        </sys_choice>
+    </sys_choice>
+</record_update>

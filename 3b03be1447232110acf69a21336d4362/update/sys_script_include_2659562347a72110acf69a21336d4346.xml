@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_include">
+    <sys_script_include action="INSERT_OR_UPDATE">
+        <access>package_private</access>
+        <active>true</active>
+        <api_name>x_648117_tmf_mock.Constants</api_name>
+        <caller_access/>
+        <client_callable>false</client_callable>
+        <description>Constants used by the TMF Mock Payload Generator app.</description>
+        <name>Constants</name>
+        <script><![CDATA[var Constants = Class.create();
+Constants.prototype = {
+    initialize: function() {
+    },
+    type: 'Constants'
+};
+
+Constants.CORE_DATA_ATTRIBUTE_MAP = [
+	{field: "account", reference: true, reference_table: "customer_account",default: ""},
+	{field: "channel", reference: true, reference_table: "sn_prd_pm_distribution_channel", default: ""},
+	{field: "contact", reference: true, reference_table: "customer_contact", default: ""},
+	{field: "externalId", reference: false, default: ""},
+	{field: "note", reference: false, default: ""},
+	{field: "orderCurrency", reference: false, default: "USD"},
+	{field: "requestedCompletionDate", reference: false, default: ""},
+	{field: "requestedStartDate", reference: false, default: ""},
+];
+
+Constants.ALLOWED_DUPLICATE_CORE_ATTRIBUTE = ['note'];
+
+Constants.API_PARAM_MAP = [
+	{type: "query", param: "mode"}, 
+	{type: "other", param: "api_trigger_quantity"}
+];]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-06-26 19:54:14</sys_created_on>
+        <sys_id>2659562347a72110acf69a21336d4346</sys_id>
+        <sys_mod_count>5</sys_mod_count>
+        <sys_name>Constants</sys_name>
+        <sys_package display_value="TMF Mock Payload Generator" source="x_648117_tmf_mock">3b03be1447232110acf69a21336d4362</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="TMF Mock Payload Generator">3b03be1447232110acf69a21336d4362</sys_scope>
+        <sys_update_name>sys_script_include_2659562347a72110acf69a21336d4346</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-06-28 22:04:54</sys_updated_on>
+    </sys_script_include>
+</record_update>

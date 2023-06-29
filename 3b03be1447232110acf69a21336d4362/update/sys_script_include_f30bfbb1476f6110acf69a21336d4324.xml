@@ -2,13 +2,13 @@
     <sys_script_include action="INSERT_OR_UPDATE">
         <access>package_private</access>
         <active>true</active>
-        <api_name>x_648117_tmf_mock.ItemCharUtils</api_name>
+        <api_name>x_648117_tmf_mock.ItemCharUtilsAjax</api_name>
         <caller_access/>
         <client_callable>true</client_callable>
         <description/>
-        <name>ItemCharUtils</name>
-        <script><![CDATA[var ItemCharUtils = Class.create();
-ItemCharUtils.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
+        <name>ItemCharUtilsAjax</name>
+        <script><![CDATA[var ItemCharUtilsAjax = Class.create();
+ItemCharUtilsAjax.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
 
     validateCharOption: function() {
 
@@ -19,7 +19,7 @@ ItemCharUtils.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
         var characteristic = this.getParameter('sysparm_char');
         var charValue = this.getParameter('sysparm_char_value');
 
-        var grItem = new GlideRecord('x_648117_tmf_mock_items');
+        var grItem = new GlideRecordSecure('x_648117_tmf_mock_items');
         if (grItem.get(item)) {
             var specification = grItem.getValue('specification');
             var productOffering = grItem.getValue('product_offering');
@@ -27,7 +27,7 @@ ItemCharUtils.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
             return null;
         }
 
-        var grCharsPerSpecOffering = new GlideRecord('sn_prd_pm_product_offering_characteristic');
+        var grCharsPerSpecOffering = new GlideRecordSecure('sn_prd_pm_product_offering_characteristic');
         grCharsPerSpecOffering.addQuery('product_offering', productOffering);
         grCharsPerSpecOffering.addQuery('specification', specification);
         grCharsPerSpecOffering.addQuery('characteristic', characteristic);
@@ -49,19 +49,19 @@ ItemCharUtils.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
         return JSON.stringify(results);
     },
 
-    type: 'ItemCharUtils'
+    type: 'ItemCharUtilsAjax'
 });]]></script>
         <sys_class_name>sys_script_include</sys_class_name>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2023-06-21 16:31:49</sys_created_on>
         <sys_id>f30bfbb1476f6110acf69a21336d4324</sys_id>
-        <sys_mod_count>11</sys_mod_count>
-        <sys_name>ItemCharUtils</sys_name>
+        <sys_mod_count>14</sys_mod_count>
+        <sys_name>ItemCharUtilsAjax</sys_name>
         <sys_package display_value="TMF Mock Payload Generator" source="x_648117_tmf_mock">3b03be1447232110acf69a21336d4362</sys_package>
-        <sys_policy>read</sys_policy>
+        <sys_policy/>
         <sys_scope display_value="TMF Mock Payload Generator">3b03be1447232110acf69a21336d4362</sys_scope>
         <sys_update_name>sys_script_include_f30bfbb1476f6110acf69a21336d4324</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2023-06-21 17:08:26</sys_updated_on>
+        <sys_updated_on>2023-06-28 22:04:55</sys_updated_on>
     </sys_script_include>
 </record_update>

@@ -7,7 +7,7 @@
 
 }]]></client_script_v2>
         <comments/>
-        <condition>current.canWrite() &amp;&amp; !current.isNewRecord();</condition>
+        <condition>gs.hasRole('x_648117_tmf_mock.user') &amp;&amp; !current.isNewRecord();</condition>
         <form_action>false</form_action>
         <form_button>false</form_button>
         <form_button_v2>false</form_button_v2>
@@ -45,7 +45,7 @@ action.setRedirectURL("x_648117_tmf_mock_payload_generator.do?sys_id=" + payload
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>1f654e56472b2110acf69a21336d43f9</sys_id>
-        <sys_mod_count>3</sys_mod_count>
+        <sys_mod_count>5</sys_mod_count>
         <sys_name>Copy Item(s)</sys_name>
         <sys_overrides/>
         <sys_package display_value="TMF Mock Payload Generator" source="x_648117_tmf_mock">3b03be1447232110acf69a21336d4362</sys_package>
@@ -53,7 +53,7 @@ action.setRedirectURL("x_648117_tmf_mock_payload_generator.do?sys_id=" + payload
         <sys_scope display_value="TMF Mock Payload Generator">3b03be1447232110acf69a21336d4362</sys_scope>
         <sys_update_name>sys_ui_action_1f654e56472b2110acf69a21336d43f9</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2023-06-22 21:18:07</sys_updated_on>
+        <sys_updated_on>2023-06-27 16:28:57</sys_updated_on>
         <table>x_648117_tmf_mock_items</table>
         <ui11_compatible>true</ui11_compatible>
         <ui16_compatible>false</ui16_compatible>

@@ -3,12 +3,12 @@
         <active>true</active>
         <applies_extended>false</applies_extended>
         <condition/>
-        <description>Ensures that only char options for the associated item can be populated</description>
+        <description>Ensures that only valid characteristic options for the associated item can be populated.</description>
         <field>characteristic_value</field>
         <global>true</global>
         <isolate_script>true</isolate_script>
         <messages/>
-        <name>Validate Char Option</name>
+        <name>Validate Characteristic Option</name>
         <order/>
         <script><![CDATA[function onChange(control, oldValue, newValue, isLoading, isTemplate) {
     if (isLoading || newValue === '') {
@@ -16,7 +16,7 @@
     }
 
     if (g_form.getValue('characteristic.input_type') == 'choice') {
-        var ga = new GlideAjax('x_648117_tmf_mock.ItemCharUtils');
+        var ga = new GlideAjax('x_648117_tmf_mock.ItemCharUtilsAjax');
         ga.addParam('sysparm_name', 'validateCharOption');
         ga.addParam('sysparm_item', g_form.getValue("item"));
         ga.addParam('sysparm_char', g_form.getValue("characteristic"));
@@ -40,15 +40,15 @@ function validateCharOption(answer) {
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>f9dab7b1476f6110acf69a21336d431a</sys_id>
-        <sys_mod_count>8</sys_mod_count>
-        <sys_name>Validate Char Option</sys_name>
+        <sys_mod_count>11</sys_mod_count>
+        <sys_name>Validate Characteristic Option</sys_name>
         <sys_overrides/>
         <sys_package display_value="TMF Mock Payload Generator" source="x_648117_tmf_mock">3b03be1447232110acf69a21336d4362</sys_package>
         <sys_policy/>
         <sys_scope display_value="TMF Mock Payload Generator">3b03be1447232110acf69a21336d4362</sys_scope>
         <sys_update_name>sys_script_client_f9dab7b1476f6110acf69a21336d431a</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2023-06-21 17:04:30</sys_updated_on>
+        <sys_updated_on>2023-06-28 21:52:44</sys_updated_on>
         <table>x_648117_tmf_mock_item_characteristic</table>
         <type>onChange</type>
         <ui_type>10</ui_type>

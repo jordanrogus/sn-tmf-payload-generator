@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ui_policy_action">
+    <sys_ui_policy_action action="DELETE">
+        <cleared>false</cleared>
+        <disabled>ignore</disabled>
+        <field>name</field>
+        <mandatory>true</mandatory>
+        <sys_class_name>sys_ui_policy_action</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-06-27 19:53:25</sys_created_on>
+        <sys_id>e5d263734763a110acf69a21336d4347</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name>name</sys_name>
+        <sys_package display_value="TMF Mock Payload Generator" source="x_648117_tmf_mock">3b03be1447232110acf69a21336d4362</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="TMF Mock Payload Generator">3b03be1447232110acf69a21336d4362</sys_scope>
+        <sys_update_name>sys_ui_policy_action_e5d263734763a110acf69a21336d4347</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-06-27 19:53:39</sys_updated_on>
+        <table>x_648117_tmf_mock_api_parameters</table>
+        <ui_policy display_value="Show other param fields">2dd2a7334763a110acf69a21336d4305</ui_policy>
+        <visible>true</visible>
+    </sys_ui_policy_action>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="TMF Mock Payload Generator">3b03be1447232110acf69a21336d4362</application>
+        <file_path/>
+        <instance_id>8e22f7acdbc3ec10ad8dd7c8f4961939</instance_id>
+        <instance_name>dev107202</instance_name>
+        <name>sys_ui_policy_action_e5d263734763a110acf69a21336d4347</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ui_policy_action"><sys_ui_policy_action action="INSERT_OR_UPDATE"><cleared>false</cleared><disabled>ignore</disabled><field>name</field><mandatory>true</mandatory><sys_class_name>sys_ui_policy_action</sys_class_name><sys_created_by>admin</sys_created_by><sys_created_on>2023-06-27 19:53:25</sys_created_on><sys_id>e5d263734763a110acf69a21336d4347</sys_id><sys_mod_count>1</sys_mod_count><sys_name>name</sys_name><sys_package display_value="TMF Mock Payload Generator" source="x_648117_tmf_mock">3b03be1447232110acf69a21336d4362</sys_package><sys_policy/><sys_scope display_value="TMF Mock Payload Generator">3b03be1447232110acf69a21336d4362</sys_scope><sys_update_name>sys_ui_policy_action_e5d263734763a110acf69a21336d4347</sys_update_name><sys_updated_by>admin</sys_updated_by><sys_updated_on>2023-06-27 19:53:39</sys_updated_on><table>x_648117_tmf_mock_api_parameters</table><ui_policy display_value="Show other param fields">2dd2a7334763a110acf69a21336d4305</ui_policy><visible>true</visible></sys_ui_policy_action></record_update>]]></payload>
+        <payload_hash>2142932898</payload_hash>
+        <record_name>name</record_name>
+        <reverted_from/>
+        <source>3c84f65847232110acf69a21336d4344</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-06-27 19:53:39</sys_created_on>
+        <sys_id>7ce227334763a110acf69a21336d43d1</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>188fe6b37040000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-06-27 19:53:39</sys_updated_on>
+        <type>UI Policy Action</type>
+        <update_guid>34e227339a63a110120746496d07e2d1</update_guid>
+        <update_guid_history>34e227339a63a110120746496d07e2d1:2142932898,25d26373ff63a110ca073ffbd3a7c749:1847890212</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete/>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-06-27 23:10:22</sys_created_on>
+        <sys_db_object display_value="" name="sys_ui_policy_action">sys_ui_policy_action</sys_db_object>
+        <sys_id>64b0ceebb73f4063916eee7afbd76969</sys_id>
+        <sys_metadata>e5d263734763a110acf69a21336d4347</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>name</sys_name>
+        <sys_package display_value="TMF Mock Payload Generator" source="x_648117_tmf_mock">3b03be1447232110acf69a21336d4362</sys_package>
+        <sys_parent display_value="">2dd2a7334763a110acf69a21336d4305</sys_parent>
+        <sys_policy/>
+        <sys_scope display_value="TMF Mock Payload Generator">3b03be1447232110acf69a21336d4362</sys_scope>
+        <sys_scope_delete display_value="">0c35d3e32cda4d5c8f4377e805ad9a10</sys_scope_delete>
+        <sys_update_name>sys_ui_policy_action_e5d263734763a110acf69a21336d4347</sys_update_name>
+        <sys_update_version display_value="sys_ui_policy_action_e5d263734763a110acf69a21336d4347">7ce227334763a110acf69a21336d43d1</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-06-27 23:10:22</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

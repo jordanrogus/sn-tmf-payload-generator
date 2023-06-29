@@ -3,7 +3,10 @@
         <active>true</active>
         <applies_extended>false</applies_extended>
         <condition/>
-        <description>Ensure appropriate options show between the relationship class/type fields</description>
+        <description>Ensures only appropriate options show between the relationship class and relationship type fields.&#13;
+&#13;
+Product Relationship should only have the 'Requires' option while&#13;
+Product Item Relationship should have the 'Requires,' 'HasChild,' and 'HasParent' options</description>
         <field>relationship_class</field>
         <global>true</global>
         <isolate_script>true</isolate_script>
@@ -18,18 +21,18 @@
     g_form.clearValue('relationship_type');
 
     if (g_form.getValue('relationship_class') == 'productRelationship') {
-		g_form.removeOption('relationship_type', 'HasChild');
-		g_form.removeOption('relationship_type', 'HasParent');
-    }
-    if (g_form.getValue('relationship_class') == 'productOrderItemRelationship') {
-		if(g_form.getOption('relationship_type', 'HasChild') == null){
-			g_form.addOption('relationship_type', 'HasChild', 'HasChild');
-		}
-		if(g_form.getOption('relationship_type', 'HasParent') == null){
-			g_form.addOption('relationship_type', 'HasParent', 'HasParent');
-		}
+        g_form.removeOption('relationship_type', 'HasChild');
+        g_form.removeOption('relationship_type', 'HasParent');
     }
 
+    if (g_form.getValue('relationship_class') == 'productOrderItemRelationship') {
+        if (g_form.getOption('relationship_type', 'HasChild') == null) {
+            g_form.addOption('relationship_type', 'HasChild', 'HasChild');
+        }
+        if (g_form.getOption('relationship_type', 'HasParent') == null) {
+            g_form.addOption('relationship_type', 'HasParent', 'HasParent');
+        }
+    }
 }]]></script>
         <sys_class_name>sys_script_client</sys_class_name>
         <sys_created_by>admin</sys_created_by>
@@ -37,7 +40,7 @@
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>88f3c48e476f6110acf69a21336d43ba</sys_id>
-        <sys_mod_count>1</sys_mod_count>
+        <sys_mod_count>4</sys_mod_count>
         <sys_name>Validate Relationship Class/Type Options</sys_name>
         <sys_overrides/>
         <sys_package display_value="TMF Mock Payload Generator" source="x_648117_tmf_mock">3b03be1447232110acf69a21336d4362</sys_package>
@@ -45,7 +48,7 @@
         <sys_scope display_value="TMF Mock Payload Generator">3b03be1447232110acf69a21336d4362</sys_scope>
         <sys_update_name>sys_script_client_88f3c48e476f6110acf69a21336d43ba</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2023-06-21 17:19:17</sys_updated_on>
+        <sys_updated_on>2023-06-28 21:54:13</sys_updated_on>
         <table>x_648117_tmf_mock_item_relationship</table>
         <type>onChange</type>
         <ui_type>10</ui_type>

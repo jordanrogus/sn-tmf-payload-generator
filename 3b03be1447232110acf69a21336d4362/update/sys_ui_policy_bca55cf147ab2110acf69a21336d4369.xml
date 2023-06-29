@@ -21,22 +21,22 @@
 
 }]]></script_true>
         <set_values/>
-        <short_description>Make product offering mandatory if specification class is product</short_description>
+        <short_description>Require Product Offering for Product Specification</short_description>
         <sys_class_name>sys_ui_policy</sys_class_name>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2023-06-20 23:49:52</sys_created_on>
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>bca55cf147ab2110acf69a21336d4369</sys_id>
-        <sys_mod_count>5</sys_mod_count>
-        <sys_name>Make product offering mandatory if specification class is product</sys_name>
+        <sys_mod_count>8</sys_mod_count>
+        <sys_name>Require Product Offering for Product Specification</sys_name>
         <sys_overrides/>
         <sys_package display_value="TMF Mock Payload Generator" source="x_648117_tmf_mock">3b03be1447232110acf69a21336d4362</sys_package>
         <sys_policy/>
         <sys_scope display_value="TMF Mock Payload Generator">3b03be1447232110acf69a21336d4362</sys_scope>
         <sys_update_name>sys_ui_policy_bca55cf147ab2110acf69a21336d4369</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2023-06-20 23:59:23</sys_updated_on>
+        <sys_updated_on>2023-06-28 21:45:22</sys_updated_on>
         <table>x_648117_tmf_mock_items</table>
         <ui_type>0</ui_type>
         <view/>
