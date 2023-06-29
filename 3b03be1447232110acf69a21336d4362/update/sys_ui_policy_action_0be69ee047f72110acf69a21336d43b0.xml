@@ -6,18 +6,18 @@
         <mandatory>ignore</mandatory>
         <sys_class_name>sys_ui_policy_action</sys_class_name>
         <sys_created_by>admin</sys_created_by>
-        <sys_created_on>2023-06-21 00:16:56</sys_created_on>
-        <sys_id>bffbd87d47ab2110acf69a21336d434d</sys_id>
+        <sys_created_on>2023-06-29 22:17:11</sys_created_on>
+        <sys_id>0be69ee047f72110acf69a21336d43b0</sys_id>
         <sys_mod_count>0</sys_mod_count>
         <sys_name>specification</sys_name>
         <sys_package display_value="TMF Mock Payload Generator" source="x_648117_tmf_mock">3b03be1447232110acf69a21336d4362</sys_package>
         <sys_policy/>
         <sys_scope display_value="TMF Mock Payload Generator">3b03be1447232110acf69a21336d4362</sys_scope>
-        <sys_update_name>sys_ui_policy_action_bffbd87d47ab2110acf69a21336d434d</sys_update_name>
+        <sys_update_name>sys_ui_policy_action_0be69ee047f72110acf69a21336d43b0</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2023-06-21 00:16:56</sys_updated_on>
+        <sys_updated_on>2023-06-29 22:17:11</sys_updated_on>
         <table>x_648117_tmf_mock_items</table>
-        <ui_policy display_value="Set spec to read only when filled out">1deb587d47ab2110acf69a21336d4303</ui_policy>
+        <ui_policy display_value="Set Product Offering and Specification RO When Both are Populated">ae1cd87d47ab2110acf69a21336d43ee</ui_policy>
         <visible>ignore</visible>
     </sys_ui_policy_action>
 </record_update>

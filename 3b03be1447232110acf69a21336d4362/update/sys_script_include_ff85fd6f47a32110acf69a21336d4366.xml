@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_include">
+    <sys_script_include action="INSERT_OR_UPDATE">
+        <access>package_private</access>
+        <active>true</active>
+        <api_name>x_648117_tmf_mock.APIParamInitializationService</api_name>
+        <caller_access/>
+        <client_callable>false</client_callable>
+        <description/>
+        <name>APIParamInitializationService</name>
+        <script><![CDATA[var APIParamInitializationService = Class.create();
+APIParamInitializationService.prototype = {
+    initialize: function() {
+        this.utilsSI = new x_648117_tmf_mock.Utils();
+    },
+	
+	tmf622productOrderPostSkeleton(payloadGeneratorSysID){
+		var apiParams = Constants.API_PARAM_MAP;
+		
+		for (var i=0; i < apiParams.length; i++) {
+			var grInsertQuery = new GlideRecord('x_648117_tmf_mock_api_parameters');
+			grInsertQuery.newRecord();
+			grInsertQuery.setValue('payload_generator', payloadGeneratorSysID);
+			grInsertQuery.setValue('type', apiParams[i].type);
+			grInsertQuery.setValue('query_param', apiParams[i].param);
+			grInsertQuery.insert();		
+		}
+	},
+
+    type: 'APIParamInitializationService'
+};]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-06-26 17:17:46</sys_created_on>
+        <sys_id>ff85fd6f47a32110acf69a21336d4366</sys_id>
+        <sys_mod_count>5</sys_mod_count>
+        <sys_name>APIParamInitializationService</sys_name>
+        <sys_package display_value="TMF Mock Payload Generator" source="x_648117_tmf_mock">3b03be1447232110acf69a21336d4362</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="TMF Mock Payload Generator">3b03be1447232110acf69a21336d4362</sys_scope>
+        <sys_update_name>sys_script_include_ff85fd6f47a32110acf69a21336d4366</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-06-28 22:04:54</sys_updated_on>
+    </sys_script_include>
+</record_update>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_security_acl_role">
+    <sys_security_acl_role action="DELETE">
+        <sys_class_name>sys_security_acl_role</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-06-26 16:25:04</sys_created_on>
+        <sys_id>7f89e52f47632110acf69a21336d43c5</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>x_648117_tmf_mock_related_party.x_648117_tmf_mock.user</sys_name>
+        <sys_package display_value="TMF Mock Payload Generator" source="x_648117_tmf_mock">3b03be1447232110acf69a21336d4362</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="TMF Mock Payload Generator">3b03be1447232110acf69a21336d4362</sys_scope>
+        <sys_security_acl display_value="x_648117_tmf_mock_related_party">b789e52f47632110acf69a21336d43a9</sys_security_acl>
+        <sys_update_name>sys_security_acl_role_7f89e52f47632110acf69a21336d43c5</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-06-26 16:25:04</sys_updated_on>
+        <sys_user_role display_value="x_648117_tmf_mock.user" name="x_648117_tmf_mock.user">f313f65047232110acf69a21336d438c</sys_user_role>
+        <transaction_id/>
+    </sys_security_acl_role>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="TMF Mock Payload Generator">3b03be1447232110acf69a21336d4362</application>
+        <file_path/>
+        <instance_id>8e22f7acdbc3ec10ad8dd7c8f4961939</instance_id>
+        <instance_name>dev107202</instance_name>
+        <name>sys_security_acl_role_7f89e52f47632110acf69a21336d43c5</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_security_acl_role"><sys_security_acl_role action="INSERT_OR_UPDATE"><sys_class_name>sys_security_acl_role</sys_class_name><sys_created_by>admin</sys_created_by><sys_created_on>2023-06-26 16:25:04</sys_created_on><sys_id>7f89e52f47632110acf69a21336d43c5</sys_id><sys_mod_count>0</sys_mod_count><sys_name>x_648117_tmf_mock_related_party.x_648117_tmf_mock.user</sys_name><sys_package display_value="TMF Mock Payload Generator" source="x_648117_tmf_mock">3b03be1447232110acf69a21336d4362</sys_package><sys_policy/><sys_scope display_value="TMF Mock Payload Generator">3b03be1447232110acf69a21336d4362</sys_scope><sys_security_acl display_value="x_648117_tmf_mock_related_party">b789e52f47632110acf69a21336d43a9</sys_security_acl><sys_update_name>sys_security_acl_role_7f89e52f47632110acf69a21336d43c5</sys_update_name><sys_updated_by>admin</sys_updated_by><sys_updated_on>2023-06-26 16:25:04</sys_updated_on><sys_user_role display_value="x_648117_tmf_mock.user" name="x_648117_tmf_mock.user">f313f65047232110acf69a21336d438c</sys_user_role><transaction_id/></sys_security_acl_role></record_update>]]></payload>
+        <payload_hash>597922885</payload_hash>
+        <record_name>x_648117_tmf_mock_related_party.x_648117_tmf_mock.user</record_name>
+        <reverted_from/>
+        <source>3c84f65847232110acf69a21336d4344</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-06-26 16:25:04</sys_created_on>
+        <sys_id>3789e52f47632110acf69a21336d43c9</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>188f885e5060000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-06-26 16:25:04</sys_updated_on>
+        <type>Access Roles</type>
+        <update_guid>7b89e52f5863211061da3d4d522a61c8</update_guid>
+        <update_guid_history>7b89e52f5863211061da3d4d522a61c8:597922885</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="x_648117_tmf_mock_related_party.x_648117_tmf_mock.user">510ceeb3472f6110acf69a21336d431d</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-06-27 15:53:55</sys_created_on>
+        <sys_db_object display_value="" name="sys_security_acl_role">sys_security_acl_role</sys_db_object>
+        <sys_id>51a1bc226ae04a619f52837e6d58cb61</sys_id>
+        <sys_metadata>7f89e52f47632110acf69a21336d43c5</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>x_648117_tmf_mock_related_party.x_648117_tmf_mock.user</sys_name>
+        <sys_package display_value="TMF Mock Payload Generator" source="x_648117_tmf_mock">3b03be1447232110acf69a21336d4362</sys_package>
+        <sys_parent display_value="x_648117_tmf_mock_related_party">b789e52f47632110acf69a21336d43a9</sys_parent>
+        <sys_policy/>
+        <sys_scope display_value="TMF Mock Payload Generator">3b03be1447232110acf69a21336d4362</sys_scope>
+        <sys_scope_delete display_value="">0c35d3e32cda4d5c8f4377e805ad9a10</sys_scope_delete>
+        <sys_update_name>sys_security_acl_role_7f89e52f47632110acf69a21336d43c5</sys_update_name>
+        <sys_update_version display_value="sys_security_acl_role_7f89e52f47632110acf69a21336d43c5">3789e52f47632110acf69a21336d43c9</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-06-27 15:53:55</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

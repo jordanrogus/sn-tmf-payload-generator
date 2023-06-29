@@ -19,22 +19,22 @@
 
 }]]></script_true>
         <set_values/>
-        <short_description>Hide Spec Class</short_description>
+        <short_description>Hide Specification Class</short_description>
         <sys_class_name>sys_ui_policy</sys_class_name>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2023-06-21 00:01:50</sys_created_on>
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>c288943947ab2110acf69a21336d4316</sys_id>
-        <sys_mod_count>0</sys_mod_count>
-        <sys_name>Hide Spec Class</sys_name>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name>Hide Specification Class</sys_name>
         <sys_overrides/>
         <sys_package display_value="TMF Mock Payload Generator" source="x_648117_tmf_mock">3b03be1447232110acf69a21336d4362</sys_package>
         <sys_policy/>
         <sys_scope display_value="TMF Mock Payload Generator">3b03be1447232110acf69a21336d4362</sys_scope>
         <sys_update_name>sys_ui_policy_c288943947ab2110acf69a21336d4316</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2023-06-21 00:01:50</sys_updated_on>
+        <sys_updated_on>2023-06-28 21:39:01</sys_updated_on>
         <table>x_648117_tmf_mock_items</table>
         <ui_type>0</ui_type>
         <view/>

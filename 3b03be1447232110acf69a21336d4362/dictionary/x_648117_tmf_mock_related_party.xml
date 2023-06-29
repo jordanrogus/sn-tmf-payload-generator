@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element db_object_id="d16925ab47632110acf69a21336d433b" label="Item Related Party" max_length="40" name="x_648117_tmf_mock_related_party" type="collection">
+        <element attributes="edge_encryption_enabled=true" label="Email" mandatory="true" max_length="40" name="email" type="string"/>
+        <element attributes="edge_encryption_enabled=true" label="First Name" mandatory="true" max_length="40" name="first_name" type="string"/>
+        <element attributes="encode_utf8=false, readonly_clickthrough=true" label="Item" max_length="32" name="item" read_only="true" reference="x_648117_tmf_mock_items" reference_cascade_rule="cascade" type="reference"/>
+        <element attributes="edge_encryption_enabled=true" label="Last Name" mandatory="true" max_length="40" name="last_name" type="string"/>
+        <element attributes="ignore_filter_on_new=true" default="javascript:global.getNextObjNumberPadded();" label="Number" max_length="40" name="number" read_only="true" type="string"/>
+        <element attributes="edge_encryption_enabled=true" label="Phone" mandatory="true" max_length="40" name="phone" type="string"/>
+        <index name="index">
+            <element name="item"/>
+        </index>
+    </element>
+</database>

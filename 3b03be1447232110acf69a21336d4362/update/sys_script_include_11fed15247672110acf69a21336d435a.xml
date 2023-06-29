@@ -20,22 +20,22 @@ Utils.prototype = {
         }
     },
 
-	// table: The table the record to duplicate is on
-	// sourceSysID: The record to duplicate
-	// fieldMap: Object containing fields/values to usurp from the source record in the duplicated record. Example: fieldMap = {fieldName:"fieldValue", fieldName2:"fieldValue2"}
+    // table: The table the record to duplicate is on
+    // sourceSysID: The record to duplicate
+    // fieldMap: Object containing fields/values to usurp from the source record in the duplicated record. Example: fieldMap = {fieldName:"fieldValue", fieldName2:"fieldValue2"}
     duplicateRecord(table, sourceSysID, fieldMap) {
         var gr = new GlideRecord(table);
         gr.initialize();
         if (gr.get(sourceSysID)) {
-			if(typeof fieldMap == "object"){
-				for (var key in fieldMap) {
-					if (fieldMap.hasOwnProperty(key)) {
-						if(gr.isValidField(key)){
-							gr[key] = fieldMap[key];
-						}						
-					}
-				}
-			}
+            if (typeof fieldMap == "object") {
+                for (var key in fieldMap) {
+                    if (fieldMap.hasOwnProperty(key)) {
+                        if (gr.isValidField(key)) {
+                            gr[key] = fieldMap[key];
+                        }
+                    }
+                }
+            }
             gr.number = "";
             return gr.insert();
         } else {
@@ -53,19 +53,45 @@ Utils.prototype = {
         return null;
     },
 
+    checkForDuplicateRecord(tableName, encodedQuery, currentRecordSysID) {
+        var dupRecordCheckGR = new GlideRecord(tableName);
+        dupRecordCheckGR.addEncodedQuery(encodedQuery);
+        dupRecordCheckGR.query();
+        if (dupRecordCheckGR.next() && dupRecordCheckGR.getUniqueValue() != currentRecordSysID) {
+            return "/" + dupRecordCheckGR.getTableName() + "?sys_id=" + dupRecordCheckGR.getUniqueValue();
+        }
+        return false;
+    },
+	
+	getRandomIntFromInterval(min, max) {
+		return Math.floor(Math.random() * (max - min + 1) + min);
+	},
+
+	generateRandomString(length) {
+		var result = '';
+		var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+		var charactersLength = characters.length;
+		var counter = 0;
+		while (counter < length) {
+			result += characters.charAt(Math.floor(Math.random() * charactersLength));
+			counter += 1;
+		}
+		return result;
+	},
+
     type: 'Utils'
 };]]></script>
         <sys_class_name>sys_script_include</sys_class_name>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2023-06-22 18:26:52</sys_created_on>
         <sys_id>11fed15247672110acf69a21336d435a</sys_id>
-        <sys_mod_count>9</sys_mod_count>
+        <sys_mod_count>17</sys_mod_count>
         <sys_name>Utils</sys_name>
         <sys_package display_value="TMF Mock Payload Generator" source="x_648117_tmf_mock">3b03be1447232110acf69a21336d4362</sys_package>
-        <sys_policy>read</sys_policy>
+        <sys_policy/>
         <sys_scope display_value="TMF Mock Payload Generator">3b03be1447232110acf69a21336d4362</sys_scope>
         <sys_update_name>sys_script_include_11fed15247672110acf69a21336d435a</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2023-06-23 14:13:28</sys_updated_on>
+        <sys_updated_on>2023-06-29 21:53:00</sys_updated_on>
     </sys_script_include>
 </record_update>

@@ -2,31 +2,45 @@
     <sys_ui_related sys_domain="global" table="x_648117_tmf_mock_items" version="2" view="">
         <sys_ui_related_list_entry action="INSERT_OR_UPDATE">
             <filter/>
-            <list_id display_value="Orderable Item - Default view" name="x_648117_tmf_mock_items" related_list="NULL" sys_domain="global" view="Default view">30c410b147ab2110acf69a21336d4378</list_id>
+            <list_id display_value="Orderable Item - Default view" name="x_648117_tmf_mock_items" related_list="NULL" sys_domain="global" view="Default view">d7da6daf47632110acf69a21336d433d</list_id>
             <order_by/>
             <position>0</position>
             <related_list>x_648117_tmf_mock_item_characteristic.item</related_list>
             <sys_class_name>sys_ui_related_list_entry</sys_class_name>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2023-06-20 23:45:12</sys_created_on>
-            <sys_id>70c410b147ab2110acf69a21336d4379</sys_id>
+            <sys_created_on>2023-06-26 16:30:46</sys_created_on>
+            <sys_id>1fda6daf47632110acf69a21336d433e</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2023-06-20 23:45:12</sys_updated_on>
+            <sys_updated_on>2023-06-26 16:30:46</sys_updated_on>
         </sys_ui_related_list_entry>
         <sys_ui_related_list_entry action="INSERT_OR_UPDATE">
             <filter/>
-            <list_id display_value="Orderable Item - Default view" name="x_648117_tmf_mock_items" related_list="NULL" sys_domain="global" view="Default view">30c410b147ab2110acf69a21336d4378</list_id>
+            <list_id display_value="Orderable Item - Default view" name="x_648117_tmf_mock_items" related_list="NULL" sys_domain="global" view="Default view">d7da6daf47632110acf69a21336d433d</list_id>
             <order_by/>
             <position>1</position>
             <related_list>x_648117_tmf_mock_item_relationship.source_item</related_list>
             <sys_class_name>sys_ui_related_list_entry</sys_class_name>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2023-06-20 23:45:12</sys_created_on>
-            <sys_id>78c410b147ab2110acf69a21336d4379</sys_id>
+            <sys_created_on>2023-06-26 16:30:46</sys_created_on>
+            <sys_id>57da6daf47632110acf69a21336d433f</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2023-06-20 23:45:12</sys_updated_on>
+            <sys_updated_on>2023-06-26 16:30:46</sys_updated_on>
+        </sys_ui_related_list_entry>
+        <sys_ui_related_list_entry action="INSERT_OR_UPDATE">
+            <filter/>
+            <list_id display_value="Orderable Item - Default view" name="x_648117_tmf_mock_items" related_list="NULL" sys_domain="global" view="Default view">d7da6daf47632110acf69a21336d433d</list_id>
+            <order_by/>
+            <position>2</position>
+            <related_list>x_648117_tmf_mock_related_party.item</related_list>
+            <sys_class_name>sys_ui_related_list_entry</sys_class_name>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2023-06-26 16:30:46</sys_created_on>
+            <sys_id>5bda6daf47632110acf69a21336d433f</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2023-06-26 16:30:46</sys_updated_on>
         </sys_ui_related_list_entry>
         <sys_ui_related_list action="INSERT_OR_UPDATE">
             <calculated_name>Orderable Item - Default view</calculated_name>
@@ -37,10 +51,10 @@
             <related_list/>
             <sys_class_name>sys_ui_related_list</sys_class_name>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2023-06-20 23:45:12</sys_created_on>
+            <sys_created_on>2023-06-26 16:30:46</sys_created_on>
             <sys_domain>global</sys_domain>
             <sys_domain_path>/</sys_domain_path>
-            <sys_id>30c410b147ab2110acf69a21336d4378</sys_id>
+            <sys_id>d7da6daf47632110acf69a21336d433d</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_name>Orderable Item - Default view</sys_name>
             <sys_package display_value="TMF Mock Payload Generator" source="x_648117_tmf_mock">3b03be1447232110acf69a21336d4362</sys_package>
@@ -48,7 +62,7 @@
             <sys_scope display_value="TMF Mock Payload Generator">3b03be1447232110acf69a21336d4362</sys_scope>
             <sys_update_name>sys_ui_related_x_648117_tmf_mock_items_null</sys_update_name>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2023-06-20 23:45:12</sys_updated_on>
+            <sys_updated_on>2023-06-26 16:30:46</sys_updated_on>
             <sys_user/>
             <view display_value="Default view" name="NULL">Default view</view>
             <view_name/>

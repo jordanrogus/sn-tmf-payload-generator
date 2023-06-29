@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_properties">
+    <sys_properties action="INSERT_OR_UPDATE">
+        <choices/>
+        <description>Maximum number of api calls to provide an upper limit for the API Trigger Quantity attribute</description>
+        <ignore_cache>true</ignore_cache>
+        <is_private>false</is_private>
+        <name>x_648117_tmf_mock.max_api_calls</name>
+        <read_roles>x_648117_tmf_mock.viewer</read_roles>
+        <suffix>max_api_calls</suffix>
+        <sys_class_name>sys_properties</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-06-28 00:39:38</sys_created_on>
+        <sys_id>1014684c47b7a110acf69a21336d434a</sys_id>
+        <sys_mod_count>7</sys_mod_count>
+        <sys_name>x_648117_tmf_mock.max_api_calls</sys_name>
+        <sys_package display_value="TMF Mock Payload Generator" source="x_648117_tmf_mock">3b03be1447232110acf69a21336d4362</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="TMF Mock Payload Generator">3b03be1447232110acf69a21336d4362</sys_scope>
+        <sys_update_name>sys_properties_1014684c47b7a110acf69a21336d434a</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-06-29 21:15:03</sys_updated_on>
+        <type>integer</type>
+        <value>1000</value>
+        <write_roles>x_648117_tmf_mock.admin</write_roles>
+    </sys_properties>
+    <sys_translated_text action="delete_multiple" query="documentkey=1014684c47b7a110acf69a21336d434a"/>
+</record_update>
