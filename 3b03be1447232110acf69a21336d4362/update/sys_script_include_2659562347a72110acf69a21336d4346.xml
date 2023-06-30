@@ -15,7 +15,7 @@ Constants.prototype = {
 };
 
 Constants.CORE_DATA_ATTRIBUTE_MAP = [
-	{field: "account", reference: true, reference_table: "customer_account",default: ""},
+	{field: "account", reference: true, reference_table: "customer_account", default: ""},
 	{field: "channel", reference: true, reference_table: "sn_prd_pm_distribution_channel", default: ""},
 	{field: "contact", reference: true, reference_table: "customer_contact", default: ""},
 	{field: "externalId", reference: false, default: ""},
@@ -25,7 +25,7 @@ Constants.CORE_DATA_ATTRIBUTE_MAP = [
 	{field: "requestedStartDate", reference: false, default: ""},
 ];
 
-Constants.ALLOWED_DUPLICATE_CORE_ATTRIBUTE = ['note'];
+Constants.ALLOWED_DUPLICATE_CORE_DATA_ATTRIBUTE = ['note'];
 
 Constants.API_PARAM_MAP = [
 	{type: "query", param: "mode"}, 
@@ -35,13 +35,13 @@ Constants.API_PARAM_MAP = [
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2023-06-26 19:54:14</sys_created_on>
         <sys_id>2659562347a72110acf69a21336d4346</sys_id>
-        <sys_mod_count>5</sys_mod_count>
+        <sys_mod_count>7</sys_mod_count>
         <sys_name>Constants</sys_name>
         <sys_package display_value="TMF Mock Payload Generator" source="x_648117_tmf_mock">3b03be1447232110acf69a21336d4362</sys_package>
         <sys_policy/>
         <sys_scope display_value="TMF Mock Payload Generator">3b03be1447232110acf69a21336d4362</sys_scope>
         <sys_update_name>sys_script_include_2659562347a72110acf69a21336d4346</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2023-06-28 22:04:54</sys_updated_on>
+        <sys_updated_on>2023-06-30 14:24:19</sys_updated_on>
     </sys_script_include>
 </record_update>

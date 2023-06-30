@@ -5,45 +5,24 @@
         <api_name>x_648117_tmf_mock.Utils</api_name>
         <caller_access/>
         <client_callable>false</client_callable>
-        <description>Generalized utils for the TMF Mock Payload Generator application</description>
+        <description>A set of helper functions to support the TMF Mock Payload Generator application.</description>
         <name>Utils</name>
         <script><![CDATA[var Utils = Class.create();
 Utils.prototype = {
     initialize: function() {},
 
-    getRecordFromSysID(table, sys_id) {
-        var gr = new GlideRecord(table);
-        if (gr.get(sys_id)) {
-            return gr;
-        } else {
-            return null;
-        }
-    },
-
-    // table: The table the record to duplicate is on
-    // sourceSysID: The record to duplicate
-    // fieldMap: Object containing fields/values to usurp from the source record in the duplicated record. Example: fieldMap = {fieldName:"fieldValue", fieldName2:"fieldValue2"}
-    duplicateRecord(table, sourceSysID, fieldMap) {
-        var gr = new GlideRecord(table);
-        gr.initialize();
-        if (gr.get(sourceSysID)) {
-            if (typeof fieldMap == "object") {
-                for (var key in fieldMap) {
-                    if (fieldMap.hasOwnProperty(key)) {
-                        if (gr.isValidField(key)) {
-                            gr[key] = fieldMap[key];
-                        }
-                    }
-                }
-            }
-            gr.number = "";
-            return gr.insert();
-        } else {
-            return null;
-        }
-    },
-
+    /**
+     * Retrieves table records from a query
+     * 
+     * @param tableName {string} - Name of the table to query
+     * @param encodedQuery {string} - Query formatted as an encoded query
+     * @return {GlideRecord object} - Set of returned records in the GlideRecord object
+     **/
     getRecords(tableName, encodedQuery) {
+        if (tableName === undefined || encodedQuery === undefined || !this.checkTable(tableName)) {
+            return null;
+        }
+
         var recordsGr = new GlideRecord(tableName);
         recordsGr.addEncodedQuery(encodedQuery);
         recordsGr.query();
@@ -53,31 +32,137 @@ Utils.prototype = {
         return null;
     },
 
-    checkForDuplicateRecord(tableName, encodedQuery, currentRecordSysID) {
-        var dupRecordCheckGR = new GlideRecord(tableName);
-        dupRecordCheckGR.addEncodedQuery(encodedQuery);
-        dupRecordCheckGR.query();
-        if (dupRecordCheckGR.next() && dupRecordCheckGR.getUniqueValue() != currentRecordSysID) {
-            return "/" + dupRecordCheckGR.getTableName() + "?sys_id=" + dupRecordCheckGR.getUniqueValue();
+    /**
+     * Retrieves a record from a table
+     * 
+     * @param tableName {string} - Name of the table to query
+     * @param sysId {string} - Record sys_id to check against
+     * @return {GlideRecord object} - The retrieved record in the GlideRecord object
+     **/
+    getRecordFromSysId(tableName, sysId) {
+        if (tableName === undefined || sysId === undefined || !this.checkTable(tableName)) {
+            return null;
+        }
+
+        var recordGr = new GlideRecord(tableName);
+        if (recordGr.get(sysId)) {
+            return recordGr;
+        } else {
+            return null;
+        }
+    },
+
+    /**
+     * Checks if a record already exists in the table from a query
+     * 
+     * @param tableName {string} - Name of the table to query
+     * @param encodedQuery {string} - Query formatted as an encoded query
+     * @param currentRecordSysId {string} - Record sys_id to check against
+     * @return {string} - Link to existing record
+     **/
+    checkForDuplicateRecord(tableName, encodedQuery, currentRecordSysId) {
+        if (tableName === undefined || encodedQuery === undefined || currentRecordSysId === undefined || !this.checkTable(tableName)) {
+            return null;
+        }
+
+        var recordCheckGr = new GlideRecord(tableName);
+        recordCheckGr.addEncodedQuery(encodedQuery);
+        recordCheckGr.query();
+        if (recordCheckGr.next() && recordCheckGr.getUniqueValue() != currentRecordSysId) {
+            var link = "/" + recordCheckGr.getTableName() + "?sys_id=" + recordCheckGr.getUniqueValue();
+            return link.toString();
         }
         return false;
     },
-	
-	getRandomIntFromInterval(min, max) {
-		return Math.floor(Math.random() * (max - min + 1) + min);
-	},
 
-	generateRandomString(length) {
-		var result = '';
-		var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-		var charactersLength = characters.length;
-		var counter = 0;
-		while (counter < length) {
-			result += characters.charAt(Math.floor(Math.random() * charactersLength));
-			counter += 1;
-		}
-		return result;
-	},
+    /**
+     * Generates a duplicate record
+     * 
+     * @param tableName {string} - Name of the table to query
+     * @param sourceRecordSysId {string} - Record sys_id to source data to generate the duplicated record
+     * @param fieldMap {object} - Optional object containing fields/values to usurp from the source record in the duplicated record. Example: fieldMap = {fieldName:"fieldValue", fieldName2:"fieldValue2"}
+     * @return {string} - Sys_id of duplicated record
+     **/
+    generateDuplicateRecord(tableName, sourceRecordSysId, fieldMap) {
+        if (tableName ===  undefined|| sourceRecordSysId === undefined || !this.checkTable(tableName)) {
+            return null;
+        }
+
+        var duplicateRecordGr = new GlideRecord(tableName);
+        duplicateRecordGr.initialize();
+        if (duplicateRecordGr.get(sourceRecordSysId)) {
+            if (typeof fieldMap == "object") {
+                for (var key in fieldMap) {
+                    if (fieldMap.hasOwnProperty(key)) {
+                        if (duplicateRecordGr.isValidField(key)) {
+                            duplicateRecordGr[key] = fieldMap[key];
+                        }
+                    }
+                }
+            }
+            if (duplicateRecordGr.isValidField('number')) {
+                duplicateRecordGr.number = ""; // Clear number so SN can generate a new number
+            }
+            return duplicateRecordGr.insert();
+        } else {
+            return null;
+        }
+    },
+
+    /**
+     * Checks if a table exists
+     * 
+     * @param tableName {string} - Name of the table to check
+     * @return {boolean} - True or False based on the check. True denotes the table exists
+     **/
+    checkTable(tableName) {
+        if (tableName === undefined) {
+            return false;
+        }
+
+        var tableCheckGr = new GlideRecord('sys_db_object');
+        if (tableCheckGr.get('name', tableName)) {
+            return true;
+        }
+        return false;
+    },
+
+    /**
+     * Gets a random integer between min and max values
+     * 
+     * @param min {integer} - Minimum integer to bound the generation
+     * @param max {integer} - Maximum integer to bound the generation
+     * @return {integer} - Random integer
+     **/
+    getRandomIntFromInterval(min, max) {
+        if (min === undefined || max === undefined) {
+            return null;
+        }
+
+        return Math.floor(Math.random() * (max - min + 1) + min);
+    },
+
+    /**
+     * Generate a random string of a specified length
+     * 
+     * @param length {integer} - The length of the generated string
+     * @return {string} - Random string
+     **/
+    generateRandomString(length) {
+        if (length === undefined) {
+            return null;
+        }
+
+        var result = '';
+        var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        var charactersLength = characters.length;
+        var counter = 0;
+        while (counter < length) {
+            result += characters.charAt(Math.floor(Math.random() * charactersLength));
+            counter += 1;
+        }
+        return result;
+    },
 
     type: 'Utils'
 };]]></script>
@@ -85,13 +170,13 @@ Utils.prototype = {
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2023-06-22 18:26:52</sys_created_on>
         <sys_id>11fed15247672110acf69a21336d435a</sys_id>
-        <sys_mod_count>17</sys_mod_count>
+        <sys_mod_count>35</sys_mod_count>
         <sys_name>Utils</sys_name>
         <sys_package display_value="TMF Mock Payload Generator" source="x_648117_tmf_mock">3b03be1447232110acf69a21336d4362</sys_package>
         <sys_policy/>
         <sys_scope display_value="TMF Mock Payload Generator">3b03be1447232110acf69a21336d4362</sys_scope>
         <sys_update_name>sys_script_include_11fed15247672110acf69a21336d435a</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2023-06-29 21:53:00</sys_updated_on>
+        <sys_updated_on>2023-06-30 20:43:34</sys_updated_on>
     </sys_script_include>
 </record_update>
