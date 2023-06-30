@@ -5,7 +5,7 @@
         <api_name>x_648117_tmf_mock.PayloadGeneratorUtils</api_name>
         <caller_access/>
         <client_callable>false</client_callable>
-        <description/>
+        <description>Utility functions for the Payload Generator (x_648117_tmf_mock_payload_generator) table.</description>
         <name>PayloadGeneratorUtils</name>
         <script><![CDATA[var PayloadGeneratorUtils = Class.create();
 PayloadGeneratorUtils.prototype = {
@@ -13,41 +13,50 @@ PayloadGeneratorUtils.prototype = {
         this.utilsSI = new x_648117_tmf_mock.Utils();
     },
 
-    copy(payloadGeneratorSysID) {
+	/**
+     * Copies a Payload Generator and all child records
+     * 
+     * @param payloadGeneratorGr {GlideRecord object} - The Payload Generator to copy
+     * @return {string} - Sys_id of the copied Payload Generator
+     **/
+    copyPayloadGeneratorHierarchy(payloadGeneratorGr) {
+		if (payloadGeneratorGr === undefined) {
+            return null;
+        }
 		
-		// Duplicate Payload Generator record and clear out payload
-        var payloadGeneratorGR = this.utilsSI.getRecordFromSysID('x_648117_tmf_mock_payload_generator', payloadGeneratorSysID);
-        var dupPayloadGenerator = this.utilsSI.duplicateRecord('x_648117_tmf_mock_payload_generator', payloadGeneratorSysID, {payload:"", owner: gs.getUserID()});
+		var payloadGeneratorSysId = payloadGeneratorGr.getUniqueValue();
 		
-		// Duplicate Core Order Data
-        var coreOrderDataGR = this.utilsSI.getRecords('x_648117_tmf_mock_core_order_data', 'payload_generator=' + payloadGeneratorSysID);
-        if (coreOrderDataGR) {
-            while (coreOrderDataGR.next()) {
-				var fieldMapCOD = {payload_generator: dupPayloadGenerator};
-                this.utilsSI.duplicateRecord('x_648117_tmf_mock_core_order_data', coreOrderDataGR.getUniqueValue(), fieldMapCOD);
+		// Duplicate Payload Generator. Clear payload and set owner to current user in copied record
+		var fieldMapPayloadGenerator = {payload:"", owner: gs.getUserID()};
+        var duplicatePayloadGenerator = this.utilsSI.generateDuplicateRecord('x_648117_tmf_mock_payload_generator', payloadGeneratorSysId, fieldMapPayloadGenerator);
+		
+		// Duplicate Core Order Data. Set Payload Generator to the copied record
+        var coreOrderDataGr = this.utilsSI.getRecords('x_648117_tmf_mock_core_order_data', 'payload_generator=' + payloadGeneratorSysId);
+        if (coreOrderDataGr) {
+            while (coreOrderDataGr.next()) {
+				var fieldMapCoreOrderData = {payload_generator: duplicatePayloadGenerator};
+                this.utilsSI.generateDuplicateRecord('x_648117_tmf_mock_core_order_data', coreOrderDataGr.getUniqueValue(), fieldMapCoreOrderData);
             }
         }
 		
-		// Duplicate Order Items
-		var productItemUtilsSI = new x_648117_tmf_mock.ProductItemUtils();
-		var itemsGR = this.utilsSI.getRecords('x_648117_tmf_mock_items', 'payload_generator=' + payloadGeneratorSysID);
-        if (itemsGR) {
-            while (itemsGR.next()) {
-				productItemUtilsSI.copyItemAndRelationships(itemsGR.getUniqueValue(), dupPayloadGenerator);
+		// Duplicate Order Item(s)
+		var productItemUtils = new x_648117_tmf_mock.ProductItemUtils();
+		var itemGr = this.utilsSI.getRecords('x_648117_tmf_mock_items', 'payload_generator=' + payloadGeneratorSysId);
+        if (itemGr) {
+            while (itemGr.next()) {
+				productItemUtils.copyItemHierarchy(itemGr.getUniqueValue(), duplicatePayloadGenerator);
             }
         }
 		
-		// Duplicate API Params
-        var apiParamsGR = this.utilsSI.getRecords('x_648117_tmf_mock_api_parameters', 'payload_generator=' + payloadGeneratorSysID);
-        if (apiParamsGR) {
-            while (apiParamsGR.next()) {
-				var fieldMapAP = {payload_generator: dupPayloadGenerator};
-                this.utilsSI.duplicateRecord('x_648117_tmf_mock_api_parameters', apiParamsGR.getUniqueValue(), fieldMapAP);
+		// Duplicate API Parameter(s)
+        var apiParamsGr = this.utilsSI.getRecords('x_648117_tmf_mock_api_parameters', 'payload_generator=' + payloadGeneratorSysId);
+        if (apiParamsGr) {
+            while (apiParamsGr.next()) {
+				var fieldMapApiParameters = {payload_generator: duplicatePayloadGenerator};
+                this.utilsSI.generateDuplicateRecord('x_648117_tmf_mock_api_parameters', apiParamsGr.getUniqueValue(), fieldMapApiParameters);
             }
         }
-		
-		// Return sys_id of new Payload Generator record
-		return dupPayloadGenerator;
+		return duplicatePayloadGenerator;
     },
 
     type: 'PayloadGeneratorUtils'
@@ -56,13 +65,13 @@ PayloadGeneratorUtils.prototype = {
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2023-06-22 19:49:28</sys_created_on>
         <sys_id>43f1751e47a72110acf69a21336d438c</sys_id>
-        <sys_mod_count>17</sys_mod_count>
+        <sys_mod_count>21</sys_mod_count>
         <sys_name>PayloadGeneratorUtils</sys_name>
         <sys_package display_value="TMF Mock Payload Generator" source="x_648117_tmf_mock">3b03be1447232110acf69a21336d4362</sys_package>
         <sys_policy/>
         <sys_scope display_value="TMF Mock Payload Generator">3b03be1447232110acf69a21336d4362</sys_scope>
         <sys_update_name>sys_script_include_43f1751e47a72110acf69a21336d438c</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2023-06-28 22:04:55</sys_updated_on>
+        <sys_updated_on>2023-06-30 21:03:52</sys_updated_on>
     </sys_script_include>
 </record_update>

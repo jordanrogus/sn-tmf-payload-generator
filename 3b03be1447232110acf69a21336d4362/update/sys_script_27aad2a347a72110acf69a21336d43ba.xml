@@ -12,7 +12,7 @@
         <change_fields>false</change_fields>
         <client_callable>false</client_callable>
         <collection>x_648117_tmf_mock_core_order_data</collection>
-        <condition>Constants.ALLOWED_DUPLICATE_CORE_ATTRIBUTE.indexOf(current.getValue('attribute')) == -1</condition>
+        <condition>Constants.ALLOWED_DUPLICATE_CORE_DATA_ATTRIBUTE.indexOf(current.getValue('attribute')) == -1</condition>
         <description/>
         <execute_function>false</execute_function>
         <filter_condition table="x_648117_tmf_mock_core_order_data">attribute!=^EQ<item display_value="-- None --" endquery="false" field="attribute" goto="false" newquery="false" operator="!=" or="false" value=""/>
@@ -48,7 +48,7 @@
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>27aad2a347a72110acf69a21336d43ba</sys_id>
-        <sys_mod_count>18</sys_mod_count>
+        <sys_mod_count>19</sys_mod_count>
         <sys_name>Ensure Only Allowed Attribute Duplicates</sys_name>
         <sys_overrides/>
         <sys_package display_value="TMF Mock Payload Generator" source="x_648117_tmf_mock">3b03be1447232110acf69a21336d4362</sys_package>
@@ -56,7 +56,7 @@
         <sys_scope display_value="TMF Mock Payload Generator">3b03be1447232110acf69a21336d4362</sys_scope>
         <sys_update_name>sys_script_27aad2a347a72110acf69a21336d43ba</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2023-06-29 21:40:48</sys_updated_on>
+        <sys_updated_on>2023-06-30 14:24:27</sys_updated_on>
         <template/>
         <when>before</when>
     </sys_script>

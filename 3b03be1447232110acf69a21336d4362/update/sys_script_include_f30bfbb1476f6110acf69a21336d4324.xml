@@ -2,66 +2,72 @@
     <sys_script_include action="INSERT_OR_UPDATE">
         <access>package_private</access>
         <active>true</active>
-        <api_name>x_648117_tmf_mock.ItemCharUtilsAjax</api_name>
+        <api_name>x_648117_tmf_mock.ItemCharacteristicUtilsAjax</api_name>
         <caller_access/>
         <client_callable>true</client_callable>
-        <description/>
-        <name>ItemCharUtilsAjax</name>
-        <script><![CDATA[var ItemCharUtilsAjax = Class.create();
-ItemCharUtilsAjax.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
+        <description>Client callable utility functions for the Item Characteristic (x_648117_tmf_mock_item_characteristic) table.</description>
+        <name>ItemCharacteristicUtilsAjax</name>
+        <script><![CDATA[var ItemCharacteristicUtilsAjax = Class.create();
+ItemCharacteristicUtilsAjax.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
 
-    validateCharOption: function() {
+	/**
+	 * Validates if the inputted characteristic value is valid
+	 * 
+	 * @param sysparm_item {string} - The orderd item as sys_id
+	 * @param sysparm_char {string} - The characteristic as sys_id
+	 * @param sysparm_char_value {string} - The characteristic value to validate
+	 * @return {string} - A stringifed object for if the inputted value is valid as well as the valid options
+	 **/
+    validateCharacteristicOption: function() {
 
-        var validCharValue = false;
-        var validCharOptions = [];
-
+        var validCharacteristicValue = false;
+        var validCharacteristicOptions = [];
         var item = this.getParameter('sysparm_item');
         var characteristic = this.getParameter('sysparm_char');
         var charValue = this.getParameter('sysparm_char_value');
 
-        var grItem = new GlideRecordSecure('x_648117_tmf_mock_items');
-        if (grItem.get(item)) {
-            var specification = grItem.getValue('specification');
-            var productOffering = grItem.getValue('product_offering');
+        var itemGr = new GlideRecordSecure('x_648117_tmf_mock_items');
+        if (itemGr.get(item)) {
+            var specification = itemGr.getValue('specification');
+            var productOffering = itemGr.getValue('product_offering');
         } else {
             return null;
         }
 
-        var grCharsPerSpecOffering = new GlideRecordSecure('sn_prd_pm_product_offering_characteristic');
-        grCharsPerSpecOffering.addQuery('product_offering', productOffering);
-        grCharsPerSpecOffering.addQuery('specification', specification);
-        grCharsPerSpecOffering.addQuery('characteristic', characteristic);
-        grCharsPerSpecOffering.query();
-        while (grCharsPerSpecOffering.next()) {
-            validCharOptions.push(grCharsPerSpecOffering.getDisplayValue('characteristic_option'));
+        var productOfferingCharsGr = new GlideRecordSecure('sn_prd_pm_product_offering_characteristic');
+        productOfferingCharsGr.addQuery('product_offering', productOffering);
+        productOfferingCharsGr.addQuery('specification', specification);
+        productOfferingCharsGr.addQuery('characteristic', characteristic);
+        productOfferingCharsGr.query();
+        while (productOfferingCharsGr.next()) {
+            validCharacteristicOptions.push(productOfferingCharsGr.getDisplayValue('characteristic_option'));
         }
 
-        var uniqueValidCharOptions = new global.ArrayUtil().unique(validCharOptions);
-
-        if (uniqueValidCharOptions.indexOf(charValue) > -1) {
-            validCharValue = true;
+        var uniqueValidCharacteristicOptions = new global.ArrayUtil().unique(validCharacteristicOptions);
+        if (uniqueValidCharacteristicOptions.indexOf(charValue) > -1) {
+            validCharacteristicValue = true;
         }
 
         var results = {
-            "validCharValue": validCharValue,
-            "validCharOptions": validCharOptions
+            "validCharValue": validCharacteristicValue,
+            "validCharOptions": uniqueValidCharacteristicOptions
         };
         return JSON.stringify(results);
     },
 
-    type: 'ItemCharUtilsAjax'
+    type: 'ItemCharacteristicUtilsAjax'
 });]]></script>
         <sys_class_name>sys_script_include</sys_class_name>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2023-06-21 16:31:49</sys_created_on>
         <sys_id>f30bfbb1476f6110acf69a21336d4324</sys_id>
-        <sys_mod_count>14</sys_mod_count>
-        <sys_name>ItemCharUtilsAjax</sys_name>
+        <sys_mod_count>19</sys_mod_count>
+        <sys_name>ItemCharacteristicUtilsAjax</sys_name>
         <sys_package display_value="TMF Mock Payload Generator" source="x_648117_tmf_mock">3b03be1447232110acf69a21336d4362</sys_package>
         <sys_policy/>
         <sys_scope display_value="TMF Mock Payload Generator">3b03be1447232110acf69a21336d4362</sys_scope>
         <sys_update_name>sys_script_include_f30bfbb1476f6110acf69a21336d4324</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2023-06-28 22:04:55</sys_updated_on>
+        <sys_updated_on>2023-06-30 20:19:40</sys_updated_on>
     </sys_script_include>
 </record_update>

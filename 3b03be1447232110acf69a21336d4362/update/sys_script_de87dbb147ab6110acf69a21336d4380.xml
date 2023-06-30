@@ -32,7 +32,7 @@
         <role_conditions/>
         <script><![CDATA[(function executeRule(current, previous /*null when async*/ ) {
 
-	var si = new x_648117_tmf_mock.ItemCharUtils();
+	var itemCharUtils = new x_648117_tmf_mock.ItemCharacteristicUtils();
 	
     var item = current.getUniqueValue();
     var productOffering = current.getValue('product_offering');
@@ -40,15 +40,15 @@
     var populateData = current.getValue('populate_chars');
 
     // Get chars as an array of objects
-    var chars = si.getChars(productOffering, specification);
-	
-    // For each characteristic, generate record if not found
-    for (i = 0; i < chars.length; i++) {
+    var characteristics = itemCharUtils.getProductOfferingCharacteristics(productOffering, specification);
+		
+    // Generate record for each characteristic if not found
+    for (i = 0; i < characteristics.length; i++) {
         var grItemChars = new GlideRecord('x_648117_tmf_mock_item_characteristic');
         grItemChars.addQuery('item', item);
-        grItemChars.addQuery('characteristic', chars[i].char);
+        grItemChars.addQuery('characteristic', characteristics[i].characteristic);
         if (!grItemChars.next()) {
-            si.generateItemChar(chars[i], item, populateData);
+            itemCharUtils.generateItemCharacteristic(characteristics[i], item, populateData);
         }
     }
 
@@ -59,7 +59,7 @@
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>de87dbb147ab6110acf69a21336d4380</sys_id>
-        <sys_mod_count>30</sys_mod_count>
+        <sys_mod_count>39</sys_mod_count>
         <sys_name>Generate Characteristics</sys_name>
         <sys_overrides/>
         <sys_package display_value="TMF Mock Payload Generator" source="x_648117_tmf_mock">3b03be1447232110acf69a21336d4362</sys_package>
@@ -67,7 +67,7 @@
         <sys_scope display_value="TMF Mock Payload Generator">3b03be1447232110acf69a21336d4362</sys_scope>
         <sys_update_name>sys_script_de87dbb147ab6110acf69a21336d4380</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2023-06-29 22:08:39</sys_updated_on>
+        <sys_updated_on>2023-06-30 18:20:35</sys_updated_on>
         <template/>
         <when>after</when>
     </sys_script>

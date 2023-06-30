@@ -44,7 +44,7 @@ if (typeof window == 'undefined') {
 }
 
 function copyItemFunction() {
-    var dupPayloadGenerator = new x_648117_tmf_mock.PayloadGeneratorUtils().copy(current.getUniqueValue());
+    var dupPayloadGenerator = new x_648117_tmf_mock.PayloadGeneratorUtils().copyPayloadGeneratorHierarchy(current);
 
     // Redirect to new record
     action.setRedirectURL("x_648117_tmf_mock_payload_generator.do?sys_id=" + dupPayloadGenerator);
@@ -59,7 +59,7 @@ function copyItemFunction() {
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>8ae1f9da47a72110acf69a21336d43e7</sys_id>
-        <sys_mod_count>11</sys_mod_count>
+        <sys_mod_count>13</sys_mod_count>
         <sys_name>Copy All</sys_name>
         <sys_overrides/>
         <sys_package display_value="TMF Mock Payload Generator" source="x_648117_tmf_mock">3b03be1447232110acf69a21336d4362</sys_package>
@@ -67,7 +67,7 @@ function copyItemFunction() {
         <sys_scope display_value="TMF Mock Payload Generator">3b03be1447232110acf69a21336d4362</sys_scope>
         <sys_update_name>sys_ui_action_8ae1f9da47a72110acf69a21336d43e7</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2023-06-29 21:04:24</sys_updated_on>
+        <sys_updated_on>2023-06-30 20:27:51</sys_updated_on>
         <table>x_648117_tmf_mock_payload_generator</table>
         <ui11_compatible>true</ui11_compatible>
         <ui16_compatible>false</ui16_compatible>
