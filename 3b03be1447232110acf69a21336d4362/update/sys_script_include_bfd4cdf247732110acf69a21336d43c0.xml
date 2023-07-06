@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_include">
+    <sys_script_include action="INSERT_OR_UPDATE">
+        <access>package_private</access>
+        <active>true</active>
+        <api_name>x_648117_tmf_mock.InitializationUtils</api_name>
+        <caller_access/>
+        <client_callable>false</client_callable>
+        <description>Utility functions to be used across the Initialization services.</description>
+        <name>InitializationUtils</name>
+        <script><![CDATA[var InitializationUtils = Class.create();
+InitializationUtils.prototype = {
+    initialize: function() {
+        this.utilsSI = new x_648117_tmf_mock.Utils();
+    },
+	
+	/**
+     * Get the default value from an object
+     * 
+     * @param obj {object} - An object with a 'default' property
+     * @return {string} - The default value
+     **/
+	getParamDefaultValue(obj){
+		if (!obj.hasOwnProperty('default') || obj.default == ""){
+			return null;
+		}
+		
+		return obj.default.toString();
+	},
+
+    type: 'InitializationUtils'
+};]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-07-06 16:05:01</sys_created_on>
+        <sys_id>bfd4cdf247732110acf69a21336d43c0</sys_id>
+        <sys_mod_count>4</sys_mod_count>
+        <sys_name>InitializationUtils</sys_name>
+        <sys_package display_value="TMF Mock Payload Generator" source="x_648117_tmf_mock">3b03be1447232110acf69a21336d4362</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="TMF Mock Payload Generator">3b03be1447232110acf69a21336d4362</sys_scope>
+        <sys_update_name>sys_script_include_bfd4cdf247732110acf69a21336d43c0</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-07-06 16:11:06</sys_updated_on>
+    </sys_script_include>
+</record_update>

@@ -13,50 +13,57 @@ PayloadGeneratorUtils.prototype = {
         this.utilsSI = new x_648117_tmf_mock.Utils();
     },
 
-	/**
+    /**
      * Copies a Payload Generator and all child records
      * 
      * @param payloadGeneratorGr {GlideRecord object} - The Payload Generator to copy
      * @return {string} - Sys_id of the copied Payload Generator
      **/
     copyPayloadGeneratorHierarchy(payloadGeneratorGr) {
-		if (payloadGeneratorGr === undefined) {
+        if (typeof(payloadGeneratorGr) != "object") {
             return null;
         }
-		
-		var payloadGeneratorSysId = payloadGeneratorGr.getUniqueValue();
-		
-		// Duplicate Payload Generator. Clear payload and set owner to current user in copied record
-		var fieldMapPayloadGenerator = {payload:"", owner: gs.getUserID()};
+
+        var payloadGeneratorSysId = payloadGeneratorGr.getUniqueValue();
+
+        // Duplicate Payload Generator. Clear payload and set owner to current user in copied record
+        var fieldMapPayloadGenerator = {
+            payload: "",
+            owner: gs.getUserID()
+        };
         var duplicatePayloadGenerator = this.utilsSI.generateDuplicateRecord('x_648117_tmf_mock_payload_generator', payloadGeneratorSysId, fieldMapPayloadGenerator);
-		
-		// Duplicate Core Order Data. Set Payload Generator to the copied record
+
+        // Duplicate Core Order Data. Set Payload Generator to the copied record
         var coreOrderDataGr = this.utilsSI.getRecords('x_648117_tmf_mock_core_order_data', 'payload_generator=' + payloadGeneratorSysId);
         if (coreOrderDataGr) {
             while (coreOrderDataGr.next()) {
-				var fieldMapCoreOrderData = {payload_generator: duplicatePayloadGenerator};
+                var fieldMapCoreOrderData = {
+                    payload_generator: duplicatePayloadGenerator
+                };
                 this.utilsSI.generateDuplicateRecord('x_648117_tmf_mock_core_order_data', coreOrderDataGr.getUniqueValue(), fieldMapCoreOrderData);
             }
         }
-		
-		// Duplicate Order Item(s)
-		var productItemUtils = new x_648117_tmf_mock.ProductItemUtils();
-		var itemGr = this.utilsSI.getRecords('x_648117_tmf_mock_items', 'payload_generator=' + payloadGeneratorSysId);
+
+        // Duplicate Order Item(s)
+        var productItemUtils = new x_648117_tmf_mock.ProductItemUtils();
+        var itemGr = this.utilsSI.getRecords('x_648117_tmf_mock_items', 'payload_generator=' + payloadGeneratorSysId);
         if (itemGr) {
             while (itemGr.next()) {
-				productItemUtils.copyItemHierarchy(itemGr.getUniqueValue(), duplicatePayloadGenerator);
+                productItemUtils.copyItemHierarchy(itemGr.getUniqueValue(), duplicatePayloadGenerator);
             }
         }
-		
-		// Duplicate API Parameter(s)
+
+        // Duplicate API Parameter(s)
         var apiParamsGr = this.utilsSI.getRecords('x_648117_tmf_mock_api_parameters', 'payload_generator=' + payloadGeneratorSysId);
         if (apiParamsGr) {
             while (apiParamsGr.next()) {
-				var fieldMapApiParameters = {payload_generator: duplicatePayloadGenerator};
+                var fieldMapApiParameters = {
+                    payload_generator: duplicatePayloadGenerator
+                };
                 this.utilsSI.generateDuplicateRecord('x_648117_tmf_mock_api_parameters', apiParamsGr.getUniqueValue(), fieldMapApiParameters);
             }
         }
-		return duplicatePayloadGenerator;
+        return duplicatePayloadGenerator;
     },
 
     type: 'PayloadGeneratorUtils'
@@ -65,13 +72,13 @@ PayloadGeneratorUtils.prototype = {
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2023-06-22 19:49:28</sys_created_on>
         <sys_id>43f1751e47a72110acf69a21336d438c</sys_id>
-        <sys_mod_count>21</sys_mod_count>
+        <sys_mod_count>24</sys_mod_count>
         <sys_name>PayloadGeneratorUtils</sys_name>
         <sys_package display_value="TMF Mock Payload Generator" source="x_648117_tmf_mock">3b03be1447232110acf69a21336d4362</sys_package>
         <sys_policy/>
         <sys_scope display_value="TMF Mock Payload Generator">3b03be1447232110acf69a21336d4362</sys_scope>
         <sys_update_name>sys_script_include_43f1751e47a72110acf69a21336d438c</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2023-06-30 21:03:52</sys_updated_on>
+        <sys_updated_on>2023-07-05 23:43:35</sys_updated_on>
     </sys_script_include>
 </record_update>

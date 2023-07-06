@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_script_client">
+    <sys_script_client action="DELETE">
+        <active>false</active>
+        <applies_extended>false</applies_extended>
+        <condition/>
+        <description>Generates an external url to view a reference for the specified API. Ultimately populates the API Reference Link field.</description>
+        <field>method_and_endpoint</field>
+        <global>true</global>
+        <isolate_script>true</isolate_script>
+        <messages/>
+        <name>Populate API Reference Link</name>
+        <order/>
+        <script><![CDATA[function onChange(control, oldValue, newValue, isLoading, isTemplate) {
+    if (isLoading || newValue === '') {
+        return;
+    }
+
+    // TODO
+    // Generalize to be able to dynamically generate URL based on data provided in the TMF API & Method and Endpoint. Currently hardcoded.
+
+    if (g_form.getValue('method_and_endpoint') != "") {
+		alert('Inside');
+        var baseUrl = g_scratchpad.base_api_reference_url;
+		alert(baseUrl);
+        var methodAndEndpoint = g_form.getValue('method_and_endpoint');
+        var resultingUrl = baseUrl + '/tmf622_product_ordering-api#tmf_prod_order-POST-ord-productOrder';
+        g_form.setValue('api_reference', resultingUrl);
+    }
+}]]></script>
+        <sys_class_name>sys_script_client</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-06-16 20:18:55</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>f1cdf21847632110acf69a21336d43a0</sys_id>
+        <sys_mod_count>12</sys_mod_count>
+        <sys_name>Populate API Reference Link</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="TMF Mock Payload Generator" source="x_648117_tmf_mock">3b03be1447232110acf69a21336d4362</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="TMF Mock Payload Generator">3b03be1447232110acf69a21336d4362</sys_scope>
+        <sys_update_name>sys_script_client_f1cdf21847632110acf69a21336d43a0</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-07-06 15:44:20</sys_updated_on>
+        <table>x_648117_tmf_mock_payload_generator</table>
+        <type>onChange</type>
+        <ui_type>10</ui_type>
+        <view/>
+    </sys_script_client>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="TMF Mock Payload Generator">3b03be1447232110acf69a21336d4362</application>
+        <file_path/>
+        <instance_id>8e22f7acdbc3ec10ad8dd7c8f4961939</instance_id>
+        <instance_name>dev107202</instance_name>
+        <name>sys_script_client_f1cdf21847632110acf69a21336d43a0</name>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update sys_domain="global" table="sys_script_client"&gt;&lt;sys_script_client action="INSERT_OR_UPDATE"&gt;&lt;active&gt;false&lt;/active&gt;&lt;applies_extended&gt;false&lt;/applies_extended&gt;&lt;condition/&gt;&lt;description&gt;Generates an external url to view a reference for the specified API. Ultimately populates the API Reference Link field.&lt;/description&gt;&lt;field&gt;method_and_endpoint&lt;/field&gt;&lt;global&gt;true&lt;/global&gt;&lt;isolate_script&gt;true&lt;/isolate_script&gt;&lt;messages/&gt;&lt;name&gt;Populate API Reference Link&lt;/name&gt;&lt;order/&gt;&lt;script&gt;&lt;![CDATA[function onChange(control, oldValue, newValue, isLoading, isTemplate) {
+    if (isLoading || newValue === '') {
+        return;
+    }
+
+    // TODO
+    // Generalize to be able to dynamically generate URL based on data provided in the TMF API &amp; Method and Endpoint. Currently hardcoded.
+
+    if (g_form.getValue('method_and_endpoint') != "") {
+		alert('Inside');
+        var baseUrl = g_scratchpad.base_api_reference_url;
+		alert(baseUrl);
+        var methodAndEndpoint = g_form.getValue('method_and_endpoint');
+        var resultingUrl = baseUrl + '/tmf622_product_ordering-api#tmf_prod_order-POST-ord-productOrder';
+        g_form.setValue('api_reference', resultingUrl);
+    }
+}]]&gt;&lt;/script&gt;&lt;sys_class_name&gt;sys_script_client&lt;/sys_class_name&gt;&lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2023-06-16 20:18:55&lt;/sys_created_on&gt;&lt;sys_domain&gt;global&lt;/sys_domain&gt;&lt;sys_domain_path&gt;/&lt;/sys_domain_path&gt;&lt;sys_id&gt;f1cdf21847632110acf69a21336d43a0&lt;/sys_id&gt;&lt;sys_mod_count&gt;12&lt;/sys_mod_count&gt;&lt;sys_name&gt;Populate API Reference Link&lt;/sys_name&gt;&lt;sys_overrides/&gt;&lt;sys_package display_value="TMF Mock Payload Generator" source="x_648117_tmf_mock"&gt;3b03be1447232110acf69a21336d4362&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="TMF Mock Payload Generator"&gt;3b03be1447232110acf69a21336d4362&lt;/sys_scope&gt;&lt;sys_update_name&gt;sys_script_client_f1cdf21847632110acf69a21336d43a0&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2023-07-06 15:44:20&lt;/sys_updated_on&gt;&lt;table&gt;x_648117_tmf_mock_payload_generator&lt;/table&gt;&lt;type&gt;onChange&lt;/type&gt;&lt;ui_type&gt;10&lt;/ui_type&gt;&lt;view/&gt;&lt;/sys_script_client&gt;&lt;/record_update&gt;</payload>
+        <payload_hash>1074399140</payload_hash>
+        <record_name>Populate API Reference Link</record_name>
+        <reverted_from/>
+        <source>3c84f65847232110acf69a21336d4344</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-07-06 15:44:20</sys_created_on>
+        <sys_id>7820417e47332110acf69a21336d4384</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>1892be032d60000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-07-06 15:44:20</sys_updated_on>
+        <type>Client Script</type>
+        <update_guid>3020417eb0332110db5d22e8ba5fd884</update_guid>
+        <update_guid_history>3020417eb0332110db5d22e8ba5fd884:1074399140,c39f743e45332110cf476701ab58056b:546431441,4777059439f32510728224288500a9d6:-1499580823,8c1eb2ffc36f6110463f5c9d0cec74a3:527119479,ea8c767fae6f6110f161d7c479f2ab03:1763125791,83414f1c3e63211060cf8cfd98cde254:1907150361,76f0cb1c966321102acc7a1dac0e9d43:1221253035,8be0cfd890632110494e399796f15703:-574627108,af104bd89e63211004c148af5c5c7b56:-1906479147,25df7258c6632110e6f17f9812e0f5a2:-1702382488,51bf7258f56321101f72aabc88f2ae9e:-1631180232,ea4f7ad43c632110e9ed89e847b9f417:1859304924,803f3a189d632110c80e626a019b3c4b:-1226735944</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete/>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-07-06 15:49:07</sys_created_on>
+        <sys_db_object display_value="" name="sys_script_client">sys_script_client</sys_db_object>
+        <sys_id>3247cc40f739401891d459b37b3b59d9</sys_id>
+        <sys_metadata>f1cdf21847632110acf69a21336d43a0</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Populate API Reference Link</sys_name>
+        <sys_package display_value="TMF Mock Payload Generator" source="x_648117_tmf_mock">3b03be1447232110acf69a21336d4362</sys_package>
+        <sys_parent display_value="Payload Generator">6ed3ba1847232110acf69a21336d4371</sys_parent>
+        <sys_policy/>
+        <sys_scope display_value="TMF Mock Payload Generator">3b03be1447232110acf69a21336d4362</sys_scope>
+        <sys_scope_delete display_value="">0c35d3e32cda4d5c8f4377e805ad9a10</sys_scope_delete>
+        <sys_update_name>sys_script_client_f1cdf21847632110acf69a21336d43a0</sys_update_name>
+        <sys_update_version display_value="sys_script_client_f1cdf21847632110acf69a21336d43a0">7820417e47332110acf69a21336d4384</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-07-06 15:49:07</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

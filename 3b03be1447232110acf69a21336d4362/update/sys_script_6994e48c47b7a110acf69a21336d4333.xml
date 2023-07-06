@@ -44,6 +44,10 @@
 			current.setValue('query_param_value', maxApiCalls.toString());
 			gs.addErrorMessage(gs.getMessage('Param value be lower than max limit: ' + maxApiCalls) + ', the param has been set to the max limit.');
 		}
+		if(paramValue <= 0){
+			current.setValue('query_param_value', '1');
+			gs.addErrorMessage(gs.getMessage('Param value be a positive integer greater then 0.'));
+		}
 	}
 })(current, previous);]]></script>
         <sys_class_name>sys_script</sys_class_name>
@@ -52,7 +56,7 @@
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>6994e48c47b7a110acf69a21336d4333</sys_id>
-        <sys_mod_count>7</sys_mod_count>
+        <sys_mod_count>8</sys_mod_count>
         <sys_name>Validate API Trigger Qty Characteristic</sys_name>
         <sys_overrides/>
         <sys_package display_value="TMF Mock Payload Generator" source="x_648117_tmf_mock">3b03be1447232110acf69a21336d4362</sys_package>
@@ -60,7 +64,7 @@
         <sys_scope display_value="TMF Mock Payload Generator">3b03be1447232110acf69a21336d4362</sys_scope>
         <sys_update_name>sys_script_6994e48c47b7a110acf69a21336d4333</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2023-06-29 16:50:37</sys_updated_on>
+        <sys_updated_on>2023-07-06 16:35:17</sys_updated_on>
         <template/>
         <when>before</when>
     </sys_script>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_properties">
+    <sys_properties action="INSERT_OR_UPDATE">
+        <choices>debug,info,warn,error</choices>
+        <description>Different verbosity levels for application logging.&#13;
+debug - Logs informational events that are useful for debugging an application. Setting the log level for an application to debug generates info, warn, error, and debug messages.&#13;
+info - Logs informational messages that describe the progress of the application. Setting the log level for an application to info generates info, warn, and error messages, but does not generate debug messages. &#13;
+warn - Logs potentially harmful events. Setting the log level for an application to warn generates error and warn messages, but does not generate error or debug messages.&#13;
+error - Logs events that might still allow the application to continue running. Setting the log level for an application to error generates error messages only, but does not generate warn, info, or debug messages. </description>
+        <ignore_cache>true</ignore_cache>
+        <is_private>true</is_private>
+        <name>x_648117_tmf_mock.logging.verbosity</name>
+        <read_roles>x_648117_tmf_mock.admin</read_roles>
+        <suffix>logging.verbosity</suffix>
+        <sys_class_name>sys_properties</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-07-05 20:08:36</sys_created_on>
+        <sys_id>ca03786e47372110acf69a21336d43df</sys_id>
+        <sys_mod_count>3</sys_mod_count>
+        <sys_name>x_648117_tmf_mock.logging.verbosity</sys_name>
+        <sys_package display_value="TMF Mock Payload Generator" source="x_648117_tmf_mock">3b03be1447232110acf69a21336d4362</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="TMF Mock Payload Generator">3b03be1447232110acf69a21336d4362</sys_scope>
+        <sys_update_name>sys_properties_ca03786e47372110acf69a21336d43df</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-07-05 20:37:44</sys_updated_on>
+        <type>choicelist</type>
+        <value>debug</value>
+        <write_roles>x_648117_tmf_mock.admin</write_roles>
+    </sys_properties>
+    <sys_translated_text action="delete_multiple" query="documentkey=ca03786e47372110acf69a21336d43df"/>
+</record_update>

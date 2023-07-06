@@ -5,7 +5,7 @@
         <api_name>x_648117_tmf_mock.TMFPayloadUtils</api_name>
         <caller_access/>
         <client_callable>false</client_callable>
-        <description>General functions to be used across TMF Payload Generation services.</description>
+        <description>Utility functions to be used across the TMF Payload Generation services.</description>
         <name>TMFPayloadUtils</name>
         <script><![CDATA[var TMFPayloadUtils = Class.create();
 TMFPayloadUtils.prototype = {
@@ -13,35 +13,40 @@ TMFPayloadUtils.prototype = {
         this.utilsSI = new x_648117_tmf_mock.Utils();
     },
 
-    channelArray(channelSysID) {
-        if (!channelSysID) {
-            return null;
-        }
-        var recordGR = this.utilsSI.getRecordFromSysID('sn_prd_pm_distribution_channel', channelSysID);
-        if (!recordGR) {
+    /**
+     * Generates the TMF compliant channel array
+     * 
+     * @param channelSysId {string} - The channel record to use in generating the array as a sys_id
+     * @return {array} - The TMF compliant channel array
+     **/
+    generateChannelArray(channelSysId) {
+        var recordGr = this.utilsSI.getRecordFromSysId('sn_prd_pm_distribution_channel', channelSysId);
+        if (!recordGr) {
             return null;
         }
 
-        var array = [];
-        var obj = {
-            "id": this.getRecordIdentifier('sn_prd_pm_distribution_channel', channelSysID),
-            "name": recordGR.getValue('name')
-        };
-        array.push(obj);
-        return array;
+        return [{
+            "id": this.getRecordIdentifier('sn_prd_pm_distribution_channel', channelSysId),
+            "name": recordGr.getValue('name')
+        }];
     },
 
-    relatedPartyArray(contactSysID, accountSysID) {
-        if (!contactSysID || !accountSysID) {
-            return null;
-        }
+    /**
+     * Generates the TMF compliant related party array
+     * 
+     * @param contactSysId {string} - The contact record to use in generating the array as a sys_id
+     * @param accountSysId {string} - The account record to use in generating the array as a sys_id
+     * @return {array} - The TMF compliant related party array
+     **/
+    generateRelatedPartyArray(contactSysId, accountSysId) {
         var array = [];
-        if (typeof this.customerContactObj(contactSysID) == "object") {
-            array.push(this.customerContactObj(contactSysID));
+        if (this._generateCustomerContactObj(contactSysId) != null) {
+            array.push(this._generateCustomerContactObj(contactSysId));
         }
-        if (typeof this.customerObj(accountSysID) == "object") {
-            array.push(this.customerObj(accountSysID));
+        if (this._generateCustomerObj(accountSysId) != null) {
+            array.push(this._generateCustomerObj(accountSysId));
         }
+
         if (array.length == 0) {
             return null;
         } else {
@@ -49,267 +54,323 @@ TMFPayloadUtils.prototype = {
         }
     },
 
-    customerContactObj(contactSysID) {
-        if (!contactSysID) {
-            return null;
-        }
-        var recordGR = this.utilsSI.getRecordFromSysID('customer_contact', contactSysID);
-        if (!recordGR) {
+    /**
+     * Generates the TMF compliant customer contact object
+     * 
+     * @param contactSysId {string} - The contact record to use in generating the object as a sys_id
+     * @return {object} - The TMF compliant customer contact object
+     **/
+    _generateCustomerContactObj(contactSysId) {
+        var recordGr = this.utilsSI.getRecordFromSysId('customer_contact', contactSysId);
+        if (!recordGr) {
             return null;
         }
 
         var obj = {};
-        obj.id = this.getRecordIdentifier('customer_contact', contactSysID);
-        obj.name = recordGR.getValue('name');
+        obj.id = this.getRecordIdentifier('customer_contact', contactSysId);
+        obj.name = recordGr.getValue('name');
         obj['@type'] = 'RelatedParty';
         obj['@referredType'] = 'CustomerContact';
         return obj;
     },
 
-    customerObj(accountSysID) {
-        if (!accountSysID) {
-            return null;
-        }
-        var recordGR = this.utilsSI.getRecordFromSysID('customer_account', accountSysID);
-        if (!recordGR) {
+    /**
+     * Generates the TMF compliant customer object
+     * 
+     * @param accountSysId {string} - The account record to use in generating the object as a sys_id
+     * @return {object} - The TMF compliant customer object
+     **/
+    _generateCustomerObj(accountSysId) {
+        var recordGr = this.utilsSI.getRecordFromSysId('customer_account', accountSysId);
+        if (!recordGr) {
             return null;
         }
 
         var obj = {};
-        obj.id = this.getRecordIdentifier('customer_account', accountSysID);
-        obj.name = recordGR.getValue('name');
+        obj.id = this.getRecordIdentifier('customer_account', accountSysId);
+        obj.name = recordGr.getValue('name');
         obj['@type'] = 'RelatedParty';
         obj['@referredType'] = 'Customer';
         return obj;
     },
 
-    checkForProductChars(orderableItemsGR) {
-        var productCharsGR = this.utilsSI.getRecords('x_648117_tmf_mock_item_characteristic', 'item=' + orderableItemsGR.getUniqueValue());
-        if (productCharsGR) {
+    /**
+     * Determines if an item has characteristics
+     * 
+     * @param orderableItemGr {GlideRecord object} - The item to check
+     * @return {boolean} - True/False denoting if the item has characteristics
+     **/
+    checkForProductCharacteristics(orderableItemGr) {
+        var productCharacteristicsGr = this.utilsSI.getRecords('x_648117_tmf_mock_item_characteristic', 'item=' + orderableItemGr.getUniqueValue());
+        if (productCharacteristicsGr) {
             return true;
         }
         return false;
     },
 
-    productCharsArray(orderableItemsGR) {
+    /**
+     * Generates the TMF compliant product characteristic array
+     * 
+     * @param orderableItemGr {GlideRecord object} - The item to use in generating the array
+     * @return {array} - The TMF compliant product characteristic array
+     **/
+    generateProductCharacteristicArray(orderableItemGr) {
         var array = [];
-        var productCharsGR = this.utilsSI.getRecords('x_648117_tmf_mock_item_characteristic', 'item=' + orderableItemsGR.getUniqueValue());
-        if (productCharsGR) {
-            while (productCharsGR.next()) {
-				
-				var charDefinitionGR = this.utilsSI.getRecordFromSysID('sn_prd_pm_characteristic', productCharsGR.getValue('characteristic'));
-				
-                obj = {
-                    "name": charDefinitionGR.getValue('name'),
-                    "value": productCharsGR.getValue('characteristic_value')
-                };
-                array.push(obj);
+        var productCharacteristicsGr = this.utilsSI.getRecords('x_648117_tmf_mock_item_characteristic', 'item=' + orderableItemGr.getUniqueValue());
+        if (productCharacteristicsGr) {
+            while (productCharacteristicsGr.next()) {
+                var characteristicDefinitionGr = this.utilsSI.getRecordFromSysId('sn_prd_pm_characteristic', productCharacteristicsGr.getValue('characteristic'));
+                array.push({
+                    "name": characteristicDefinitionGr.getValue('name'),
+                    "value": productCharacteristicsGr.getValue('characteristic_value')
+                });
             }
         }
         return array;
     },
 
-    productSpecObj(productSpecSysID) {
-        if (!productSpecSysID) {
-            return null;
-        }
-        var recordGR = this.utilsSI.getRecordFromSysID('sn_prd_pm_product_specification', productSpecSysID);
-        if (!recordGR) {
+    /**
+     * Generates the TMF compliant product specification object
+     * 
+     * @param productSpecificationSysId {string} - The specification to use in generating the object as sys_id
+     * @return {object} - The TMF compliant product specification object
+     **/
+    generateProductSpecificationObj(productSpecificationSysId) {
+        var recordGr = this.utilsSI.getRecordFromSysId('sn_prd_pm_product_specification', productSpecificationSysId);
+        if (!recordGr) {
             return null;
         }
 
         var obj = {};
 
-        if (recordGR.getValue('external_id') != null) {
-            obj.id = recordGR.getValue('external_id');
+        if (recordGr.getValue('external_id') != null) {
+            obj.id = recordGr.getValue('external_id');
         } else {
-            obj.id = recordGR.getValue('initial_version');
+            obj.id = recordGr.getValue('initial_version');
         }
-        obj.internalVersion = recordGR.getValue('version');
-        obj.name = recordGR.getValue('name');
-        if (recordGR.getValue('external_version') != null) {
-            obj.version = recordGR.getValue('external_version');
+        obj.internalVersion = recordGr.getValue('version');
+        obj.name = recordGr.getValue('name');
+        if (recordGr.getValue('external_version') != null) {
+            obj.version = recordGr.getValue('external_version');
         }
         obj['@type'] = 'ProductSpecificationRef';
         return obj;
     },
 
-    placeObj(locationSysID) {
-        if (!locationSysID) {
-            return null;
-        }
-        var recordGR = this.utilsSI.getRecordFromSysID('cmn_location', locationSysID);
-        if (!recordGR) {
-            return null;
-        }
-
+    /**
+     * Generates the TMF compliant location object
+     * 
+     * @param locationSysId {string} - The location to use in generating the object as sys_id
+     * @return {object} - The TMF compliant location object
+     **/
+    generatePlaceObj(locationSysId) {
         var obj = {};
-        obj.id = this.getRecordIdentifier('cmn_location', locationSysID);
+        obj.id = this.getRecordIdentifier('cmn_location', locationSysId);
         obj['@type'] = 'Place';
         return obj;
     },
 
-    checkForProductRelationship(orderableItemsGR) {
-        var productRelationshipsGR = this.utilsSI.getRecords('x_648117_tmf_mock_item_relationship', 'source_item=' + orderableItemsGR.getUniqueValue() + '^relationship_class=productRelationship');
-        if (productRelationshipsGR) {
+    /**
+     * Determines if an item has product item relationships
+     * 
+     * @param orderableItemGr {GlideRecord object} - The item to check
+     * @return {boolean} - True/False denoting if the item has product item relationships
+     **/
+    checkForProductOrderItemRelationship(orderableItemGr) {
+        var productOrderItemRelationshipsGr = this.utilsSI.getRecords('x_648117_tmf_mock_item_relationship', 'source_item=' + orderableItemGr.getUniqueValue() + '^relationship_class=productOrderItemRelationship');
+        if (productOrderItemRelationshipsGr) {
             return true;
         }
         return false;
     },
 
-    productRelationshipArray(orderableItemsGR) {
+    /**
+     * Generates the TMF compliant product item relationship array
+     * 
+     * @param orderableItemGr {GlideRecord object} - The item to use in generating the array
+     * @return {array} - The TMF compliant product item relationship array
+     **/
+    generateProductOrderItemRelationshipArray(orderableItemGr) {
         var array = [];
-        var productRelationshipsGR = this.utilsSI.getRecords('x_648117_tmf_mock_item_relationship', 'source_item=' + orderableItemsGR.getUniqueValue() + '^relationship_class=productRelationship');
-        if (productRelationshipsGR) {
-            while (productRelationshipsGR.next()) {
-                obj = {
-                    "id": this.getRecordIdentifier('sn_prd_invt_product_inventory', productRelationshipsGR.getValue('product_inventory')),
-                    "relationshipType": productRelationshipsGR.getValue('relationship_type')
-                };
-                array.push(obj);
+        var productOrderItemRelationshipsGr = this.utilsSI.getRecords('x_648117_tmf_mock_item_relationship', 'source_item=' + orderableItemGr.getUniqueValue() + '^relationship_class=productOrderItemRelationship');
+        if (productOrderItemRelationshipsGr) {
+            while (productOrderItemRelationshipsGr.next()) {
+                array.push({
+                    "id": productOrderItemRelationshipsGr.getValue('target_item'),
+                    "relationshipType": productOrderItemRelationshipsGr.getValue('relationship_type')
+                });
             }
         }
         return array;
     },
-	
-	checkForProductOrderItemRelationship(orderableItemsGR) {
-        var productOrderItemRelationshipGR = this.utilsSI.getRecords('x_648117_tmf_mock_item_relationship', 'source_item=' + orderableItemsGR.getUniqueValue() + '^relationship_class=productOrderItemRelationship');
-        if (productOrderItemRelationshipGR) {
+
+    /**
+     * Determines if an item has product relationships
+     * 
+     * @param orderableItemGr {GlideRecord object} - The item to check
+     * @return {boolean} - True/False denoting if the item has product relationships
+     **/
+    checkForProductRelationship(orderableItemGr) {
+        var productRelationshipsGr = this.utilsSI.getRecords('x_648117_tmf_mock_item_relationship', 'source_item=' + orderableItemGr.getUniqueValue() + '^relationship_class=productRelationship');
+        if (productRelationshipsGr) {
             return true;
         }
         return false;
     },
-	
-	productOrderItemRelationshipArray(orderableItemsGR) {
+
+    /**
+     * Generates the TMF compliant product relationship array
+     * 
+     * @param orderableItemGr {GlideRecord object} - The item to use in generating the array
+     * @return {array} - The TMF compliant product relationship array
+     **/
+    generateProductRelationshipArray(orderableItemGr) {
         var array = [];
-        var productOrderItemRelationshipGR = this.utilsSI.getRecords('x_648117_tmf_mock_item_relationship', 'source_item=' + orderableItemsGR.getUniqueValue() + '^relationship_class=productOrderItemRelationship');
-        if (productOrderItemRelationshipGR) {
-            while (productOrderItemRelationshipGR.next()) {
-                obj = {
-                    "id": productOrderItemRelationshipGR.getValue('target_item'),
-                    "relationshipType": productOrderItemRelationshipGR.getValue('relationship_type')
-                };
-                array.push(obj);
+        var productRelationshipsGr = this.utilsSI.getRecords('x_648117_tmf_mock_item_relationship', 'source_item=' + orderableItemGr.getUniqueValue() + '^relationship_class=productRelationship');
+        if (productRelationshipsGr) {
+            while (productRelationshipsGr.next()) {
+                array.push({
+                    "id": this.getRecordIdentifier('sn_prd_invt_product_inventory', productRelationshipsGr.getValue('product_inventory')),
+                    "relationshipType": productRelationshipsGr.getValue('relationship_type')
+                });
             }
         }
         return array;
     },
-	
-	checkForProductRelatedParty(orderableItemsGR) {
-        var relatedPartyGR = this.utilsSI.getRecords('x_648117_tmf_mock_related_party', 'item=' + orderableItemsGR.getUniqueValue());
-        if (relatedPartyGR) {
+
+    /**
+     * Determines if an item has related parties
+     * 
+     * @param orderableItemGr {GlideRecord object} - The item to check
+     * @return {boolean} - True/False denoting if the item has related parties
+     **/
+    checkForProductRelatedParty(orderableItemGr) {
+        var relatedPartyGr = this.utilsSI.getRecords('x_648117_tmf_mock_related_party', 'item=' + orderableItemGr.getUniqueValue());
+        if (relatedPartyGr) {
             return true;
         }
         return false;
     },
-	
-	productRelatedPartyArray(orderableItemsGR) {
+
+    /**
+     * Generates the TMF compliant product related party array
+     * 
+     * @param orderableItemGr {GlideRecord object} - The item to use in generating the array
+     * @return {array} - The TMF compliant product related party array
+     **/
+    generateProductRelatedPartyArray(orderableItemGr) {
         var array = [];
-        var relatedPartyGR = this.utilsSI.getRecords('x_648117_tmf_mock_related_party', 'item=' + orderableItemsGR.getUniqueValue());
-        if (relatedPartyGR) {
-            while (relatedPartyGR.next()) {
-                obj = {
-                    "email": relatedPartyGR.getValue('email'),
-                    "firstName": relatedPartyGR.getValue('first_name'),
-					"lastName": relatedPartyGR.getValue('last_name'),
-                    "phone": relatedPartyGR.getValue('phone'),
-					"@referredType": "OrderLineItemContact",
+        var relatedPartyGr = this.utilsSI.getRecords('x_648117_tmf_mock_related_party', 'item=' + orderableItemGr.getUniqueValue());
+        if (relatedPartyGr) {
+            while (relatedPartyGr.next()) {
+                array.push({
+                    "email": relatedPartyGr.getValue('email'),
+                    "firstName": relatedPartyGr.getValue('first_name'),
+                    "lastName": relatedPartyGr.getValue('last_name'),
+                    "phone": relatedPartyGr.getValue('phone'),
+                    "@referredType": "OrderLineItemContact",
                     "@type": "RelatedParty"
-                };
-                array.push(obj);
+                });
             }
         }
         return array;
     },
-	
-	checkForPrice(orderableItemsGR) {
 
-		var mrc = orderableItemsGR.getValue('mrc');
-		var nrc = orderableItemsGR.getValue('nrc');
-		
-		if (mrc == 0 && nrc == 0){
-			return false;
-		}
-		
+    /**
+     * Determines if an item has price attributes
+     * 
+     * @param orderableItemGr {GlideRecord object} - The item to check
+     * @return {boolean} - True/False denoting if the item has price attributes
+     **/
+    checkForPrice(orderableItemGr) {
+        var mrc = orderableItemGr.getValue('mrc');
+        var nrc = orderableItemGr.getValue('nrc');
+
+        if (mrc == 0 && nrc == 0) {
+            return false;
+        }
         return true;
     },
-	
-	createItemPriceObj(orderableItemsGR, currencyFieldName){
-		if (!orderableItemsGR || !currencyFieldName) {
-            return null;
-        }
-		
-		if (!orderableItemsGR.isValidField(currencyFieldName)){
-			return null;
-		}
-		
-		var obj = {};
-		
-		obj.price = {
-			taxIncludedAmount: {
-				unit: orderableItemsGR[currencyFieldName].getCurrencyCode(),
-				value: orderableItemsGR.getValue(currencyFieldName)
-			}
-		};
-		
-		if (currencyFieldName == 'mrc'){
-			obj.priceType = 'recurring';
-			obj.recurringChargePeriod = orderableItemsGR.getValue('recurring_charge_period');
-		} else if (currencyFieldName == 'nrc') {
-			obj.priceType = 'non-recurring';
-		}
-		
-		return obj;
-		
-	},
 
-    productOfferingObj(productOfferingSysID) {
-        if (!productOfferingSysID) {
-            return null;
-        }
-        var recordGR = this.utilsSI.getRecordFromSysID('sn_prd_pm_product_offering', productOfferingSysID);
-        if (!recordGR) {
+    /**
+     * Generates the TMF compliant product price object
+     * 
+     * @param orderableItemGr {GlideRecord object} - The item to use in generating the object
+     * @return {object} - The TMF compliant product price object
+     **/
+    generateItemPriceObj(orderableItemGr, currencyFieldName) {
+        if (!orderableItemGr.isValidField(currencyFieldName)) {
             return null;
         }
 
         var obj = {};
-		
-		if (recordGR.getValue('external_id') != null) {
-            obj.id = recordGR.getValue('external_id');
-        } else {
-            obj.id = recordGR.getValue('initial_version');
-        }
-        obj.internalVersion = recordGR.getValue('version');
-        obj.name = recordGR.getValue('name');
-        if (recordGR.getValue('external_version') != null) {
-            obj.version = recordGR.getValue('external_version');
+        obj.price = {
+            taxIncludedAmount: {
+                unit: orderableItemGr[currencyFieldName].getCurrencyCode(),
+                value: orderableItemGr.getValue(currencyFieldName)
+            }
+        };
+
+        if (currencyFieldName == 'mrc') {
+            obj.priceType = 'recurring';
+            obj.recurringChargePeriod = orderableItemGr.getValue('recurring_charge_period');
+        } else if (currencyFieldName == 'nrc') {
+            obj.priceType = 'non-recurring';
         }
         return obj;
     },
 
-    // Returns external_id if found instead of sys_id
-    // Multiple field names for external ID used:
-    // sn_tmt_core_external_id, external_id, sn_prd_invt_external_id
-    getRecordIdentifier(table, sys_id) {
-        var recordGR = this.utilsSI.getRecordFromSysID(table, sys_id);
-        if (recordGR) {
-            if (recordGR.isValidField('sn_tmt_core_external_id')) {
-                if (!recordGR.sn_tmt_core_external_id.nil()) {
-                    return recordGR.getValue('sn_tmt_core_external_id');
-                }
-            } else if (recordGR.isValidField('external_id')) {
-                if (!recordGR.external_id.nil()) {
-                    return recordGR.getValue('external_id');
-                }
-            } else if (recordGR.isValidField('sn_prd_invt_external_id')) {
-                if (!recordGR.sn_prd_invt_external_id.nil()) {
-                    return recordGR.getValue('sn_prd_invt_external_id');
-                }
-            }
-            return recordGR.getUniqueValue();
-        } else {
+    /**
+     * Generates the TMF compliant product offering object
+     * 
+     * @param productOfferingSysId {String} - The item to use in generating the object as sys_id
+     * @return {object} - The TMF compliant product offering object
+     **/
+    generateProductOfferingObj(productOfferingSysId) {
+        var recordGr = this.utilsSI.getRecordFromSysId('sn_prd_pm_product_offering', productOfferingSysId);
+        if (!recordGr) {
             return null;
         }
+
+        var obj = {};
+        if (recordGr.getValue('external_id') != null) {
+            obj.id = recordGr.getValue('external_id');
+        } else {
+            obj.id = recordGr.getValue('initial_version');
+        }
+        obj.internalVersion = recordGr.getValue('version');
+        obj.name = recordGr.getValue('name');
+        if (recordGr.getValue('external_version') != null) {
+            obj.version = recordGr.getValue('external_version');
+        }
+        return obj;
+    },
+
+    /**
+     * Gets the record identifier from a record. The identifier is an external id or sys_id
+     * 
+     * @param tableName {string} - Name of the table to query
+     * @param sysId {string} - Record to use in the query as sys_id
+     * @return {string} - The record identifier
+     **/
+    getRecordIdentifier(tableName, sysId) {
+		// Array of valid external id field names across all telecom tables
+        var externalIdFieldNames = Constants.EXTERNAL_ID_FIELD_NAMES;
+
+        var recordGr = this.utilsSI.getRecordFromSysId(tableName, sysId);
+        if (recordGr) {
+			
+			// Return external ID if the passed in table has an external ID field
+            for (var i = 0; i < externalIdFieldNames.length; i++) {
+                if (recordGr.isValidField(externalIdFieldNames[i])) {
+                    if (!recordGr[externalIdFieldNames[i]].nil()) {
+                        return recordGr.getValue(externalIdFieldNames[i]);
+                    }
+                }
+            }
+            return recordGr.getUniqueValue(); // Return unique value if no external ID present
+        }
+        return null;
     },
 
     type: 'TMFPayloadUtils'
@@ -318,13 +379,13 @@ TMFPayloadUtils.prototype = {
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2023-06-23 13:33:19</sys_created_on>
         <sys_id>dd6569a247232110acf69a21336d4300</sys_id>
-        <sys_mod_count>35</sys_mod_count>
+        <sys_mod_count>65</sys_mod_count>
         <sys_name>TMFPayloadUtils</sys_name>
         <sys_package display_value="TMF Mock Payload Generator" source="x_648117_tmf_mock">3b03be1447232110acf69a21336d4362</sys_package>
         <sys_policy/>
         <sys_scope display_value="TMF Mock Payload Generator">3b03be1447232110acf69a21336d4362</sys_scope>
         <sys_update_name>sys_script_include_dd6569a247232110acf69a21336d4300</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2023-06-30 16:43:00</sys_updated_on>
+        <sys_updated_on>2023-07-05 23:48:59</sys_updated_on>
     </sys_script_include>
 </record_update>
