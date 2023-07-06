@@ -13,27 +13,27 @@ CoreOrderDataUtils.prototype = {
         this.utilsSI = new x_648117_tmf_mock.Utils();
     },
 
-	/**
+    /**
      * Checks if an attribute utilizes a reference to a record in the system vs. a free form string
      * 
      * @param attribute {string} - The attribute as defined by its choice value
      * @return {boolean} - True or False based on the check. True denotes the attributes uses a reference
      **/
-    checkAttributeForReference(attribute){
-		if (attribute === undefined){
-			return false;
-		}
-		
-		var check = false;
-		var map = Constants.CORE_DATA_ATTRIBUTE_MAP;
-		var attributeObj = map.find(obj => obj.field == attribute);
-		if(attributeObj.hasOwnProperty('reference')){
-			if(attributeObj.reference == true){
-				check = true;
-			}
-		}
-		return check;
-	},
+    checkAttributeForReference(attribute) {
+        if (typeof(attribute) != "string") {
+            return false;
+        }
+
+        var check = false;
+        var map = Constants.CORE_DATA_ATTRIBUTE_MAP;
+        var attributeObj = map.find(obj => obj.field == attribute);
+        if (attributeObj.hasOwnProperty('reference')) {
+            if (attributeObj.reference == true) {
+                check = true;
+            }
+        }
+        return check;
+    },
 
     type: 'CoreOrderDataUtils'
 };]]></script>
@@ -41,13 +41,13 @@ CoreOrderDataUtils.prototype = {
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2023-06-29 16:25:28</sys_created_on>
         <sys_id>8766c12847332110acf69a21336d43db</sys_id>
-        <sys_mod_count>5</sys_mod_count>
+        <sys_mod_count>8</sys_mod_count>
         <sys_name>CoreOrderDataUtils</sys_name>
         <sys_package display_value="TMF Mock Payload Generator" source="x_648117_tmf_mock">3b03be1447232110acf69a21336d4362</sys_package>
         <sys_policy/>
         <sys_scope display_value="TMF Mock Payload Generator">3b03be1447232110acf69a21336d4362</sys_scope>
         <sys_update_name>sys_script_include_8766c12847332110acf69a21336d43db</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2023-06-30 18:36:11</sys_updated_on>
+        <sys_updated_on>2023-07-05 23:37:51</sys_updated_on>
     </sys_script_include>
 </record_update>

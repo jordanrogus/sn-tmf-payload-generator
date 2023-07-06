@@ -21,8 +21,8 @@ ItemCharacteristicUtils.prototype = {
      * @return {array} - Characteristics as an array of objects in the format: [{characteristic: "charName", mandatory: false, options: ["val1","val2"]}]
      **/
     getProductOfferingCharacteristics(productOffering, specification) {
-		if (productOffering === undefined || specification === undefined) {
-            return [];
+        if (typeof(productOffering) != "string" || typeof(specification) != "string") {
+            return null;
         }
 
         var characteristics = [];
@@ -57,10 +57,6 @@ ItemCharacteristicUtils.prototype = {
      * @return {boolean} - True or False based on the check. True denotes the characteristic option does not exist and should be added
      **/
     _checkToUpdateCharacteristicOptions(productOfferingCharsGr, characteristicObj) {
-        if (productOfferingCharsGr === undefined || characteristicObj === undefined || productOfferingCharsGr.getValue('characteristic_option') == null || !characteristicObj.hasOwnProperty('options')) {
-            return false;
-        }
-
         if (characteristicObj.options.indexOf(productOfferingCharsGr.getDisplayValue('characteristic_option')) == -1) {
             return true;
         }
@@ -75,10 +71,6 @@ ItemCharacteristicUtils.prototype = {
      * @return {object} - {characteristic: "charName", mandatory: false, options: ["val1","val2"]}
      **/
     _generateCharMapObj(productOfferingCharsGr) {
-		if (productOfferingCharsGr === undefined) {
-            return {};
-        }
-
         var map = {};
         map.characteristic = productOfferingCharsGr.getValue('characteristic');
         map.mandatory = productOfferingCharsGr.getValue('is_mandatory');
@@ -92,40 +84,35 @@ ItemCharacteristicUtils.prototype = {
      * Generates a record for the item characteristic
      * 
      * @param characteristicObj {GlideRecord object} - Characteristics as an array of objects in the format: [{characteristic: "charName", mandatory: false, options: ["val1","val2"]}]
-	 * @param item {string} - Sys_id of the item
+     * @param item {string} - Sys_id of the item
      * @param populateData {boolean} - User input if data should be auto-generated for all characteristics
      * @return {null} 
      **/
     generateItemCharacteristic(characteristicObj, item, populateData) {
-		
-		if (characteristicObj === undefined || item === undefined || populateData === undefined) {
+        if (typeof(characteristicObj) != "object" || typeof(item) != "string" || typeof(populateData) != "string") {
             return null;
         }
-		
+
         var itemCharacteristicGr = new GlideRecord('x_648117_tmf_mock_item_characteristic');
         itemCharacteristicGr.newRecord();
         itemCharacteristicGr.characteristic = characteristicObj.characteristic;
-		itemCharacteristicGr.item = item;
-
+        itemCharacteristicGr.item = item;
+		
         // Generate a characteristic value if the user asked for all to be generated or the characteristic is mandatory
         if (populateData == 1 || characteristicObj.mandatory == 1) {
-			itemCharacteristicGr.characteristic_value = this._generateCharacteristicValue(characteristicObj);
-		}
-            
+            itemCharacteristicGr.characteristic_value = this._generateCharacteristicValue(characteristicObj);
+        }
+
         itemCharacteristicGr.insert();
     },
 
-	/**
+    /**
      * Generates a random characteristic value 
      * 
      * @param characteristicObj {object} - A characteristic in the format: {characteristic: "charName", mandatory: false, options: ["val1","val2"]}
      * @return {string} - The characteristic value
      **/
     _generateCharacteristicValue(characteristicObj) {
-		if (characteristicObj === undefined) {
-            return null;
-        }
-		
         if (characteristicObj.hasOwnProperty('options') == true) {
             return characteristicObj.options[this.utilsSI.getRandomIntFromInterval(0, characteristicObj.options.length - 1)];
         } else {
@@ -139,13 +126,13 @@ ItemCharacteristicUtils.prototype = {
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2023-06-29 21:58:17</sys_created_on>
         <sys_id>d2925eac47b72110acf69a21336d432d</sys_id>
-        <sys_mod_count>25</sys_mod_count>
+        <sys_mod_count>36</sys_mod_count>
         <sys_name>ItemCharacteristicUtils</sys_name>
         <sys_package display_value="TMF Mock Payload Generator" source="x_648117_tmf_mock">3b03be1447232110acf69a21336d4362</sys_package>
         <sys_policy/>
         <sys_scope display_value="TMF Mock Payload Generator">3b03be1447232110acf69a21336d4362</sys_scope>
         <sys_update_name>sys_script_include_d2925eac47b72110acf69a21336d432d</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2023-06-30 18:39:27</sys_updated_on>
+        <sys_updated_on>2023-07-05 23:43:03</sys_updated_on>
     </sys_script_include>
 </record_update>

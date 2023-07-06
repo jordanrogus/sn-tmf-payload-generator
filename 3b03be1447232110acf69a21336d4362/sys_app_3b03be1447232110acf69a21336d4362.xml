@@ -16,7 +16,7 @@
         <menu display_value="TMF Mock Payload Generator">9c447e5047232110acf69a21336d4388</menu>
         <name>TMF Mock Payload Generator</name>
         <private>false</private>
-        <restrict_table_access>true</restrict_table_access>
+        <restrict_table_access>false</restrict_table_access>
         <runtime_access_tracking>permissive</runtime_access_tracking>
         <scope>x_648117_tmf_mock</scope>
         <scoped_administration>false</scoped_administration>
@@ -29,9 +29,9 @@
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2023-06-16 19:25:57</sys_created_on>
         <sys_id>3b03be1447232110acf69a21336d4362</sys_id>
-        <sys_mod_count>3</sys_mod_count>
+        <sys_mod_count>4</sys_mod_count>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2023-06-28 21:59:25</sys_updated_on>
+        <sys_updated_on>2023-07-06 16:29:49</sys_updated_on>
         <template/>
         <trackable>true</trackable>
         <uninstall_blocked>false</uninstall_blocked>

@@ -13,25 +13,28 @@ ProductItemUtils.prototype = {
         this.utilsSI = new x_648117_tmf_mock.Utils();
     },
 
-	/**
-     * Retrieves related items from a passed in item
+    /**
+     * Retrieves related items from a passed in item. Excludes item that have 'Unique Line Item per Qty?' selected.
      * 
      * @param sourceItemSysId {string} - Source item to use in query
      * @return {string} - Encoded query to return related items
      **/
     getRelatedOrderItems(sourceItemSysId) {
-		if (sourceItemSysId === undefined) {
+        if (typeof(sourceItemSysId) != "string") {
             return null;
         }
-		
-		var sourceItemGr = this.utilsSI.getRecordFromSysId("x_648117_tmf_mock_items", sourceItemSysId);
-		var payloadGenerator = sourceItemGr.getValue('payload_generator');
-		if(!payloadGenerator){return;}
+
+        var sourceItemGr = this.utilsSI.getRecordFromSysId("x_648117_tmf_mock_items", sourceItemSysId);
+        var payloadGenerator = sourceItemGr.getValue('payload_generator');
+        if (!payloadGenerator) {
+            return;
+        }
 
         var items = [];
 
         var itemsGr = new GlideRecord('x_648117_tmf_mock_items');
         itemsGr.addQuery('payload_generator', payloadGenerator);
+		itemsGr.addQuery('unique_line_item', "false");
         itemsGr.addQuery('sys_id', '!=', sourceItemSysId.toString());
         itemsGr.query();
         while (itemsGr.next()) {
@@ -41,20 +44,21 @@ ProductItemUtils.prototype = {
         return 'sys_idIN' + items.toString();
     },
 
-	/**
+    /**
      * Copies an item and all child records
      * 
-	 * @param itemSysId {string} - The item to copy
+     * @param itemSysId {string} - The item to copy
      * @param payloadGeneratorSysId {string} - Optionally a payload generator to use in the copied item
      * @return {string} - Sys_id of the copied item
      **/
     copyItemHierarchy(itemSysId, payloadGeneratorSysId) {
-		if (itemSysId === undefined) {
+        if (typeof(itemSysId) != "string") {
             return null;
         }
 		
         var itemGr = this.utilsSI.getRecordFromSysId('x_648117_tmf_mock_items', itemSysId);
         var dupItem;
+		
         if (payloadGeneratorSysId) {
             var fieldMapItem = {
                 payload_generator: payloadGeneratorSysId
@@ -62,12 +66,13 @@ ProductItemUtils.prototype = {
             dupItem = this.utilsSI.generateDuplicateRecord('x_648117_tmf_mock_items', itemSysId, fieldMapItem);
         } else {
             dupItem = this.utilsSI.generateDuplicateRecord('x_648117_tmf_mock_items', itemSysId);
-        }		
+        }
+		
         var itemRelationshipsGr = this.utilsSI.getRecords('x_648117_tmf_mock_item_relationship', 'source_item=' + itemSysId);
         if (itemRelationshipsGr) {
             while (itemRelationshipsGr.next()) {
                 var fieldMapItemRelationship = {};
-                if (payloadGenerator) {
+                if (payloadGeneratorSysId) {
                     fieldMapItemRelationship = {
                         source_item: dupItem,
                         target_item: ""
@@ -80,7 +85,7 @@ ProductItemUtils.prototype = {
                 this.utilsSI.generateDuplicateRecord('x_648117_tmf_mock_item_relationship', itemRelationshipsGr.getUniqueValue(), fieldMapItemRelationship);
             }
         }
-		
+
         var relatedPartyGr = this.utilsSI.getRecords('x_648117_tmf_mock_related_party', 'item=' + itemSysId);
         if (relatedPartyGr) {
             while (relatedPartyGr.next()) {
@@ -98,13 +103,13 @@ ProductItemUtils.prototype = {
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2023-06-22 17:40:32</sys_created_on>
         <sys_id>7823195247272110acf69a21336d439e</sys_id>
-        <sys_mod_count>41</sys_mod_count>
+        <sys_mod_count>52</sys_mod_count>
         <sys_name>ProductItemUtils</sys_name>
         <sys_package display_value="TMF Mock Payload Generator" source="x_648117_tmf_mock">3b03be1447232110acf69a21336d4362</sys_package>
         <sys_policy/>
         <sys_scope display_value="TMF Mock Payload Generator">3b03be1447232110acf69a21336d4362</sys_scope>
         <sys_update_name>sys_script_include_7823195247272110acf69a21336d439e</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2023-06-30 21:13:55</sys_updated_on>
+        <sys_updated_on>2023-07-06 17:36:22</sys_updated_on>
     </sys_script_include>
 </record_update>

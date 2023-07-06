@@ -45,8 +45,8 @@ if (typeof window == 'undefined') {
 
 function submitAPI() {
 	var submissionService = new x_648117_tmf_mock.TMFAPISubmissionService();
-	var payloadGeneratorSysID = current.getUniqueValue();
-    var qty = submissionService.getAPITriggerQuantity(payloadGeneratorSysID);
+	var payloadGeneratorSysId = current.getUniqueValue();
+    var qty = submissionService.getAPITriggerQuantity(payloadGeneratorSysId);
 	var maxCalls = parseInt(gs.getProperty('x_648117_tmf_mock.max_api_calls'));
 	var asyncMax = parseInt(gs.getProperty('x_648117_tmf_mock.number_of_api_calls_before_async'));
 	var msg = "";
@@ -63,17 +63,22 @@ function submitAPI() {
 	
     if (qty <= asyncMax) {
         for (var i = 0; i < qty; i++) {
-			msg = submissionService.tmf622productOrderPostSubmitSynch(payloadGeneratorSysID);
-			gs.addInfoMessage(msg);
+			responseObj = submissionService.tmf622productOrderPostSubmitSynch(payloadGeneratorSysId);
+			if(responseObj.error == false){
+				gs.addInfoMessage(responseObj.msg);
+			} else {
+				gs.addErrorMessage(responseObj.msg);
+			}
         }
     } else {
         for (var j = 0; j < qty; j++) {
-            submissionService.tmf622productOrderPostSubmitAsynch(payloadGeneratorSysID);
+            submissionService.tmf622productOrderPostSubmitAsynch(payloadGeneratorSysId);
         }
         var url = "/sn_ind_tmt_orm_order_list.do";
         var link = '<a href="' + url + '" target="_blank">Click Here!</a>';
         gs.addInfoMessage(gs.getMessage("The " + qty + " API requests submitted are being run asynchronously. To review the orders in a new tab: " + link));
     }
+	
     action.setRedirectURL(current);
 }]]></script>
         <show_insert>true</show_insert>
@@ -86,7 +91,7 @@ function submitAPI() {
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>c89b12ae47272110acf69a21336d4334</sys_id>
-        <sys_mod_count>91</sys_mod_count>
+        <sys_mod_count>100</sys_mod_count>
         <sys_name>Send API Request(s)</sys_name>
         <sys_overrides/>
         <sys_package display_value="TMF Mock Payload Generator" source="x_648117_tmf_mock">3b03be1447232110acf69a21336d4362</sys_package>
@@ -94,7 +99,7 @@ function submitAPI() {
         <sys_scope display_value="TMF Mock Payload Generator">3b03be1447232110acf69a21336d4362</sys_scope>
         <sys_update_name>sys_ui_action_c89b12ae47272110acf69a21336d4334</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2023-06-29 21:17:40</sys_updated_on>
+        <sys_updated_on>2023-07-05 23:34:17</sys_updated_on>
         <table>x_648117_tmf_mock_payload_generator</table>
         <ui11_compatible>true</ui11_compatible>
         <ui16_compatible>false</ui16_compatible>

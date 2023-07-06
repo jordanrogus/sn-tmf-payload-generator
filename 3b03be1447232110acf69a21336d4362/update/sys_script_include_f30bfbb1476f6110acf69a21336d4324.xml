@@ -10,14 +10,14 @@
         <script><![CDATA[var ItemCharacteristicUtilsAjax = Class.create();
 ItemCharacteristicUtilsAjax.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
 
-	/**
-	 * Validates if the inputted characteristic value is valid
-	 * 
-	 * @param sysparm_item {string} - The orderd item as sys_id
-	 * @param sysparm_char {string} - The characteristic as sys_id
-	 * @param sysparm_char_value {string} - The characteristic value to validate
-	 * @return {string} - A stringifed object for if the inputted value is valid as well as the valid options
-	 **/
+    /**
+     * Validates if the inputted characteristic value is valid
+     * 
+     * @param sysparm_item {string} - The orderd item as sys_id
+     * @param sysparm_char {string} - The characteristic as sys_id
+     * @param sysparm_char_value {string} - The characteristic value to validate
+     * @return {string} - A stringifed object for if the inputted value is valid as well as the valid options
+     **/
     validateCharacteristicOption: function() {
 
         var validCharacteristicValue = false;
@@ -48,11 +48,10 @@ ItemCharacteristicUtilsAjax.prototype = Object.extendsObject(global.AbstractAjax
             validCharacteristicValue = true;
         }
 
-        var results = {
+        return JSON.stringify({
             "validCharValue": validCharacteristicValue,
             "validCharOptions": uniqueValidCharacteristicOptions
-        };
-        return JSON.stringify(results);
+        });
     },
 
     type: 'ItemCharacteristicUtilsAjax'
@@ -61,13 +60,13 @@ ItemCharacteristicUtilsAjax.prototype = Object.extendsObject(global.AbstractAjax
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2023-06-21 16:31:49</sys_created_on>
         <sys_id>f30bfbb1476f6110acf69a21336d4324</sys_id>
-        <sys_mod_count>19</sys_mod_count>
+        <sys_mod_count>20</sys_mod_count>
         <sys_name>ItemCharacteristicUtilsAjax</sys_name>
         <sys_package display_value="TMF Mock Payload Generator" source="x_648117_tmf_mock">3b03be1447232110acf69a21336d4362</sys_package>
         <sys_policy/>
         <sys_scope display_value="TMF Mock Payload Generator">3b03be1447232110acf69a21336d4362</sys_scope>
         <sys_update_name>sys_script_include_f30bfbb1476f6110acf69a21336d4324</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2023-06-30 20:19:40</sys_updated_on>
+        <sys_updated_on>2023-07-05 16:21:10</sys_updated_on>
     </sys_script_include>
 </record_update>

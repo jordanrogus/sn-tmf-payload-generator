@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_script_client">
+    <sys_script_client action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <applies_extended>false</applies_extended>
+        <condition/>
+        <description>Runs onLoad and onChange to show a field message if the item is creating multiple unique line items.</description>
+        <field>unique_line_item</field>
+        <global>true</global>
+        <isolate_script>true</isolate_script>
+        <messages/>
+        <name>Show Unique Qty Field Msg if Populated</name>
+        <order/>
+        <script><![CDATA[function onChange(control, oldValue, newValue, isLoading, isTemplate) {
+    if (g_form.getValue('unique_line_item') == "true") {
+        g_form.showFieldMsg('unique_line_item', getMessage('As you are generating duplicate items from one record you are unable to add item relationships to this item.'));
+    }
+
+}]]></script>
+        <sys_class_name>sys_script_client</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-07-06 16:57:29</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>0130997647b32110acf69a21336d43b0</sys_id>
+        <sys_mod_count>6</sys_mod_count>
+        <sys_name>Show Unique Qty Field Msg if Populated</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="TMF Mock Payload Generator" source="x_648117_tmf_mock">3b03be1447232110acf69a21336d4362</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="TMF Mock Payload Generator">3b03be1447232110acf69a21336d4362</sys_scope>
+        <sys_update_name>sys_script_client_0130997647b32110acf69a21336d43b0</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-07-06 17:01:17</sys_updated_on>
+        <table>x_648117_tmf_mock_items</table>
+        <type>onChange</type>
+        <ui_type>0</ui_type>
+        <view/>
+    </sys_script_client>
+</record_update>
