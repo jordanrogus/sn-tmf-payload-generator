@@ -59,7 +59,7 @@ TMFAPISubmissionService.prototype = {
             msg = "Order was generated with a status of 202. The id of the order is: " + id;
         } else if (responseBody.details[0].message) {
             error = true;
-            error_msg = responseBody.details[0].message;
+            error_msg = JSON.stringify(responseBody.details);
             msg = "The API encountered the following error: " + error_msg;
             gs.error(gs.getMessage("The api/sn_ind_tmt_orm/order/productOrder API for ' + payloadGeneratorGr.getValue('number') + ' has error'd with status code: " + statusCode + ', and response body: ' + responseBody));
         } else {
@@ -161,13 +161,13 @@ TMFAPISubmissionService.prototype = {
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2023-06-29 19:47:23</sys_created_on>
         <sys_id>f8c279a047372110acf69a21336d43af</sys_id>
-        <sys_mod_count>26</sys_mod_count>
+        <sys_mod_count>28</sys_mod_count>
         <sys_name>TMFAPISubmissionService</sys_name>
         <sys_package display_value="TMF Mock Payload Generator" source="x_648117_tmf_mock">3b03be1447232110acf69a21336d4362</sys_package>
         <sys_policy>read</sys_policy>
         <sys_scope display_value="TMF Mock Payload Generator">3b03be1447232110acf69a21336d4362</sys_scope>
         <sys_update_name>sys_script_include_f8c279a047372110acf69a21336d43af</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2023-07-06 18:12:02</sys_updated_on>
+        <sys_updated_on>2023-07-06 19:29:34</sys_updated_on>
     </sys_script_include>
 </record_update>
