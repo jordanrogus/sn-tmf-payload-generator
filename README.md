@@ -1,10 +1,9 @@
 # sn-tmf-payload-generator
 
-Problem to Solve
 The implementation of SN Telco products that utilize TMF APIs may face delays due to the requirement of setting up and configuring upstream systems (i.e., CPQs) to send TMF-compliant payloads for initiating SN processes. In practice, SN development teams often spend significant amounts of time creating mock payloads that adhere to TMF specifications, allowing them to begin SN development. However, the TMF Mock Payload Generator utility simplifies this process, facilitating faster delivery and the ability to provide development teams with a greater amount of test data in a shorter timeframe. Furthermore, this utility supports bulk submission of TMF APIs, enabling efficient performance testing.
 
 Version History
-v1.0.0 - July 2023 - Initial release with TMF622 POST compatability
+- v1.0.0 - July 2023 - Initial release with TMF622 POST compatability
 
 Features
 1.	TMF622 (Product Order) POST compatibility for generating mock payloads from a ServiceNow modelled Product Offering using no-code interfaces.
@@ -16,11 +15,11 @@ Features
 7.	Functionality to send the payload to the SN instance via REST APIs, allowing testing against out-of-the-box (OOTB) APIs. Users will be able to view information on created records or detailed error messages generated from the APIs.
 8.	Performance testing capability that enables programmatically submitting N number of API calls to the instance.
 
-SN Application Dependencies:
+SN Application Dependencies
 1.	Product Catalog Management Core (v6.0.0)
 2.	Product Inventory Advanced (v3.0.0)
 3.	Customer Service (v23.8.2)
 4.	Order Management for Telecom, Media & Tech (v4.0.0)
 
-Usage Notes:
+Usage Notes
 1. Review and update application properties (TMF Mock Payload Generator > Administration > Properties)
