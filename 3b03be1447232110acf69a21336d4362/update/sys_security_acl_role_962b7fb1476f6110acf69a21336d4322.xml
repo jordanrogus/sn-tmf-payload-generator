@@ -9,7 +9,7 @@
         <sys_package display_value="TMF Mock Payload Generator" source="x_648117_tmf_mock">3b03be1447232110acf69a21336d4362</sys_package>
         <sys_policy/>
         <sys_scope display_value="TMF Mock Payload Generator">3b03be1447232110acf69a21336d4362</sys_scope>
-        <sys_security_acl display_value="ItemCharUtils">922b7fb1476f6110acf69a21336d431d</sys_security_acl>
+        <sys_security_acl display_value="ItemCharacteristicUtilsAjax">922b7fb1476f6110acf69a21336d431d</sys_security_acl>
         <sys_update_name>sys_security_acl_role_962b7fb1476f6110acf69a21336d4322</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
         <sys_updated_on>2023-06-21 16:31:50</sys_updated_on>

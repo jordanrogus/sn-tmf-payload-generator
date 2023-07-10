@@ -75,36 +75,6 @@
             <sys_updated_by>admin</sys_updated_by>
             <sys_updated_on>2023-06-27 19:56:48</sys_updated_on>
         </sys_ui_list_element>
-        <sys_ui_list_element action="INSERT_OR_UPDATE">
-            <average_value>false</average_value>
-            <element>name</element>
-            <list_id display_value="x_648117_tmf_mock_api_parameters" element="NULL" name="x_648117_tmf_mock_api_parameters" parent="x_648117_tmf_mock_payload_generator" relationship="NULL" sys_domain="global" view="Default view">cb93eb734763a110acf69a21336d4351</list_id>
-            <max_value>false</max_value>
-            <min_value>false</min_value>
-            <position>5</position>
-            <sum>false</sum>
-            <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2023-06-27 19:56:48</sys_created_on>
-            <sys_id>8793e3b34763a110acf69a21336d43d5</sys_id>
-            <sys_mod_count>0</sys_mod_count>
-            <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2023-06-27 19:56:48</sys_updated_on>
-        </sys_ui_list_element>
-        <sys_ui_list_element action="INSERT_OR_UPDATE">
-            <average_value>false</average_value>
-            <element>value</element>
-            <list_id display_value="x_648117_tmf_mock_api_parameters" element="NULL" name="x_648117_tmf_mock_api_parameters" parent="x_648117_tmf_mock_payload_generator" relationship="NULL" sys_domain="global" view="Default view">cb93eb734763a110acf69a21336d4351</list_id>
-            <max_value>false</max_value>
-            <min_value>false</min_value>
-            <position>6</position>
-            <sum>false</sum>
-            <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2023-06-27 19:56:48</sys_created_on>
-            <sys_id>8b93e3b34763a110acf69a21336d43d5</sys_id>
-            <sys_mod_count>0</sys_mod_count>
-            <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2023-06-27 19:56:48</sys_updated_on>
-        </sys_ui_list_element>
         <sys_ui_list action="INSERT_OR_UPDATE">
             <average_value>false</average_value>
             <element/>

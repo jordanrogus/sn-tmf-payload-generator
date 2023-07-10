@@ -84,34 +84,6 @@
             <sys_user/>
             <type/>
         </sys_ui_element>
-        <sys_ui_element action="INSERT_OR_UPDATE">
-            <element>name</element>
-            <position>6</position>
-            <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2023-06-27 19:52:38</sys_created_on>
-            <sys_id>c2a26f334763a110acf69a21336d4344</sys_id>
-            <sys_mod_count>0</sys_mod_count>
-            <sys_ui_formatter/>
-            <sys_ui_section caption="NULL" display_value="" name="x_648117_tmf_mock_api_parameters" sys_domain="global" view="Default view">c2a4752f47a32110acf69a21336d43a9</sys_ui_section>
-            <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2023-06-27 19:52:38</sys_updated_on>
-            <sys_user/>
-            <type/>
-        </sys_ui_element>
-        <sys_ui_element action="INSERT_OR_UPDATE">
-            <element>value</element>
-            <position>7</position>
-            <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2023-06-27 19:52:38</sys_created_on>
-            <sys_id>c6a26f334763a110acf69a21336d4344</sys_id>
-            <sys_mod_count>0</sys_mod_count>
-            <sys_ui_formatter/>
-            <sys_ui_section caption="NULL" display_value="" name="x_648117_tmf_mock_api_parameters" sys_domain="global" view="Default view">c2a4752f47a32110acf69a21336d43a9</sys_ui_section>
-            <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2023-06-27 19:52:38</sys_updated_on>
-            <sys_user/>
-            <type/>
-        </sys_ui_element>
         <sys_ui_section action="INSERT_OR_UPDATE">
             <caption/>
             <header>false</header>

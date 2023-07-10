@@ -17,7 +17,7 @@
         <sys_updated_by>admin</sys_updated_by>
         <sys_updated_on>2023-06-20 23:50:07</sys_updated_on>
         <table>x_648117_tmf_mock_items</table>
-        <ui_policy display_value="Make product offering mandatory if specification class is product">bca55cf147ab2110acf69a21336d4369</ui_policy>
+        <ui_policy display_value="Require Product Offering for Product Specification">bca55cf147ab2110acf69a21336d4369</ui_policy>
         <visible>true</visible>
     </sys_ui_policy_action>
 </record_update>

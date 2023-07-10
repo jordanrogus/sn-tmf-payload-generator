@@ -17,7 +17,7 @@
         <sys_updated_by>admin</sys_updated_by>
         <sys_updated_on>2023-06-22 17:51:15</sys_updated_on>
         <table>x_648117_tmf_mock_item_relationship</table>
-        <ui_policy display_value="Show relevant fields for product relationships">0866dd9647272110acf69a21336d4394</ui_policy>
+        <ui_policy display_value="Update Form for Product Relationship">0866dd9647272110acf69a21336d4394</ui_policy>
         <visible>true</visible>
     </sys_ui_policy_action>
 </record_update>
