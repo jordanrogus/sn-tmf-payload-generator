@@ -17,7 +17,7 @@
         <sys_updated_by>admin</sys_updated_by>
         <sys_updated_on>2023-06-20 23:56:33</sys_updated_on>
         <table>x_648117_tmf_mock_items</table>
-        <ui_policy display_value="Make location mandatory per specification requirement">7f2754b547ab2110acf69a21336d4322</ui_policy>
+        <ui_policy display_value="Require Location per Specification Definition">7f2754b547ab2110acf69a21336d4322</ui_policy>
         <visible>ignore</visible>
     </sys_ui_policy_action>
 </record_update>

@@ -15,7 +15,7 @@
         <name/>
         <order>10100</order>
         <override_menu_roles>false</override_menu_roles>
-        <query>system_properties_ui.do?sysparm_title=TMF Mock Payload Generator Properties&amp;sysparm_category=TMF Mock Payload Generator</query>
+        <query>system_properties_ui.do?sysparm_title=TMF Mock Payload Generator Properties&amp;sysparm_category=TMF Mock Payload Generator App Props</query>
         <report/>
         <roles>x_648117_tmf_mock.admin,x_648117_tmf_mock.viewer</roles>
         <sys_class_name>sys_app_module</sys_class_name>
@@ -24,7 +24,7 @@
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>25cc116b47232110acf69a21336d43c0</sys_id>
-        <sys_mod_count>2</sys_mod_count>
+        <sys_mod_count>3</sys_mod_count>
         <sys_name>Properties</sys_name>
         <sys_overrides/>
         <sys_package display_value="TMF Mock Payload Generator" source="x_648117_tmf_mock">3b03be1447232110acf69a21336d4362</sys_package>
@@ -32,7 +32,7 @@
         <sys_scope display_value="TMF Mock Payload Generator">3b03be1447232110acf69a21336d4362</sys_scope>
         <sys_update_name>sys_app_module_25cc116b47232110acf69a21336d43c0</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2023-06-27 17:00:38</sys_updated_on>
+        <sys_updated_on>2023-07-10 18:55:11</sys_updated_on>
         <timeline_page/>
         <title>Properties</title>
         <uncancelable>false</uncancelable>

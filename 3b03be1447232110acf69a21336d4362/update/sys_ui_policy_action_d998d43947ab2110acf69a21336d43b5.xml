@@ -17,7 +17,7 @@
         <sys_updated_by>admin</sys_updated_by>
         <sys_updated_on>2023-06-21 00:02:03</sys_updated_on>
         <table>x_648117_tmf_mock_items</table>
-        <ui_policy display_value="Hide Spec Class">c288943947ab2110acf69a21336d4316</ui_policy>
+        <ui_policy display_value="Hide Specification Class">c288943947ab2110acf69a21336d4316</ui_policy>
         <visible>false</visible>
     </sys_ui_policy_action>
 </record_update>

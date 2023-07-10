@@ -17,7 +17,7 @@
         <sys_updated_by>admin</sys_updated_by>
         <sys_updated_on>2023-06-20 23:28:03</sys_updated_on>
         <table>x_648117_tmf_mock_core_order_data</table>
-        <ui_policy display_value="If attribute uses a referenced record">a920d0f9476b2110acf69a21336d43c1</ui_policy>
+        <ui_policy display_value="Update Form if Attribute References a Record">a920d0f9476b2110acf69a21336d43c1</ui_policy>
         <visible>false</visible>
     </sys_ui_policy_action>
 </record_update>

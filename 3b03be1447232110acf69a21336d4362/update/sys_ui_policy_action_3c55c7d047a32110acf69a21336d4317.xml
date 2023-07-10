@@ -17,7 +17,7 @@
         <sys_updated_by>admin</sys_updated_by>
         <sys_updated_on>2023-06-16 20:45:54</sys_updated_on>
         <table>x_648117_tmf_mock_payload_generator</table>
-        <ui_policy display_value="Set fields RO when state is not 'Draft'">c435c3d047a32110acf69a21336d43be</ui_policy>
+        <ui_policy display_value="Update Form if State is not Draft">c435c3d047a32110acf69a21336d43be</ui_policy>
         <visible>ignore</visible>
     </sys_ui_policy_action>
 </record_update>
