@@ -23,3 +23,5 @@ SN Application Dependencies
 
 Usage Notes
 1. Review and update application properties (TMF Mock Payload Generator > Administration > Properties)
+2. Optionally add Verbosity/Destination logging properties (https://support.servicenow.com/kb?id=kb_article_view&sysparm_article=KB0714743)
+3. Update the PW on the Integration User (from XML, User ID: tmf_mock_payload_generator_service_acct) & Basic Auth Configuration (from App, Name: tmf_mock_payload_generator_service_acct) to match to enable API submission 
