@@ -7,7 +7,7 @@
 
 }]]></client_script_v2>
         <comments/>
-        <condition>gs.getProperty('x_648117_tmf_mock.enable_submit_via_api') == 'true' &amp;&amp; gs.hasRole('x_648117_tmf_mock.api_user') &amp;&amp; current.state == 'ready' &amp;&amp; !current.isNewRecord() &amp;&amp; current.payload != "";</condition>
+        <condition>gs.getProperty('x_648117_tmf_mock.enable_submit_via_api') == 'true' &amp;&amp; gs.hasRole('x_648117_tmf_mock.api_user') &amp;&amp; current.getValue('state') === 'ready' &amp;&amp; !current.isNewRecord() &amp;&amp; current.getValue('payload') !== "";</condition>
         <form_action>true</form_action>
         <form_button>true</form_button>
         <form_button_v2>false</form_button_v2>
@@ -91,7 +91,7 @@ function submitAPI() {
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>c89b12ae47272110acf69a21336d4334</sys_id>
-        <sys_mod_count>102</sys_mod_count>
+        <sys_mod_count>103</sys_mod_count>
         <sys_name>Send API Request(s)</sys_name>
         <sys_overrides/>
         <sys_package display_value="TMF Mock Payload Generator" source="x_648117_tmf_mock">3b03be1447232110acf69a21336d4362</sys_package>
@@ -99,7 +99,7 @@ function submitAPI() {
         <sys_scope display_value="TMF Mock Payload Generator">3b03be1447232110acf69a21336d4362</sys_scope>
         <sys_update_name>sys_ui_action_c89b12ae47272110acf69a21336d4334</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2023-07-10 19:21:09</sys_updated_on>
+        <sys_updated_on>2023-07-13 16:24:11</sys_updated_on>
         <table>x_648117_tmf_mock_payload_generator</table>
         <ui11_compatible>true</ui11_compatible>
         <ui16_compatible>false</ui16_compatible>

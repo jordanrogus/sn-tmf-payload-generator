@@ -11,16 +11,17 @@
         <advanced>true</advanced>
         <change_fields>false</change_fields>
         <client_callable>false</client_callable>
-        <collection>x_648117_tmf_mock_core_order_data</collection>
-        <condition>Constants.ALLOWED_DUPLICATE_CORE_DATA_ATTRIBUTE.indexOf(current.getValue('attribute')) == -1</condition>
+        <collection>x_648117_tmf_mock_items</collection>
+        <condition/>
         <description/>
         <execute_function>false</execute_function>
-        <filter_condition table="x_648117_tmf_mock_core_order_data">attribute!=^EQ<item display_value="-- None --" endquery="false" field="attribute" goto="false" newquery="false" operator="!=" or="false" value=""/>
+        <filter_condition table="x_648117_tmf_mock_items">action=add^product_inventoryISNOTEMPTY^EQ<item display_value="Add" endquery="false" field="action" goto="false" newquery="false" operator="=" or="false" value="add"/>
+            <item endquery="false" field="product_inventory" goto="false" newquery="false" operator="ISNOTEMPTY" or="false" value=""/>
             <item endquery="true" field="" goto="false" newquery="false" operator="=" or="false" value=""/>
         </filter_condition>
         <is_rest>false</is_rest>
         <message/>
-        <name>Validate Allowed Attribute Duplicates</name>
+        <name>Clear Product Inventory if Add</name>
         <order>100</order>
         <priority>100</priority>
         <rest_method/>
@@ -30,36 +31,24 @@
         <rest_variables/>
         <role_conditions/>
         <script><![CDATA[(function executeRule(current, previous /*null when async*/) {
-	
-	var query = "payload_generator=" + current.getValue('payload_generator') + "^attribute=" + current.getValue("attribute");
-	
-	var dupUrl = new x_648117_tmf_mock.Utils().checkForDuplicateRecord(current.getTableName(), query, current.getUniqueValue());
-	
-	if(dupUrl !== false && dupUrl !== null){
-		var link = '<a href="' + dupUrl + '">here</a>';
-		var message = gs.getMessage("An exisiting attribute exists. Please click {0} to access the exisiting record.", link);
-		gs.addErrorMessage(message);
-		current.setAbortAction(true);
-	}
-	
 })(current, previous);]]></script>
         <sys_class_name>sys_script</sys_class_name>
         <sys_created_by>admin</sys_created_by>
-        <sys_created_on>2023-06-26 20:00:28</sys_created_on>
+        <sys_created_on>2023-07-13 16:37:06</sys_created_on>
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
-        <sys_id>27aad2a347a72110acf69a21336d43ba</sys_id>
-        <sys_mod_count>21</sys_mod_count>
-        <sys_name>Validate Allowed Attribute Duplicates</sys_name>
+        <sys_id>825fc545474c7110acf69a21336d435d</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Clear Product Inventory if Add</sys_name>
         <sys_overrides/>
         <sys_package display_value="TMF Mock Payload Generator" source="x_648117_tmf_mock">3b03be1447232110acf69a21336d4362</sys_package>
         <sys_policy/>
         <sys_scope display_value="TMF Mock Payload Generator">3b03be1447232110acf69a21336d4362</sys_scope>
-        <sys_update_name>sys_script_27aad2a347a72110acf69a21336d43ba</sys_update_name>
+        <sys_update_name>sys_script_825fc545474c7110acf69a21336d435d</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2023-07-13 15:56:58</sys_updated_on>
-        <template/>
+        <sys_updated_on>2023-07-13 16:37:06</sys_updated_on>
+        <template>product_inventory=^EQ</template>
         <when>before</when>
     </sys_script>
-    <sys_translated_text action="delete_multiple" query="documentkey=27aad2a347a72110acf69a21336d43ba"/>
+    <sys_translated_text action="delete_multiple" query="documentkey=825fc545474c7110acf69a21336d435d"/>
 </record_update>

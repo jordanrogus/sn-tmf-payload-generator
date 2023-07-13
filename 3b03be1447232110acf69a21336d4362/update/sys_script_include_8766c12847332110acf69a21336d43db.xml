@@ -20,7 +20,7 @@ CoreOrderDataUtils.prototype = {
      * @return {boolean} - True or False based on the check. True denotes the attributes uses a reference
      **/
     checkAttributeForReference(attribute) {
-        if (typeof(attribute) != "string") {
+        if (typeof(attribute) !== "string") {
             return false;
         }
 
@@ -28,26 +28,25 @@ CoreOrderDataUtils.prototype = {
         var map = Constants.CORE_DATA_ATTRIBUTE_MAP;
         var attributeObj = map.find(obj => obj.field == attribute);
         if (attributeObj.hasOwnProperty('reference')) {
-            if (attributeObj.reference == true) {
+            if (attributeObj.reference === true) {
                 check = true;
             }
         }
         return check;
     },
-
     type: 'CoreOrderDataUtils'
 };]]></script>
         <sys_class_name>sys_script_include</sys_class_name>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2023-06-29 16:25:28</sys_created_on>
         <sys_id>8766c12847332110acf69a21336d43db</sys_id>
-        <sys_mod_count>8</sys_mod_count>
+        <sys_mod_count>10</sys_mod_count>
         <sys_name>CoreOrderDataUtils</sys_name>
         <sys_package display_value="TMF Mock Payload Generator" source="x_648117_tmf_mock">3b03be1447232110acf69a21336d4362</sys_package>
         <sys_policy/>
         <sys_scope display_value="TMF Mock Payload Generator">3b03be1447232110acf69a21336d4362</sys_scope>
         <sys_update_name>sys_script_include_8766c12847332110acf69a21336d43db</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2023-07-05 23:37:51</sys_updated_on>
+        <sys_updated_on>2023-07-13 16:17:11</sys_updated_on>
     </sys_script_include>
 </record_update>

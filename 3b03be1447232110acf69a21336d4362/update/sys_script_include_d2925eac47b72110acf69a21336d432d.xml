@@ -21,7 +21,7 @@ ItemCharacteristicUtils.prototype = {
      * @return {array} - Characteristics as an array of objects in the format: [{characteristic: "charName", mandatory: false, options: ["val1","val2"]}]
      **/
     getProductOfferingCharacteristics(productOffering, specification) {
-        if (typeof(productOffering) != "string" || typeof(specification) != "string") {
+        if (typeof(productOffering) !== "string" || typeof(specification) !== "string") {
             return null;
         }
 
@@ -33,7 +33,7 @@ ItemCharacteristicUtils.prototype = {
 
                 // Check if an object in the chars array already has the characteristic. If so, and the characteristic uses choices, add the choice to the object
                 for (i = 0; i < characteristics.length; i++) {
-                    if (characteristics[i].characteristic == productOfferingCharsGr.getValue('characteristic')) {
+                    if (characteristics[i].characteristic === productOfferingCharsGr.getValue('characteristic')) {
                         charFound = true;
                         if (this._checkToUpdateCharacteristicOptions(productOfferingCharsGr, characteristics[i])) {
                             characteristics[i].options.push(productOfferingCharsGr.getDisplayValue('characteristic_option'));
@@ -57,7 +57,7 @@ ItemCharacteristicUtils.prototype = {
      * @return {boolean} - True or False based on the check. True denotes the characteristic option does not exist and should be added
      **/
     _checkToUpdateCharacteristicOptions(productOfferingCharsGr, characteristicObj) {
-        if (characteristicObj.options.indexOf(productOfferingCharsGr.getDisplayValue('characteristic_option')) == -1) {
+        if (characteristicObj.options.indexOf(productOfferingCharsGr.getDisplayValue('characteristic_option')) === -1) {
             return true;
         }
 
@@ -74,7 +74,7 @@ ItemCharacteristicUtils.prototype = {
         var map = {};
         map.characteristic = productOfferingCharsGr.getValue('characteristic');
         map.mandatory = productOfferingCharsGr.getValue('is_mandatory');
-        if (productOfferingCharsGr.getValue('characteristic_option') != null) {
+        if (productOfferingCharsGr.getValue('characteristic_option') !== null) {
             map.options = [productOfferingCharsGr.getDisplayValue('characteristic_option')];
         }
         return map;
@@ -89,7 +89,7 @@ ItemCharacteristicUtils.prototype = {
      * @return {null} 
      **/
     generateItemCharacteristic(characteristicObj, item, populateData) {
-        if (typeof(characteristicObj) != "object" || typeof(item) != "string" || typeof(populateData) != "string") {
+        if (typeof(characteristicObj) !== "object" || typeof(item) !== "string" || typeof(populateData) !== "string") {
             return null;
         }
 
@@ -98,8 +98,8 @@ ItemCharacteristicUtils.prototype = {
         itemCharacteristicGr.characteristic = characteristicObj.characteristic;
         itemCharacteristicGr.item = item;
 		
-        // Generate a characteristic value if the user asked for all to be generated or the characteristic is mandatory
-        if (populateData == 1 || characteristicObj.mandatory == 1) {
+        // Generate a characteristic value if the user asked for all to be generated or the characteristic is mandatory. Booleans in SN stored as string values of 0 or 1
+        if (populateData === "1" || characteristicObj.mandatory === "1") {
             itemCharacteristicGr.characteristic_value = this._generateCharacteristicValue(characteristicObj);
         }
 
@@ -113,26 +113,25 @@ ItemCharacteristicUtils.prototype = {
      * @return {string} - The characteristic value
      **/
     _generateCharacteristicValue(characteristicObj) {
-        if (characteristicObj.hasOwnProperty('options') == true) {
+        if (characteristicObj.hasOwnProperty('options') === true) {
             return characteristicObj.options[this.utilsSI.getRandomIntFromInterval(0, characteristicObj.options.length - 1)];
         } else {
             return this.utilsSI.generateRandomString(10);
         }
     },
-
     type: 'ItemCharacteristicUtils'
 };]]></script>
         <sys_class_name>sys_script_include</sys_class_name>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2023-06-29 21:58:17</sys_created_on>
         <sys_id>d2925eac47b72110acf69a21336d432d</sys_id>
-        <sys_mod_count>36</sys_mod_count>
+        <sys_mod_count>40</sys_mod_count>
         <sys_name>ItemCharacteristicUtils</sys_name>
         <sys_package display_value="TMF Mock Payload Generator" source="x_648117_tmf_mock">3b03be1447232110acf69a21336d4362</sys_package>
         <sys_policy/>
         <sys_scope display_value="TMF Mock Payload Generator">3b03be1447232110acf69a21336d4362</sys_scope>
         <sys_update_name>sys_script_include_d2925eac47b72110acf69a21336d432d</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2023-07-05 23:43:03</sys_updated_on>
+        <sys_updated_on>2023-07-13 16:16:48</sys_updated_on>
     </sys_script_include>
 </record_update>

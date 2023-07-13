@@ -16,7 +16,7 @@
         <element label="Product Inventory" max_length="32" name="product_inventory" reference="sn_prd_invt_product_inventory" reference_qual="javascript:&#13;&#10;&quot;specification=&quot; + current.getValue('specification')" type="reference" use_reference_qualifier="advanced"/>
         <element attributes="encode_utf8=false, readonly_clickthrough=true" label="Product Offering" max_length="32" name="product_offering" reference="sn_prd_pm_product_offering" reference_qual="status=published^EQ" reference_qual_condition="status=published^EQ" type="reference"/>
         <element default="1" label="Quantity" max_length="40" name="quantity" type="integer"/>
-        <element attributes="edge_encryption_enabled=true" choice="3" default="monthly" label="Recurring Charge Period" max_length="40" name="recurring_charge_period" type="string">
+        <element attributes="edge_encryption_enabled=true" choice="3" default="month" label="Recurring Charge Period" max_length="40" name="recurring_charge_period" type="string">
             <choice>
                 <element inactive_on_update="false" label="Monthly" sequence="0" value="month"/>
             </choice>

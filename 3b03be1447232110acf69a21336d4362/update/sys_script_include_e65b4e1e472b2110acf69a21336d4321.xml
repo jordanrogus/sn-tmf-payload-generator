@@ -30,6 +30,9 @@ CoreOrderDataInitializationService.prototype = {
             case "post_sn_ind_tmt_orm_order_productOrder":
                 this._generateForTmf622productOrderPost(payloadGeneratorGr.getUniqueValue());
                 break;
+			default:
+				gs.error(gs.getMessage("Switch statement in 'ApiParamInitializationService' Script Include found no match"));
+				return null;
         }
     },
 
@@ -47,26 +50,25 @@ CoreOrderDataInitializationService.prototype = {
             insertCoreDataGr.setValue('payload_generator', payloadGeneratorSysId);
             insertCoreDataGr.setValue('attribute', coreDataAttributes[i].field);
 			var apiParamDefaultValue = this.initializationUtilsSI.getParamDefaultValue(coreDataAttributes[i]);
-			if (apiParamDefaultValue != null){
+			if (apiParamDefaultValue !== null){
 				insertCoreDataGr.setValue('value', apiParamDefaultValue);
 			}
             insertCoreDataGr.insert();
         }
     },
-
     type: 'CoreOrderDataInitializationService'
 };]]></script>
         <sys_class_name>sys_script_include</sys_class_name>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2023-06-22 21:48:54</sys_created_on>
         <sys_id>e65b4e1e472b2110acf69a21336d4321</sys_id>
-        <sys_mod_count>15</sys_mod_count>
+        <sys_mod_count>18</sys_mod_count>
         <sys_name>CoreOrderDataInitializationService</sys_name>
         <sys_package display_value="TMF Mock Payload Generator" source="x_648117_tmf_mock">3b03be1447232110acf69a21336d4362</sys_package>
         <sys_policy/>
         <sys_scope display_value="TMF Mock Payload Generator">3b03be1447232110acf69a21336d4362</sys_scope>
         <sys_update_name>sys_script_include_e65b4e1e472b2110acf69a21336d4321</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2023-07-06 16:11:49</sys_updated_on>
+        <sys_updated_on>2023-07-13 16:17:18</sys_updated_on>
     </sys_script_include>
 </record_update>

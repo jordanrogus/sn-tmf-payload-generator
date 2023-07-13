@@ -21,7 +21,7 @@ ApiParamInitializationService.prototype = {
      * @return {null}
      **/
     initializeApiParams(payloadGeneratorGr) {
-        if (typeof(payloadGeneratorGr) != "object") {
+        if (typeof(payloadGeneratorGr) !== "object") {
             return null;
         }
 
@@ -30,6 +30,9 @@ ApiParamInitializationService.prototype = {
             case "post_sn_ind_tmt_orm_order_productOrder":
                 this._generateForTmf622productOrderPost(payloadGeneratorGr.getUniqueValue());
                 break;
+			default:
+				gs.error(gs.getMessage("Switch statement in 'ApiParamInitializationService' Script Include found no match"));
+				return null;
         }
     },
 
@@ -48,26 +51,25 @@ ApiParamInitializationService.prototype = {
             insertApiParamsGr.setValue('type', apiParams[i].type);
             insertApiParamsGr.setValue('query_param', apiParams[i].param);
 			var apiParamDefaultValue = this.initializationUtilsSI.getParamDefaultValue(apiParams[i]);
-			if (apiParamDefaultValue != null){
+			if (apiParamDefaultValue !== null){
 				insertApiParamsGr.setValue('query_param_value', apiParamDefaultValue);
 			}
             insertApiParamsGr.insert();
         }
     },
-
     type: 'ApiParamInitializationService'
 };]]></script>
         <sys_class_name>sys_script_include</sys_class_name>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2023-06-26 17:17:46</sys_created_on>
         <sys_id>ff85fd6f47a32110acf69a21336d4366</sys_id>
-        <sys_mod_count>21</sys_mod_count>
+        <sys_mod_count>24</sys_mod_count>
         <sys_name>ApiParamInitializationService</sys_name>
         <sys_package display_value="TMF Mock Payload Generator" source="x_648117_tmf_mock">3b03be1447232110acf69a21336d4362</sys_package>
         <sys_policy/>
         <sys_scope display_value="TMF Mock Payload Generator">3b03be1447232110acf69a21336d4362</sys_scope>
         <sys_update_name>sys_script_include_ff85fd6f47a32110acf69a21336d4366</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2023-07-06 16:07:43</sys_updated_on>
+        <sys_updated_on>2023-07-13 16:17:30</sys_updated_on>
     </sys_script_include>
 </record_update>
