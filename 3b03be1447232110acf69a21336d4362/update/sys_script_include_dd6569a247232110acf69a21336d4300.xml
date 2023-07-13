@@ -40,14 +40,14 @@ TMFPayloadUtils.prototype = {
      **/
     generateRelatedPartyArray(contactSysId, accountSysId) {
         var array = [];
-        if (this._generateCustomerContactObj(contactSysId) != null) {
+        if (this._generateCustomerContactObj(contactSysId) !== null) {
             array.push(this._generateCustomerContactObj(contactSysId));
         }
-        if (this._generateCustomerObj(accountSysId) != null) {
+        if (this._generateCustomerObj(accountSysId) !== null) {
             array.push(this._generateCustomerObj(accountSysId));
         }
 
-        if (array.length == 0) {
+        if (array.length === 0) {
             return null;
         } else {
             return array;
@@ -143,14 +143,14 @@ TMFPayloadUtils.prototype = {
 
         var obj = {};
 
-        if (recordGr.getValue('external_id') != null) {
+        if (recordGr.getValue('external_id') !== null) {
             obj.id = recordGr.getValue('external_id');
         } else {
             obj.id = recordGr.getValue('initial_version');
         }
         obj.internalVersion = recordGr.getValue('version');
         obj.name = recordGr.getValue('name');
-        if (recordGr.getValue('external_version') != null) {
+        if (recordGr.getValue('external_version') !== null) {
             obj.version = recordGr.getValue('external_version');
         }
         obj['@type'] = 'ProductSpecificationRef';
@@ -286,7 +286,7 @@ TMFPayloadUtils.prototype = {
         var mrc = orderableItemGr.getValue('mrc');
         var nrc = orderableItemGr.getValue('nrc');
 
-        if (mrc == 0 && nrc == 0) {
+        if (mrc === "0" && nrc === "0") {
             return false;
         }
         return true;
@@ -296,6 +296,7 @@ TMFPayloadUtils.prototype = {
      * Generates the TMF compliant product price object
      * 
      * @param orderableItemGr {GlideRecord object} - The item to use in generating the object
+	 * @param currencyFieldName {string} - The field name on the item table denoting the currency
      * @return {object} - The TMF compliant product price object
      **/
     generateItemPriceObj(orderableItemGr, currencyFieldName) {
@@ -311,11 +312,11 @@ TMFPayloadUtils.prototype = {
             }
         };
 
-        if (currencyFieldName == 'mrc') {
+        if (currencyFieldName === 'mrc') {
             obj.priceType = 'recurring';
             obj.recurringChargePeriod = orderableItemGr.getValue('recurring_charge_period');
-        } else if (currencyFieldName == 'nrc') {
-            obj.priceType = 'non-recurring';
+        } else if (currencyFieldName === 'nrc') {
+            obj.priceType = 'nonRecurring';
         }
         return obj;
     },
@@ -333,14 +334,14 @@ TMFPayloadUtils.prototype = {
         }
 
         var obj = {};
-        if (recordGr.getValue('external_id') != null) {
+        if (recordGr.getValue('external_id') !== null) {
             obj.id = recordGr.getValue('external_id');
         } else {
             obj.id = recordGr.getValue('initial_version');
         }
         obj.internalVersion = recordGr.getValue('version');
         obj.name = recordGr.getValue('name');
-        if (recordGr.getValue('external_version') != null) {
+        if (recordGr.getValue('external_version') !== null) {
             obj.version = recordGr.getValue('external_version');
         }
         return obj;
@@ -372,20 +373,19 @@ TMFPayloadUtils.prototype = {
         }
         return null;
     },
-
     type: 'TMFPayloadUtils'
 };]]></script>
         <sys_class_name>sys_script_include</sys_class_name>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2023-06-23 13:33:19</sys_created_on>
         <sys_id>dd6569a247232110acf69a21336d4300</sys_id>
-        <sys_mod_count>65</sys_mod_count>
+        <sys_mod_count>67</sys_mod_count>
         <sys_name>TMFPayloadUtils</sys_name>
         <sys_package display_value="TMF Mock Payload Generator" source="x_648117_tmf_mock">3b03be1447232110acf69a21336d4362</sys_package>
         <sys_policy/>
         <sys_scope display_value="TMF Mock Payload Generator">3b03be1447232110acf69a21336d4362</sys_scope>
         <sys_update_name>sys_script_include_dd6569a247232110acf69a21336d4300</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2023-07-05 23:48:59</sys_updated_on>
+        <sys_updated_on>2023-07-13 16:47:05</sys_updated_on>
     </sys_script_include>
 </record_update>

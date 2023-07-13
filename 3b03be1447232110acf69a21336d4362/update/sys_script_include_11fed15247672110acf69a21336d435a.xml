@@ -19,7 +19,7 @@ Utils.prototype = {
      * @return {GlideRecord object} - Set of returned records in the GlideRecord object
      **/
     getRecords(tableName, encodedQuery) {
-        if (typeof(tableName) != "string" || typeof(encodedQuery) != "string") {
+        if (typeof(tableName) !== "string" || typeof(encodedQuery) !== "string") {
             return null;
         }
 
@@ -40,7 +40,7 @@ Utils.prototype = {
      * @return {GlideRecord object} - The retrieved record in the GlideRecord object
      **/
     getRecordFromSysId(tableName, sysId) {
-        if (typeof(tableName) != "string" || typeof(sysId) != "string") {
+        if (typeof(tableName) !== "string" || typeof(sysId) !== "string") {
             return null;
         }
 
@@ -61,7 +61,7 @@ Utils.prototype = {
      * @return {string} - Link to existing record
      **/
     checkForDuplicateRecord(tableName, encodedQuery, currentRecordSysId) {
-        if (typeof(tableName) != "string" || typeof(encodedQuery) != "string" || typeof(currentRecordSysId) != "string") {
+        if (typeof(tableName) !== "string" || typeof(encodedQuery) !== "string" || typeof(currentRecordSysId) !== "string") {
             return null;
         }
 
@@ -84,14 +84,14 @@ Utils.prototype = {
      * @return {string} - Sys_id of duplicated record
      **/
     generateDuplicateRecord(tableName, sourceRecordSysId, fieldMap) {
-        if (typeof(tableName) != "string" || typeof(sourceRecordSysId) != "string") {
+        if (typeof(tableName) !== "string" || typeof(sourceRecordSysId) !== "string") {
             return null;
         }
 
         var duplicateRecordGr = new GlideRecord(tableName);
         duplicateRecordGr.initialize();
         if (duplicateRecordGr.get(sourceRecordSysId)) {
-            if (typeof fieldMap == "object") {
+            if (typeof fieldMap === "object") {
                 for (var key in fieldMap) {
                     if (fieldMap.hasOwnProperty(key)) {
                         if (duplicateRecordGr.isValidField(key)) {
@@ -116,7 +116,7 @@ Utils.prototype = {
      * @return {boolean} - True or False based on the check. True denotes the table exists
      **/
     checkTable(tableName) {
-        if (typeof(tableName) != "string") {
+        if (typeof(tableName) !== "string") {
             return null;
         }
 
@@ -135,7 +135,7 @@ Utils.prototype = {
      * @return {integer} - Random integer
      **/
     getRandomIntFromInterval(min, max) {
-        if (typeof(min) != "number" || typeof(max) != "number") {
+        if (typeof(min) !== "number" || typeof(max) !== "number") {
             return null;
         }
 
@@ -149,7 +149,7 @@ Utils.prototype = {
      * @return {string} - Random string
      **/
     generateRandomString(length) {
-        if (typeof(length) != "number") {
+        if (typeof(length) !== "number") {
             return null;
         }
 
@@ -163,20 +163,19 @@ Utils.prototype = {
         }
         return result;
     },
-
     type: 'Utils'
 };]]></script>
         <sys_class_name>sys_script_include</sys_class_name>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2023-06-22 18:26:52</sys_created_on>
         <sys_id>11fed15247672110acf69a21336d435a</sys_id>
-        <sys_mod_count>40</sys_mod_count>
+        <sys_mod_count>42</sys_mod_count>
         <sys_name>Utils</sys_name>
         <sys_package display_value="TMF Mock Payload Generator" source="x_648117_tmf_mock">3b03be1447232110acf69a21336d4362</sys_package>
         <sys_policy/>
         <sys_scope display_value="TMF Mock Payload Generator">3b03be1447232110acf69a21336d4362</sys_scope>
         <sys_update_name>sys_script_include_11fed15247672110acf69a21336d435a</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2023-07-05 23:47:04</sys_updated_on>
+        <sys_updated_on>2023-07-13 16:16:00</sys_updated_on>
     </sys_script_include>
 </record_update>
