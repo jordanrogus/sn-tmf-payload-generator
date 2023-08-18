@@ -14,7 +14,7 @@
         <form_context_menu>false</form_context_menu>
         <form_link>false</form_link>
         <form_menu_button_v2>false</form_menu_button_v2>
-        <form_style/>
+        <form_style>primary</form_style>
         <format_for_configurable_workspace>false</format_for_configurable_workspace>
         <hint/>
         <isolate_script>true</isolate_script>
@@ -44,34 +44,15 @@ if (typeof window == 'undefined') {
 }
 
 function generateCharsServerScript() {
-    var itemCharUtils = new x_648117_tmf_mock.ItemCharacteristicUtils();
-
     var item = current.getUniqueValue();
     var productOffering = current.getValue('product_offering');
     var specification = current.getValue('specification');
     var populateData = current.getValue('populate_chars');
 	
-	// Delete exisiting chars
-	var itemCharsDelete = new GlideRecord('x_648117_tmf_mock_item_characteristic');
-	itemCharsDelete.addQuery('item', item);
-	itemCharsDelete.query();
-	itemCharsDelete.deleteMultiple();
+	var itemCharUtils = new x_648117_tmf_mock.ItemCharacteristicUtils();
+	itemCharUtils.deleteExisitingItemChars(item);
+	itemCharUtils.generateItemChars(item, productOffering, specification, populateData);
 
-    // Get chars as an array of objects
-    var characteristics = itemCharUtils.getProductOfferingCharacteristics(productOffering, specification);
-
-    // Generate record for each characteristic if not found
-    if (characteristics !== null) {
-        for (i = 0; i < characteristics.length; i++) {
-            var grItemChars = new GlideRecord('x_648117_tmf_mock_item_characteristic');
-            grItemChars.addQuery('item', item);
-            grItemChars.addQuery('characteristic', characteristics[i].characteristic);
-			grItemChars.query();
-            if (!grItemChars.next()) {
-                itemCharUtils.generateItemCharacteristic(characteristics[i], item, populateData);
-            }
-        }
-    }
 	action.setRedirectURL("x_648117_tmf_mock_items.do?sys_id=" + current.getUniqueValue());
 }]]></script>
         <show_insert>true</show_insert>
@@ -84,7 +65,7 @@ function generateCharsServerScript() {
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>a25c1df647f32110acf69a21336d435d</sys_id>
-        <sys_mod_count>12</sys_mod_count>
+        <sys_mod_count>15</sys_mod_count>
         <sys_name>Re-Generate Characteristics</sys_name>
         <sys_overrides/>
         <sys_package display_value="TMF Mock Payload Generator" source="x_648117_tmf_mock">3b03be1447232110acf69a21336d4362</sys_package>
@@ -92,7 +73,7 @@ function generateCharsServerScript() {
         <sys_scope display_value="TMF Mock Payload Generator">3b03be1447232110acf69a21336d4362</sys_scope>
         <sys_update_name>sys_ui_action_a25c1df647f32110acf69a21336d435d</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2023-07-13 16:20:34</sys_updated_on>
+        <sys_updated_on>2023-08-18 15:54:23</sys_updated_on>
         <table>x_648117_tmf_mock_items</table>
         <ui11_compatible>true</ui11_compatible>
         <ui16_compatible>false</ui16_compatible>

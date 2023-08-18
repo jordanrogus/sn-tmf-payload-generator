@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_ui_policy">
     <sys_ui_policy action="INSERT_OR_UPDATE">
-        <active>true</active>
+        <active>false</active>
         <conditions table="x_648117_tmf_mock_items">product_offeringISNOTEMPTY^specificationISNOTEMPTY^EQ<item endquery="false" field="product_offering" goto="false" newquery="false" operator="ISNOTEMPTY" or="false" value=""/>
             <item endquery="false" field="specification" goto="false" newquery="false" operator="ISNOTEMPTY" or="false" value=""/>
             <item endquery="true" field="" goto="false" newquery="false" operator="=" or="false" value=""/>
@@ -22,22 +22,22 @@
 
 }]]></script_true>
         <set_values/>
-        <short_description>Set Product Offering and Specification RO When Both are Populated</short_description>
+        <short_description>INA: Set Product Offering and Specification RO When Both are Populated</short_description>
         <sys_class_name>sys_ui_policy</sys_class_name>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2023-06-21 00:17:17</sys_created_on>
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>ae1cd87d47ab2110acf69a21336d43ee</sys_id>
-        <sys_mod_count>12</sys_mod_count>
-        <sys_name>Set Product Offering and Specification RO When Both are Populated</sys_name>
+        <sys_mod_count>13</sys_mod_count>
+        <sys_name>INA: Set Product Offering and Specification RO When Both are Populated</sys_name>
         <sys_overrides/>
         <sys_package display_value="TMF Mock Payload Generator" source="x_648117_tmf_mock">3b03be1447232110acf69a21336d4362</sys_package>
         <sys_policy/>
         <sys_scope display_value="TMF Mock Payload Generator">3b03be1447232110acf69a21336d4362</sys_scope>
         <sys_update_name>sys_ui_policy_ae1cd87d47ab2110acf69a21336d43ee</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2023-06-29 22:16:58</sys_updated_on>
+        <sys_updated_on>2023-08-16 16:30:55</sys_updated_on>
         <table>x_648117_tmf_mock_items</table>
         <ui_type>0</ui_type>
         <view/>
