@@ -178,7 +178,7 @@ TMFProductOrderPayloadGenerationService.prototype = {
             obj.place = this.tmfPayloadUtilsSI.generatePlaceObj(orderableItemsGr.getValue('location'));
         }
         if (this.tmfPayloadUtilsSI.checkForProductRelationship(orderableItemsGr) === true) {
-            obj.productRelationship = this.tmfPayloadUtilsSI.productRelationshipArray(orderableItemsGr);
+            obj.productRelationship = this.tmfPayloadUtilsSI.generateProductRelationshipArray(orderableItemsGr);
         }
         if (this.tmfPayloadUtilsSI.checkForProductRelatedParty(orderableItemsGr) === true) {
             obj.relatedParty = this.tmfPayloadUtilsSI.generateProductRelatedPartyArray(orderableItemsGr);
@@ -191,13 +191,13 @@ TMFProductOrderPayloadGenerationService.prototype = {
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2023-06-22 21:56:29</sys_created_on>
         <sys_id>45fe4616476b2110acf69a21336d4312</sys_id>
-        <sys_mod_count>102</sys_mod_count>
+        <sys_mod_count>105</sys_mod_count>
         <sys_name>TMFProductOrderPayloadGenerationService</sys_name>
         <sys_package display_value="TMF Mock Payload Generator" source="x_648117_tmf_mock">3b03be1447232110acf69a21336d4362</sys_package>
         <sys_policy/>
         <sys_scope display_value="TMF Mock Payload Generator">3b03be1447232110acf69a21336d4362</sys_scope>
         <sys_update_name>sys_script_include_45fe4616476b2110acf69a21336d4312</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2023-07-13 16:15:32</sys_updated_on>
+        <sys_updated_on>2023-08-15 19:08:53</sys_updated_on>
     </sys_script_include>
 </record_update>

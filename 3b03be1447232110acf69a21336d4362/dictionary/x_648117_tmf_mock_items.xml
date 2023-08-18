@@ -21,7 +21,7 @@
                 <element inactive_on_update="false" label="Monthly" sequence="0" value="month"/>
             </choice>
         </element>
-        <element attributes="encode_utf8=false, readonly_clickthrough=true" display="true" label="Specification" mandatory="true" max_length="32" name="specification" reference="sn_prd_pm_specification" reference_qual="javascript:'sys_idIN'+(new sn_prd_pm.ProductUtil().getSpecificationForOffering(current.product_offering +'').join());" type="reference" use_reference_qualifier="advanced"/>
+        <element attributes="encode_utf8=false, readonly_clickthrough=true" display="true" label="Specification" mandatory="true" max_length="32" name="specification" reference="sn_prd_pm_specification" reference_qual="status=published^EQ" reference_qual_condition="status=published^EQ" type="reference"/>
         <element hint="If selected, the characteristics for this item will be propagated to each unique line item and the quantity for each unique line item will be set to 1." label="Unique Line Item Per Qty?" max_length="40" name="unique_line_item" type="boolean"/>
         <index name="index">
             <element name="location"/>

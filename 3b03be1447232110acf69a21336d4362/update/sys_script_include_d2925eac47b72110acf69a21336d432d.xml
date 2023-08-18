@@ -12,6 +12,43 @@ ItemCharacteristicUtils.prototype = {
     initialize: function() {
         this.utilsSI = new x_648117_tmf_mock.Utils();
     },
+	
+	/**
+     * Delete exisiting item chars
+     * 
+     * @param item {string} - Sys_id of the item
+     * @return null
+     **/
+	deleteExisitingItemChars(item){
+		var itemCharsDelete = new GlideRecord('x_648117_tmf_mock_item_characteristic');
+		itemCharsDelete.addQuery('item', item);
+		itemCharsDelete.query();
+		itemCharsDelete.deleteMultiple();
+	},
+
+	/**
+     * Generate Item characteristics
+     * 
+     * @param item {string} - Sys_id of the item
+     * @param productOffering {string} - Sys_id of the product offering
+     * @param specification {string} - Sys_id of the specification
+     * @param populateData {string} - Boolean denoting if data should be populated
+     * @return null
+     **/
+    generateItemChars(item, productOffering, specification, populateData) {
+        var characteristics = this.getProductOfferingCharacteristics(productOffering, specification);
+        if (characteristics !== null) {
+            for (i = 0; i < characteristics.length; i++) {
+                var grItemChars = new GlideRecord('x_648117_tmf_mock_item_characteristic');
+                grItemChars.addQuery('item', item);
+                grItemChars.addQuery('characteristic', characteristics[i].characteristic);
+                grItemChars.query();
+                if (!grItemChars.next()) {
+                    this.generateItemCharacteristic(characteristics[i], item, populateData);
+                }
+            }
+        }
+    },
 
     /**
      * Retrieves product offering characteristics
@@ -98,8 +135,8 @@ ItemCharacteristicUtils.prototype = {
         itemCharacteristicGr.characteristic = characteristicObj.characteristic;
         itemCharacteristicGr.item = item;
 		
-        // Generate a characteristic value if the user asked for all to be generated or the characteristic is mandatory. Booleans in SN stored as string values of 0 or 1
-        if (populateData === "1" || characteristicObj.mandatory === "1") {
+        // Generate a characteristic value if the user asked for all to be generated or the characteristic is mandatory. Booleans in SN stored as string values of 0 or 1, so check if passed through as "1" or "true"
+        if ((populateData === "1" || populateData === "true") || characteristicObj.mandatory === "1") {
             itemCharacteristicGr.characteristic_value = this._generateCharacteristicValue(characteristicObj);
         }
 
@@ -125,13 +162,13 @@ ItemCharacteristicUtils.prototype = {
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2023-06-29 21:58:17</sys_created_on>
         <sys_id>d2925eac47b72110acf69a21336d432d</sys_id>
-        <sys_mod_count>40</sys_mod_count>
+        <sys_mod_count>51</sys_mod_count>
         <sys_name>ItemCharacteristicUtils</sys_name>
         <sys_package display_value="TMF Mock Payload Generator" source="x_648117_tmf_mock">3b03be1447232110acf69a21336d4362</sys_package>
         <sys_policy/>
         <sys_scope display_value="TMF Mock Payload Generator">3b03be1447232110acf69a21336d4362</sys_scope>
         <sys_update_name>sys_script_include_d2925eac47b72110acf69a21336d432d</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2023-07-13 16:16:48</sys_updated_on>
+        <sys_updated_on>2023-08-18 15:51:55</sys_updated_on>
     </sys_script_include>
 </record_update>
