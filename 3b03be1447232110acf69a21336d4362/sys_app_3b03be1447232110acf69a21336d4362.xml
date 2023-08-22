@@ -5,6 +5,7 @@
         <enforce_license>log</enforce_license>
         <guided_setup_guid/>
         <hide_on_ui>false</hide_on_ui>
+        <ide_created/>
         <installed_as_dependency>false</installed_as_dependency>
         <js_level>es_latest</js_level>
         <licensable>true</licensable>
@@ -24,21 +25,22 @@
         <source>x_648117_tmf_mock</source>
         <store_correlation_id/>
         <store_url/>
+        <subscription_entitlement/>
         <sys_class_name>sys_app</sys_class_name>
         <sys_code/>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2023-06-16 19:25:57</sys_created_on>
         <sys_id>3b03be1447232110acf69a21336d4362</sys_id>
-        <sys_mod_count>5</sys_mod_count>
+        <sys_mod_count>6</sys_mod_count>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2023-07-13 16:53:38</sys_updated_on>
+        <sys_updated_on>2023-08-22 20:40:33</sys_updated_on>
         <template/>
         <trackable>true</trackable>
         <uninstall_blocked>false</uninstall_blocked>
         <user_role display_value="x_648117_tmf_mock.user" name="x_648117_tmf_mock.user">f313f65047232110acf69a21336d438c</user_role>
         <vendor/>
         <vendor_prefix/>
-        <version>1.1.0</version>
+        <version>1.2.0</version>
     </sys_app>
     <sys_translated_text action="delete_multiple" query="documentkey=3b03be1447232110acf69a21336d4362"/>
     <sys_attachment action="INSERT_OR_UPDATE">
@@ -46,7 +48,6 @@
         <chunk_size_bytes>700000</chunk_size_bytes>
         <compressed>true</compressed>
         <content_type>image/png</content_type>
-        <encryption_context/>
         <file_name>logo</file_name>
         <hash>29a87c98232e395c2a19c1ac4ea86dd600ca86e0f9496e975098f6b1ff987d9c</hash>
         <image_height>397</image_height>
