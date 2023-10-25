@@ -13,14 +13,13 @@ ProductItemUtilsAjax.prototype = Object.extendsObject(global.AbstractAjaxProcess
     /**
      * Generates Item Chars after deleting exisiting chars
      * 
-     * @param sysparm_item {string} - Sys_id of the item
-     * @param sysparm_productOffering {string} - Sys_id of the product offering
-     * @param sysparm_specification {string} - Sys_id of the specification
-     * @param sysparm_char_value {string} - Boolean denoting if data should be populated
-     * @return null
+     * @param {string} sysparm_item - Sys_id of the item
+     * @param {string} sysparm_productOffering - Sys_id of the product offering
+     * @param {string} sysparm_specification - Sys_id of the specification
+     * @param {string} sysparm_char_value - Boolean denoting if data should be populated
+     * @returns {undefined} - Function does not return
      **/
     generateItemChars: function() {
-
         var item = this.getParameter('sysparm_item');
         var productOffering = this.getParameter('sysparm_productOffering');
         var specification = this.getParameter('sysparm_specification');
@@ -29,7 +28,6 @@ ProductItemUtilsAjax.prototype = Object.extendsObject(global.AbstractAjaxProcess
         var itemCharUtils = new x_648117_tmf_mock.ItemCharacteristicUtils();
 		itemCharUtils.deleteExisitingItemChars(item);
         itemCharUtils.generateItemChars(item, productOffering, specification, populateData);
-
         return;
     },
 
@@ -39,13 +37,13 @@ ProductItemUtilsAjax.prototype = Object.extendsObject(global.AbstractAjaxProcess
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2023-08-16 16:32:03</sys_created_on>
         <sys_id>da2494c847703110acf69a21336d436f</sys_id>
-        <sys_mod_count>2</sys_mod_count>
+        <sys_mod_count>4</sys_mod_count>
         <sys_name>ProductItemUtilsAjax</sys_name>
         <sys_package display_value="TMF Mock Payload Generator" source="x_648117_tmf_mock">3b03be1447232110acf69a21336d4362</sys_package>
         <sys_policy>read</sys_policy>
         <sys_scope display_value="TMF Mock Payload Generator">3b03be1447232110acf69a21336d4362</sys_scope>
         <sys_update_name>sys_script_include_da2494c847703110acf69a21336d436f</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2023-08-18 15:55:39</sys_updated_on>
+        <sys_updated_on>2023-10-25 15:23:35</sys_updated_on>
     </sys_script_include>
 </record_update>

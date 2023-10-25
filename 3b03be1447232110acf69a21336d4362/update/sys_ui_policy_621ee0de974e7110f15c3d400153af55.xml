@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_ui_policy">
     <sys_ui_policy action="INSERT_OR_UPDATE">
-        <active>false</active>
-        <conditions table="x_648117_tmf_mock_items">specification.sys_class_name=sn_prd_pm_product_specification^EQ<item display_value="Product Specification" endquery="false" field="specification.sys_class_name" goto="false" newquery="false" operator="=" or="false" value="sn_prd_pm_product_specification"/>
+        <active>true</active>
+        <conditions table="x_648117_tmf_mock_items">unique_line_item=true^EQ<item endquery="false" field="unique_line_item" goto="false" newquery="false" operator="=" or="false" value="true"/>
             <item endquery="true" field="" goto="false" newquery="false" operator="=" or="false" value=""/>
         </conditions>
         <description/>
@@ -21,22 +21,22 @@
 
 }]]></script_true>
         <set_values/>
-        <short_description>INA: Require Product Offering for Product Specification</short_description>
+        <short_description>Hide Related Items if Item Uses Unique Qty</short_description>
         <sys_class_name>sys_ui_policy</sys_class_name>
         <sys_created_by>admin</sys_created_by>
-        <sys_created_on>2023-06-20 23:49:52</sys_created_on>
+        <sys_created_on>2023-10-24 21:30:24</sys_created_on>
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
-        <sys_id>bca55cf147ab2110acf69a21336d4369</sys_id>
-        <sys_mod_count>10</sys_mod_count>
-        <sys_name>INA: Require Product Offering for Product Specification</sys_name>
+        <sys_id>621ee0de974e7110f15c3d400153af55</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Hide Related Items if Item Uses Unique Qty</sys_name>
         <sys_overrides/>
         <sys_package display_value="TMF Mock Payload Generator" source="x_648117_tmf_mock">3b03be1447232110acf69a21336d4362</sys_package>
         <sys_policy/>
         <sys_scope display_value="TMF Mock Payload Generator">3b03be1447232110acf69a21336d4362</sys_scope>
-        <sys_update_name>sys_ui_policy_bca55cf147ab2110acf69a21336d4369</sys_update_name>
+        <sys_update_name>sys_ui_policy_621ee0de974e7110f15c3d400153af55</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2023-10-25 18:04:04</sys_updated_on>
+        <sys_updated_on>2023-10-24 21:30:24</sys_updated_on>
         <table>x_648117_tmf_mock_items</table>
         <ui_type>0</ui_type>
         <view/>

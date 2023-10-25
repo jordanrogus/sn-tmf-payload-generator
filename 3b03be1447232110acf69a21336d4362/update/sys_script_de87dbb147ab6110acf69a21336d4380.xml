@@ -15,7 +15,10 @@
         <condition/>
         <description/>
         <execute_function>false</execute_function>
-        <filter_condition table="x_648117_tmf_mock_items">specificationISNOTEMPTY^product_offeringISNOTEMPTY^action!=delete^EQ<item endquery="false" field="specification" goto="false" newquery="false" operator="ISNOTEMPTY" or="false" value=""/>
+        <filter_condition table="x_648117_tmf_mock_items">specificationISNOTEMPTY^product_offeringISNOTEMPTY^action!=delete^NQspecificationVALCHANGES^product_offeringISNOTEMPTY^action!=delete^EQ<item endquery="false" field="specification" goto="false" newquery="false" operator="ISNOTEMPTY" or="false" value=""/>
+            <item endquery="false" field="product_offering" goto="false" newquery="false" operator="ISNOTEMPTY" or="false" value=""/>
+            <item display_value="Delete" endquery="false" field="action" goto="false" newquery="false" operator="!=" or="false" value="delete"/>
+            <item endquery="false" field="specification" goto="false" newquery="true" operator="VALCHANGES" or="false" value=""/>
             <item endquery="false" field="product_offering" goto="false" newquery="false" operator="ISNOTEMPTY" or="false" value=""/>
             <item display_value="Delete" endquery="false" field="action" goto="false" newquery="false" operator="!=" or="false" value="delete"/>
             <item endquery="true" field="" goto="false" newquery="false" operator="=" or="false" value=""/>
@@ -39,6 +42,7 @@
     var populateData = current.getValue('populate_chars');
 	
 	var itemCharUtils = new x_648117_tmf_mock.ItemCharacteristicUtils();
+	itemCharUtils.deleteExisitingItemChars(item);
 	itemCharUtils.generateItemChars(item, productOffering, specification, populateData);
 
 })(current, previous);]]></script>
@@ -48,7 +52,7 @@
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>de87dbb147ab6110acf69a21336d4380</sys_id>
-        <sys_mod_count>53</sys_mod_count>
+        <sys_mod_count>55</sys_mod_count>
         <sys_name>Generate Characteristics</sys_name>
         <sys_overrides/>
         <sys_package display_value="TMF Mock Payload Generator" source="x_648117_tmf_mock">3b03be1447232110acf69a21336d4362</sys_package>
@@ -56,7 +60,7 @@
         <sys_scope display_value="TMF Mock Payload Generator">3b03be1447232110acf69a21336d4362</sys_scope>
         <sys_update_name>sys_script_de87dbb147ab6110acf69a21336d4380</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2023-08-18 15:53:41</sys_updated_on>
+        <sys_updated_on>2023-10-25 18:21:30</sys_updated_on>
         <template/>
         <when>after</when>
     </sys_script>

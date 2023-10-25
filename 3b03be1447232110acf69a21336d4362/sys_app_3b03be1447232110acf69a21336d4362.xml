@@ -31,16 +31,16 @@
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2023-06-16 19:25:57</sys_created_on>
         <sys_id>3b03be1447232110acf69a21336d4362</sys_id>
-        <sys_mod_count>6</sys_mod_count>
+        <sys_mod_count>7</sys_mod_count>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2023-08-22 20:40:33</sys_updated_on>
+        <sys_updated_on>2023-10-25 18:38:33</sys_updated_on>
         <template/>
         <trackable>true</trackable>
         <uninstall_blocked>false</uninstall_blocked>
         <user_role display_value="x_648117_tmf_mock.user" name="x_648117_tmf_mock.user">f313f65047232110acf69a21336d438c</user_role>
         <vendor/>
         <vendor_prefix/>
-        <version>1.2.0</version>
+        <version>1.3.0</version>
     </sys_app>
     <sys_translated_text action="delete_multiple" query="documentkey=3b03be1447232110acf69a21336d4362"/>
     <sys_attachment action="INSERT_OR_UPDATE">

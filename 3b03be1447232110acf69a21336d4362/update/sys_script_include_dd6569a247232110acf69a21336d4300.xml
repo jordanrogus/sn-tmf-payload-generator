@@ -10,17 +10,17 @@
         <script><![CDATA[var TMFPayloadUtils = Class.create();
 TMFPayloadUtils.prototype = {
     initialize: function() {
-        this.utilsSI = new x_648117_tmf_mock.Utils();
+        this.utils = new x_648117_tmf_mock.Utils();
     },
 
     /**
      * Generates the TMF compliant channel array
      * 
-     * @param channelSysId {string} - The channel record to use in generating the array as a sys_id
-     * @return {array} - The TMF compliant channel array
+     * @param {string} channelSysId - The channel record to use in generating the array as a sys_id
+     * @returns {Array} - The TMF compliant channel array
      **/
     generateChannelArray(channelSysId) {
-        var recordGr = this.utilsSI.getRecordFromSysId('sn_prd_pm_distribution_channel', channelSysId);
+        var recordGr = this.utils.getRecordFromSysId('sn_prd_pm_distribution_channel', channelSysId);
         if (!recordGr) {
             return null;
         }
@@ -34,16 +34,16 @@ TMFPayloadUtils.prototype = {
     /**
      * Generates the TMF compliant related party array
      * 
-     * @param contactSysId {string} - The contact record to use in generating the array as a sys_id
-     * @param accountSysId {string} - The account record to use in generating the array as a sys_id
-     * @return {array} - The TMF compliant related party array
+     * @param {string} contactSysId - The contact record to use in generating the array as a sys_id
+     * @param {string} accountSysId - The account record to use in generating the array as a sys_id
+     * @returns {Array} - The TMF compliant related party array
      **/
     generateRelatedPartyArray(contactSysId, accountSysId) {
         var array = [];
-        if (this._generateCustomerContactObj(contactSysId) !== null) {
+        if (this._generateCustomerContactObj(contactSysId)) {
             array.push(this._generateCustomerContactObj(contactSysId));
         }
-        if (this._generateCustomerObj(accountSysId) !== null) {
+        if (this._generateCustomerObj(accountSysId)) {
             array.push(this._generateCustomerObj(accountSysId));
         }
 
@@ -57,11 +57,11 @@ TMFPayloadUtils.prototype = {
     /**
      * Generates the TMF compliant customer contact object
      * 
-     * @param contactSysId {string} - The contact record to use in generating the object as a sys_id
-     * @return {object} - The TMF compliant customer contact object
+     * @param {string} contactSysId - The contact record to use in generating the object as a sys_id
+     * @returns {Object} - The TMF compliant customer contact object
      **/
     _generateCustomerContactObj(contactSysId) {
-        var recordGr = this.utilsSI.getRecordFromSysId('customer_contact', contactSysId);
+        var recordGr = this.utils.getRecordFromSysId('customer_contact', contactSysId);
         if (!recordGr) {
             return null;
         }
@@ -77,11 +77,11 @@ TMFPayloadUtils.prototype = {
     /**
      * Generates the TMF compliant customer object
      * 
-     * @param accountSysId {string} - The account record to use in generating the object as a sys_id
-     * @return {object} - The TMF compliant customer object
+     * @param {string} accountSysId - The account record to use in generating the object as a sys_id
+     * @returns {Object} - The TMF compliant customer object
      **/
     _generateCustomerObj(accountSysId) {
-        var recordGr = this.utilsSI.getRecordFromSysId('customer_account', accountSysId);
+        var recordGr = this.utils.getRecordFromSysId('customer_account', accountSysId);
         if (!recordGr) {
             return null;
         }
@@ -97,11 +97,11 @@ TMFPayloadUtils.prototype = {
     /**
      * Determines if an item has characteristics
      * 
-     * @param orderableItemGr {GlideRecord object} - The item to check
-     * @return {boolean} - True/False denoting if the item has characteristics
+     * @param {GlideRecord Object} orderableItemGr - The item to check
+     * @returns {boolean} - True/False denoting if the item has characteristics
      **/
     checkForProductCharacteristics(orderableItemGr) {
-        var productCharacteristicsGr = this.utilsSI.getRecords('x_648117_tmf_mock_item_characteristic', 'item=' + orderableItemGr.getUniqueValue());
+        var productCharacteristicsGr = this.utils.getRecords('x_648117_tmf_mock_item_characteristic', 'item=' + orderableItemGr.getUniqueValue());
         if (productCharacteristicsGr) {
             return true;
         }
@@ -111,15 +111,15 @@ TMFPayloadUtils.prototype = {
     /**
      * Generates the TMF compliant product characteristic array
      * 
-     * @param orderableItemGr {GlideRecord object} - The item to use in generating the array
-     * @return {array} - The TMF compliant product characteristic array
+     * @param {GlideRecord Object} orderableItemGr - The item to use in generating the array
+     * @returns {Array} - The TMF compliant product characteristic array
      **/
     generateProductCharacteristicArray(orderableItemGr) {
         var array = [];
-        var productCharacteristicsGr = this.utilsSI.getRecords('x_648117_tmf_mock_item_characteristic', 'item=' + orderableItemGr.getUniqueValue());
+        var productCharacteristicsGr = this.utils.getRecords('x_648117_tmf_mock_item_characteristic', 'item=' + orderableItemGr.getUniqueValue());
         if (productCharacteristicsGr) {
             while (productCharacteristicsGr.next()) {
-                var characteristicDefinitionGr = this.utilsSI.getRecordFromSysId('sn_prd_pm_characteristic', productCharacteristicsGr.getValue('characteristic'));
+                var characteristicDefinitionGr = this.utils.getRecordFromSysId('sn_prd_pm_characteristic', productCharacteristicsGr.getValue('characteristic'));
                 array.push({
                     "name": characteristicDefinitionGr.getValue('name'),
                     "value": productCharacteristicsGr.getValue('characteristic_value')
@@ -132,11 +132,11 @@ TMFPayloadUtils.prototype = {
     /**
      * Generates the TMF compliant product specification object
      * 
-     * @param productSpecificationSysId {string} - The specification to use in generating the object as sys_id
-     * @return {object} - The TMF compliant product specification object
+     * @param {string} productSpecificationSysId - The specification to use in generating the object as sys_id
+     * @returns {Object} - The TMF compliant product specification object
      **/
     generateProductSpecificationObj(productSpecificationSysId) {
-        var recordGr = this.utilsSI.getRecordFromSysId('sn_prd_pm_product_specification', productSpecificationSysId);
+        var recordGr = this.utils.getRecordFromSysId('sn_prd_pm_product_specification', productSpecificationSysId);
         if (!recordGr) {
             return null;
         }
@@ -160,8 +160,8 @@ TMFPayloadUtils.prototype = {
     /**
      * Generates the TMF compliant location object
      * 
-     * @param locationSysId {string} - The location to use in generating the object as sys_id
-     * @return {object} - The TMF compliant location object
+     * @param {string} locationSysId - The location to use in generating the object as sys_id
+     * @returns {Object} - The TMF compliant location object
      **/
     generatePlaceObj(locationSysId) {
         var obj = {};
@@ -173,11 +173,11 @@ TMFPayloadUtils.prototype = {
     /**
      * Determines if an item has product item relationships
      * 
-     * @param orderableItemGr {GlideRecord object} - The item to check
-     * @return {boolean} - True/False denoting if the item has product item relationships
+     * @param {GlideRecord Object} orderableItemGr - The item to check
+     * @returns {boolean} - True/False denoting if the item has product item relationships
      **/
     checkForProductOrderItemRelationship(orderableItemGr) {
-        var productOrderItemRelationshipsGr = this.utilsSI.getRecords('x_648117_tmf_mock_item_relationship', 'source_item=' + orderableItemGr.getUniqueValue() + '^relationship_class=productOrderItemRelationship');
+        var productOrderItemRelationshipsGr = this.utils.getRecords('x_648117_tmf_mock_item_relationship', 'source_item=' + orderableItemGr.getUniqueValue() + '^relationship_class=productOrderItemRelationship');
         if (productOrderItemRelationshipsGr) {
             return true;
         }
@@ -187,12 +187,12 @@ TMFPayloadUtils.prototype = {
     /**
      * Generates the TMF compliant product item relationship array
      * 
-     * @param orderableItemGr {GlideRecord object} - The item to use in generating the array
-     * @return {array} - The TMF compliant product item relationship array
+     * @param {GlideRecord Object} orderableItemGr - The item to use in generating the array
+     * @returns {Array} - The TMF compliant product item relationship array
      **/
     generateProductOrderItemRelationshipArray(orderableItemGr) {
         var array = [];
-        var productOrderItemRelationshipsGr = this.utilsSI.getRecords('x_648117_tmf_mock_item_relationship', 'source_item=' + orderableItemGr.getUniqueValue() + '^relationship_class=productOrderItemRelationship');
+        var productOrderItemRelationshipsGr = this.utils.getRecords('x_648117_tmf_mock_item_relationship', 'source_item=' + orderableItemGr.getUniqueValue() + '^relationship_class=productOrderItemRelationship');
         if (productOrderItemRelationshipsGr) {
             while (productOrderItemRelationshipsGr.next()) {
                 array.push({
@@ -207,11 +207,11 @@ TMFPayloadUtils.prototype = {
     /**
      * Determines if an item has product relationships
      * 
-     * @param orderableItemGr {GlideRecord object} - The item to check
-     * @return {boolean} - True/False denoting if the item has product relationships
+     * @param {GlideRecord Object} orderableItemGr - The item to check
+     * @returns {boolean} - True/False denoting if the item has product relationships
      **/
     checkForProductRelationship(orderableItemGr) {
-        var productRelationshipsGr = this.utilsSI.getRecords('x_648117_tmf_mock_item_relationship', 'source_item=' + orderableItemGr.getUniqueValue() + '^relationship_class=productRelationship');
+        var productRelationshipsGr = this.utils.getRecords('x_648117_tmf_mock_item_relationship', 'source_item=' + orderableItemGr.getUniqueValue() + '^relationship_class=productRelationship');
         if (productRelationshipsGr) {
             return true;
         }
@@ -221,12 +221,12 @@ TMFPayloadUtils.prototype = {
     /**
      * Generates the TMF compliant product relationship array
      * 
-     * @param orderableItemGr {GlideRecord object} - The item to use in generating the array
-     * @return {array} - The TMF compliant product relationship array
+     * @param {GlideRecord Object} orderableItemGr - The item to use in generating the array
+     * @returns {Array} - The TMF compliant product relationship array
      **/
     generateProductRelationshipArray(orderableItemGr) {
         var array = [];
-        var productRelationshipsGr = this.utilsSI.getRecords('x_648117_tmf_mock_item_relationship', 'source_item=' + orderableItemGr.getUniqueValue() + '^relationship_class=productRelationship');
+        var productRelationshipsGr = this.utils.getRecords('x_648117_tmf_mock_item_relationship', 'source_item=' + orderableItemGr.getUniqueValue() + '^relationship_class=productRelationship');
         if (productRelationshipsGr) {
             while (productRelationshipsGr.next()) {
                 array.push({
@@ -241,11 +241,11 @@ TMFPayloadUtils.prototype = {
     /**
      * Determines if an item has related parties
      * 
-     * @param orderableItemGr {GlideRecord object} - The item to check
-     * @return {boolean} - True/False denoting if the item has related parties
+     * @param {GlideRecord object} orderableItemGr - The item to check
+     * @returns {boolean} - True/False denoting if the item has related parties
      **/
     checkForProductRelatedParty(orderableItemGr) {
-        var relatedPartyGr = this.utilsSI.getRecords('x_648117_tmf_mock_related_party', 'item=' + orderableItemGr.getUniqueValue());
+        var relatedPartyGr = this.utils.getRecords('x_648117_tmf_mock_related_party', 'item=' + orderableItemGr.getUniqueValue());
         if (relatedPartyGr) {
             return true;
         }
@@ -255,12 +255,12 @@ TMFPayloadUtils.prototype = {
     /**
      * Generates the TMF compliant product related party array
      * 
-     * @param orderableItemGr {GlideRecord object} - The item to use in generating the array
-     * @return {array} - The TMF compliant product related party array
+     * @param {GlideRecord object} orderableItemGr - The item to use in generating the array
+     * @returns {Array} - The TMF compliant product related party array
      **/
     generateProductRelatedPartyArray(orderableItemGr) {
         var array = [];
-        var relatedPartyGr = this.utilsSI.getRecords('x_648117_tmf_mock_related_party', 'item=' + orderableItemGr.getUniqueValue());
+        var relatedPartyGr = this.utils.getRecords('x_648117_tmf_mock_related_party', 'item=' + orderableItemGr.getUniqueValue());
         if (relatedPartyGr) {
             while (relatedPartyGr.next()) {
                 array.push({
@@ -279,8 +279,8 @@ TMFPayloadUtils.prototype = {
     /**
      * Determines if an item has price attributes
      * 
-     * @param orderableItemGr {GlideRecord object} - The item to check
-     * @return {boolean} - True/False denoting if the item has price attributes
+     * @param {GlideRecord Object} orderableItemGr - The item to check
+     * @returns {boolean} - True/False denoting if the item has price attributes
      **/
     checkForPrice(orderableItemGr) {
         var mrc = orderableItemGr.getValue('mrc');
@@ -295,9 +295,9 @@ TMFPayloadUtils.prototype = {
     /**
      * Generates the TMF compliant product price object
      * 
-     * @param orderableItemGr {GlideRecord object} - The item to use in generating the object
-	 * @param currencyFieldName {string} - The field name on the item table denoting the currency
-     * @return {object} - The TMF compliant product price object
+     * @param {GlideRecord Object} orderableItemGr - The item to use in generating the object
+	 * @param {string} currencyFieldName - The field name on the item table denoting the currency
+     * @returns {Object} - The TMF compliant product price object
      **/
     generateItemPriceObj(orderableItemGr, currencyFieldName) {
         if (!orderableItemGr.isValidField(currencyFieldName)) {
@@ -324,11 +324,11 @@ TMFPayloadUtils.prototype = {
     /**
      * Generates the TMF compliant product offering object
      * 
-     * @param productOfferingSysId {String} - The item to use in generating the object as sys_id
-     * @return {object} - The TMF compliant product offering object
+     * @param {string} productOfferingSysId - The item to use in generating the object as sys_id
+     * @returns {Object} - The TMF compliant product offering object
      **/
     generateProductOfferingObj(productOfferingSysId) {
-        var recordGr = this.utilsSI.getRecordFromSysId('sn_prd_pm_product_offering', productOfferingSysId);
+        var recordGr = this.utils.getRecordFromSysId('sn_prd_pm_product_offering', productOfferingSysId);
         if (!recordGr) {
             return null;
         }
@@ -350,15 +350,14 @@ TMFPayloadUtils.prototype = {
     /**
      * Gets the record identifier from a record. The identifier is an external id or sys_id
      * 
-     * @param tableName {string} - Name of the table to query
-     * @param sysId {string} - Record to use in the query as sys_id
-     * @return {string} - The record identifier
+     * @param {string} tableName - Name of the table to query
+     * @param {string} sysId - Record to use in the query as sys_id
+     * @returns {string} - The record identifier
      **/
     getRecordIdentifier(tableName, sysId) {
-		// Array of valid external id field names across all telecom tables
         var externalIdFieldNames = Constants.EXTERNAL_ID_FIELD_NAMES;
 
-        var recordGr = this.utilsSI.getRecordFromSysId(tableName, sysId);
+        var recordGr = this.utils.getRecordFromSysId(tableName, sysId);
         if (recordGr) {
 			
 			// Return external ID if the passed in table has an external ID field
@@ -379,13 +378,13 @@ TMFPayloadUtils.prototype = {
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2023-06-23 13:33:19</sys_created_on>
         <sys_id>dd6569a247232110acf69a21336d4300</sys_id>
-        <sys_mod_count>67</sys_mod_count>
+        <sys_mod_count>70</sys_mod_count>
         <sys_name>TMFPayloadUtils</sys_name>
         <sys_package display_value="TMF Mock Payload Generator" source="x_648117_tmf_mock">3b03be1447232110acf69a21336d4362</sys_package>
         <sys_policy/>
         <sys_scope display_value="TMF Mock Payload Generator">3b03be1447232110acf69a21336d4362</sys_scope>
         <sys_update_name>sys_script_include_dd6569a247232110acf69a21336d4300</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2023-07-13 16:47:05</sys_updated_on>
+        <sys_updated_on>2023-10-25 15:24:37</sys_updated_on>
     </sys_script_include>
 </record_update>

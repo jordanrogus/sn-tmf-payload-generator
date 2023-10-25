@@ -10,20 +10,20 @@
         <script><![CDATA[var TMFProductOrderPayloadGenerationService = Class.create();
 TMFProductOrderPayloadGenerationService.prototype = {
     initialize: function() {
-        this.utilsSI = new x_648117_tmf_mock.Utils();
-        this.tmfPayloadUtilsSI = new x_648117_tmf_mock.TMFPayloadUtils();
+        this.utils = new x_648117_tmf_mock.Utils();
+        this.tmfPayloadUtils = new x_648117_tmf_mock.TMFPayloadUtils();
     },
 	
 	/**
      * Determines helper function to run based on the TMF622 method selected in the payload generator
      * 
-     * @param payloadGeneratorGr {GlideRecord object} - The payload generator record
-     * @return {null}
+     * @param {GlideRecord Object} payloadGeneratorGr - The payload generator record
+     * @returns {null|undefined} - Function does not return unless invalid parameter passed in
      **/
     initializePayloadGenerator(payloadGeneratorGr) {
-        if (typeof(payloadGeneratorGr) !== "object") {
-            return null;
-        }
+		if(!payloadGeneratorGr.isValidField('method_and_endpoint')){
+			return null;
+		}
 
         var api = payloadGeneratorGr.getValue('method_and_endpoint');
         switch (api) {
@@ -31,15 +31,14 @@ TMFProductOrderPayloadGenerationService.prototype = {
                 return this._generatePayload(payloadGeneratorGr.getUniqueValue());
 			default:
 				gs.error(gs.getMessage("Switch statement in 'TMFProductOrderPayloadGenerationService' Script Include found no match"));
-				return null;
         }
     },
 
     /**
      * Generates the TMF622 compliant payload
      * 
-     * @param payloadGeneratorSysId {string} - The payload generator record to use in generating the payload
-     * @return {string} - The TMF622 compliant payload
+     * @param {string} payloadGeneratorSysId - The payload generator record to use in generating the payload
+     * @returns {string} - The TMF622 compliant payload
      **/
     _generatePayload(payloadGeneratorSysId) {
         var payload = {};
@@ -49,7 +48,7 @@ TMFProductOrderPayloadGenerationService.prototype = {
         var account = '';
         var contact = '';
 
-        var coreOrderDataGr = this.utilsSI.getRecords('x_648117_tmf_mock_core_order_data', 'payload_generator=' + payloadGeneratorSysId);
+        var coreOrderDataGr = this.utils.getRecords('x_648117_tmf_mock_core_order_data', 'payload_generator=' + payloadGeneratorSysId);
         if (coreOrderDataGr) {
             while (coreOrderDataGr.next()) {
                 var attribute = coreOrderDataGr.getValue('attribute');
@@ -84,11 +83,11 @@ TMFProductOrderPayloadGenerationService.prototype = {
 		if (this._generateProductOrderItemArray(payloadGeneratorSysId).length > 0){
 			payload.productOrderItem = this._generateProductOrderItemArray(payloadGeneratorSysId);
 		}
-		if (Array.isArray(this.tmfPayloadUtilsSI.generateRelatedPartyArray(contact, account))){
-			payload.relatedParty = this.tmfPayloadUtilsSI.generateRelatedPartyArray(contact, account);	
+		if (Array.isArray(this.tmfPayloadUtils.generateRelatedPartyArray(contact, account))){
+			payload.relatedParty = this.tmfPayloadUtils.generateRelatedPartyArray(contact, account);	
 		}
-		if (Array.isArray(this.tmfPayloadUtilsSI.generateChannelArray(channel))){
-			payload.channel = this.tmfPayloadUtilsSI.generateChannelArray(channel);
+		if (Array.isArray(this.tmfPayloadUtils.generateChannelArray(channel))){
+			payload.channel = this.tmfPayloadUtils.generateChannelArray(channel);
 		}
         payload['@type'] = 'ProductOrder';
         return JSON.stringify(payload);
@@ -97,12 +96,12 @@ TMFProductOrderPayloadGenerationService.prototype = {
     /**
      * Generates the product order item array for TMF622
      * 
-     * @param payloadGeneratorSysId {string} - The payload generator record to use in generating the array
-     * @return {array} - The product order item array
+     * @param {string} payloadGeneratorSysId - The payload generator record to use in generating the array
+     * @returns {Array} - The product order item array
      **/
     _generateProductOrderItemArray(payloadGeneratorSysId) {
         var array = [];
-        var orderableItemsGr = this.utilsSI.getRecords('x_648117_tmf_mock_items', 'payload_generator=' + payloadGeneratorSysId);
+        var orderableItemsGr = this.utils.getRecords('x_648117_tmf_mock_items', 'payload_generator=' + payloadGeneratorSysId);
         if (orderableItemsGr) {
             while (orderableItemsGr.next()) {
 				// Boolean is stored as string of 0 or 1
@@ -120,9 +119,9 @@ TMFProductOrderPayloadGenerationService.prototype = {
 
     /**
      * Generates the product order item object for an item
-     * @param orderableItemsGr {GlideRecord object} - The item used in generating the object
-     * @param i {integer} - Optionally, an iterator to ensure duplicate items have unique ids
-     * @return {object} - The product order item object
+     * @param {GlideRecord Object} orderableItemsGr - The item used in generating the object
+     * @param {integer} [i] - Optionally, an iterator to ensure duplicate items have unique ids
+     * @returns {Object} - The product order item object
      **/
     _generateProductOrderItemObj(orderableItemsGr, i) {
         var obj = {};
@@ -140,20 +139,20 @@ TMFProductOrderPayloadGenerationService.prototype = {
             obj.quantity = orderableItemsGr.getValue('quantity');
         }
 
-        if (this.tmfPayloadUtilsSI.checkForPrice(orderableItemsGr) === true) {
+        if (this.tmfPayloadUtils.checkForPrice(orderableItemsGr) === true) {
             var itemPriceArray = [];
             if (orderableItemsGr.getValue('mrc') !== "0") {
-                itemPriceArray.push(this.tmfPayloadUtilsSI.generateItemPriceObj(orderableItemsGr, 'mrc'));
+                itemPriceArray.push(this.tmfPayloadUtils.generateItemPriceObj(orderableItemsGr, 'mrc'));
             }
             if (orderableItemsGr.getValue('nrc') !== "0") {
-                itemPriceArray.push(this.tmfPayloadUtilsSI.generateItemPriceObj(orderableItemsGr, 'nrc'));
+                itemPriceArray.push(this.tmfPayloadUtils.generateItemPriceObj(orderableItemsGr, 'nrc'));
             }
             obj.itemPrice = itemPriceArray;
         }
         obj.product = this._generateProductObj(orderableItemsGr);
-        obj.productOffering = this.tmfPayloadUtilsSI.generateProductOfferingObj(orderableItemsGr.getValue('product_offering'));
-        if (this.tmfPayloadUtilsSI.checkForProductOrderItemRelationship(orderableItemsGr) === true) {
-            obj.productOrderItemRelationship = this.tmfPayloadUtilsSI.generateProductOrderItemRelationshipArray(orderableItemsGr);
+        obj.productOffering = this.tmfPayloadUtils.generateProductOfferingObj(orderableItemsGr.getValue('product_offering'));
+        if (this.tmfPayloadUtils.checkForProductOrderItemRelationship(orderableItemsGr) === true) {
+            obj.productOrderItemRelationship = this.tmfPayloadUtils.generateProductOrderItemRelationshipArray(orderableItemsGr);
         }
         obj["@type"] = "ProductOrderItem";
         return obj;
@@ -161,27 +160,27 @@ TMFProductOrderPayloadGenerationService.prototype = {
 
     /**
      * Generates the product object for an item
-     * @param orderableItemsGr {GlideRecord object} - The item used in generating the object
-     * @return {object} - The product object
+     * @param {GlideRecord Object} orderableItemsGr - The item used in generating the object
+     * @returns {Object} - The product object
      **/
     _generateProductObj(orderableItemsGr) {
         var obj = {};
         if (orderableItemsGr.getValue('action') !== "add") {
-            obj.id = this.tmfPayloadUtilsSI.getRecordIdentifier('sn_prd_invt_product_inventory', orderableItemsGr.getValue('product_inventory'));
+            obj.id = this.tmfPayloadUtils.getRecordIdentifier('sn_prd_invt_product_inventory', orderableItemsGr.getValue('product_inventory'));
         }
         obj["@type"] = "Product";
-        if (this.tmfPayloadUtilsSI.checkForProductCharacteristics(orderableItemsGr) === true) {
-            obj.productCharacteristic = this.tmfPayloadUtilsSI.generateProductCharacteristicArray(orderableItemsGr);
+        if (this.tmfPayloadUtils.checkForProductCharacteristics(orderableItemsGr) === true) {
+            obj.productCharacteristic = this.tmfPayloadUtils.generateProductCharacteristicArray(orderableItemsGr);
         }
-        obj.productSpecification = this.tmfPayloadUtilsSI.generateProductSpecificationObj(orderableItemsGr.getValue('specification'));
+        obj.productSpecification = this.tmfPayloadUtils.generateProductSpecificationObj(orderableItemsGr.getValue('specification'));
         if (!orderableItemsGr.location.nil()) {
-            obj.place = this.tmfPayloadUtilsSI.generatePlaceObj(orderableItemsGr.getValue('location'));
+            obj.place = this.tmfPayloadUtils.generatePlaceObj(orderableItemsGr.getValue('location'));
         }
-        if (this.tmfPayloadUtilsSI.checkForProductRelationship(orderableItemsGr) === true) {
-            obj.productRelationship = this.tmfPayloadUtilsSI.generateProductRelationshipArray(orderableItemsGr);
+        if (this.tmfPayloadUtils.checkForProductRelationship(orderableItemsGr) === true) {
+            obj.productRelationship = this.tmfPayloadUtils.generateProductRelationshipArray(orderableItemsGr);
         }
-        if (this.tmfPayloadUtilsSI.checkForProductRelatedParty(orderableItemsGr) === true) {
-            obj.relatedParty = this.tmfPayloadUtilsSI.generateProductRelatedPartyArray(orderableItemsGr);
+        if (this.tmfPayloadUtils.checkForProductRelatedParty(orderableItemsGr) === true) {
+            obj.relatedParty = this.tmfPayloadUtils.generateProductRelatedPartyArray(orderableItemsGr);
         }
         return obj;
     },
@@ -191,13 +190,13 @@ TMFProductOrderPayloadGenerationService.prototype = {
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2023-06-22 21:56:29</sys_created_on>
         <sys_id>45fe4616476b2110acf69a21336d4312</sys_id>
-        <sys_mod_count>105</sys_mod_count>
+        <sys_mod_count>108</sys_mod_count>
         <sys_name>TMFProductOrderPayloadGenerationService</sys_name>
         <sys_package display_value="TMF Mock Payload Generator" source="x_648117_tmf_mock">3b03be1447232110acf69a21336d4362</sys_package>
         <sys_policy/>
         <sys_scope display_value="TMF Mock Payload Generator">3b03be1447232110acf69a21336d4362</sys_scope>
         <sys_update_name>sys_script_include_45fe4616476b2110acf69a21336d4312</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2023-08-15 19:08:53</sys_updated_on>
+        <sys_updated_on>2023-10-25 15:25:10</sys_updated_on>
     </sys_script_include>
 </record_update>

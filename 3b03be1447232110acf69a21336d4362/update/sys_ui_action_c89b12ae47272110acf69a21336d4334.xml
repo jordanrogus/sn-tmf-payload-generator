@@ -7,7 +7,7 @@
 
 }]]></client_script_v2>
         <comments/>
-        <condition>gs.getProperty('x_648117_tmf_mock.enable_submit_via_api') == 'true' &amp;&amp; gs.hasRole('x_648117_tmf_mock.api_user') &amp;&amp; current.getValue('state') === 'ready' &amp;&amp; !current.isNewRecord() &amp;&amp; current.getValue('payload') !== "";</condition>
+        <condition>gs.getProperty('x_648117_tmf_mock.enable_submit_via_api') === 'true' &amp;&amp; gs.hasRole('x_648117_tmf_mock.api_user') &amp;&amp; current.getValue('state') === 'ready' &amp;&amp; !current.isNewRecord() &amp;&amp; current.getValue('payload') !== null;</condition>
         <form_action>true</form_action>
         <form_button>true</form_button>
         <form_button_v2>false</form_button_v2>
@@ -40,35 +40,35 @@
 }
 
 if (typeof window == 'undefined') {
-	submitAPI();
+    submitAPI();
 }
 
 function submitAPI() {
-	var submissionService = new x_648117_tmf_mock.TMFAPISubmissionService();
-	var payloadGeneratorSysId = current.getUniqueValue();
+    var submissionService = new x_648117_tmf_mock.TMFAPISubmissionService();
+    var payloadGeneratorSysId = current.getUniqueValue();
     var qty = submissionService.getAPITriggerQuantity(payloadGeneratorSysId);
-	var maxCalls = parseInt(gs.getProperty('x_648117_tmf_mock.max_api_calls'));
-	var asyncMax = parseInt(gs.getProperty('x_648117_tmf_mock.number_of_api_calls_before_async'));
-	var msg = "";
+    var maxCalls = parseInt(gs.getProperty('x_648117_tmf_mock.max_api_calls'));
+    var asyncMax = parseInt(gs.getProperty('x_648117_tmf_mock.number_of_api_calls_before_async'));
+    var msg = "";
 
-	// Ensure asyncMax property cannot be larger than the maxCalls property
-	if (asyncMax > maxCalls){
-		asyncMax = maxCalls;
-	}
-	
-	// Check if the requested number of calls is larger than allowed, and if so run up to the maximum allowed
+    // Ensure asyncMax property cannot be larger than the maxCalls property
+    if (asyncMax > maxCalls) {
+        asyncMax = maxCalls;
+    }
+
+    // Check if the requested number of calls is larger than allowed, and if so run up to the maximum allowed
     if (qty > maxCalls) {
         qty = maxCalls;
     }
-	
+
     if (qty <= asyncMax) {
         for (var i = 0; i < qty; i++) {
-			responseObj = submissionService.tmf622productOrderPostSubmitSynch(payloadGeneratorSysId);
-			if(responseObj.error == false){
-				gs.addInfoMessage(responseObj.msg);
-			} else {
-				gs.addErrorMessage(responseObj.msg);
-			}
+            responseObj = submissionService.tmf622productOrderPostSubmitSynch(payloadGeneratorSysId);
+            if (responseObj.error == false) {
+                gs.addInfoMessage(responseObj.msg);
+            } else {
+                gs.addErrorMessage(responseObj.msg);
+            }
         }
     } else {
         for (var j = 0; j < qty; j++) {
@@ -78,7 +78,6 @@ function submitAPI() {
         var link = '<a href="' + url + '" target="_blank">Click Here!</a>';
         gs.addInfoMessage(gs.getMessage("The " + qty + " API requests submitted are being run asynchronously. To review the orders in a new tab: " + link));
     }
-	
     action.setRedirectURL(current);
 }]]></script>
         <show_insert>true</show_insert>
@@ -91,7 +90,7 @@ function submitAPI() {
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>c89b12ae47272110acf69a21336d4334</sys_id>
-        <sys_mod_count>103</sys_mod_count>
+        <sys_mod_count>109</sys_mod_count>
         <sys_name>Send API Request(s)</sys_name>
         <sys_overrides/>
         <sys_package display_value="TMF Mock Payload Generator" source="x_648117_tmf_mock">3b03be1447232110acf69a21336d4362</sys_package>
@@ -99,7 +98,7 @@ function submitAPI() {
         <sys_scope display_value="TMF Mock Payload Generator">3b03be1447232110acf69a21336d4362</sys_scope>
         <sys_update_name>sys_ui_action_c89b12ae47272110acf69a21336d4334</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2023-07-13 16:24:11</sys_updated_on>
+        <sys_updated_on>2023-10-25 15:34:43</sys_updated_on>
         <table>x_648117_tmf_mock_payload_generator</table>
         <ui11_compatible>true</ui11_compatible>
         <ui16_compatible>false</ui16_compatible>
