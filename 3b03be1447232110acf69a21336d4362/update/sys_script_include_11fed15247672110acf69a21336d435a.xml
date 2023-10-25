@@ -14,12 +14,12 @@ Utils.prototype = {
     /**
      * Retrieves table records from a query
      * 
-     * @param tableName {string} - Name of the table to query
-     * @param encodedQuery {string} - Query formatted as an encoded query
-     * @return {GlideRecord object} - Set of returned records in the GlideRecord object
+     * @param {string} tableName - Name of the table to query
+     * @param {string} encodedQuery - Query formatted as an encoded query
+     * @returns {GlideRecord Object} - Set of returned records in the GlideRecord object
      **/
     getRecords(tableName, encodedQuery) {
-        if (typeof(tableName) !== "string" || typeof(encodedQuery) !== "string") {
+        if (!gs.tableExists(tableName)){
             return null;
         }
 
@@ -35,33 +35,32 @@ Utils.prototype = {
     /**
      * Retrieves a record from a table
      * 
-     * @param tableName {string} - Name of the table to query
-     * @param sysId {string} - Record sys_id to check against
-     * @return {GlideRecord object} - The retrieved record in the GlideRecord object
+     * @param {string} tableName - Name of the table to query
+     * @param {string} sysId - Record sys_id to check against
+     * @returns {GlideRecord Object} - The retrieved record in the GlideRecord object
      **/
     getRecordFromSysId(tableName, sysId) {
-        if (typeof(tableName) !== "string" || typeof(sysId) !== "string") {
+        if (!gs.tableExists(tableName)){
             return null;
         }
 
         var recordGr = new GlideRecord(tableName);
         if (recordGr.get(sysId)) {
             return recordGr;
-        } else {
-            return null;
         }
+		return null;
     },
 
     /**
      * Checks if a record already exists in the table from a query
      * 
-     * @param tableName {string} - Name of the table to query
-     * @param encodedQuery {string} - Query formatted as an encoded query
-     * @param currentRecordSysId {string} - Record sys_id to check against
-     * @return {string} - Link to existing record
+     * @param {string} tableName - Name of the table to query
+     * @param {string} encodedQuery - Query formatted as an encoded query
+     * @param {string} currentRecordSysId - Record sys_id to check against
+     * @returns {?string} - Link to existing record if it exists
      **/
     checkForDuplicateRecord(tableName, encodedQuery, currentRecordSysId) {
-        if (typeof(tableName) !== "string" || typeof(encodedQuery) !== "string" || typeof(currentRecordSysId) !== "string") {
+         if (!gs.tableExists(tableName)){
             return null;
         }
 
@@ -72,19 +71,20 @@ Utils.prototype = {
             var link = "/" + recordCheckGr.getTableName() + "?sys_id=" + recordCheckGr.getUniqueValue();
             return link.toString();
         }
-        return false;
+        return null;
     },
 
     /**
      * Generates a duplicate record
      * 
-     * @param tableName {string} - Name of the table to query
-     * @param sourceRecordSysId {string} - Record sys_id to source data to generate the duplicated record
-     * @param fieldMap {object} - Optional object containing fields/values to usurp from the source record in the duplicated record. Example: fieldMap = {fieldName:"fieldValue", fieldName2:"fieldValue2"}
-     * @return {string} - Sys_id of duplicated record
+     * @param {string} tableName - Name of the table to query
+     * @param {string} sourceRecordSysId - Record sys_id to source data to generate the duplicated record
+     * @param {object} fieldMap - Optional object containing fields/values to usurp from the source record in the duplicated record.
+	 * @param {string} fieldMap.fieldName - Value for the field
+     * @returns {string} - Sys_id of duplicated record
      **/
     generateDuplicateRecord(tableName, sourceRecordSysId, fieldMap) {
-        if (typeof(tableName) !== "string" || typeof(sourceRecordSysId) !== "string") {
+        if (!gs.tableExists(tableName)){
             return null;
         }
 
@@ -110,29 +110,11 @@ Utils.prototype = {
     },
 
     /**
-     * Checks if a table exists
-     * 
-     * @param tableName {string} - Name of the table to check
-     * @return {boolean} - True or False based on the check. True denotes the table exists
-     **/
-    checkTable(tableName) {
-        if (typeof(tableName) !== "string") {
-            return null;
-        }
-
-        var tableCheckGr = new GlideRecord('sys_db_object');
-        if (tableCheckGr.get('name', tableName)) {
-            return true;
-        }
-        return false;
-    },
-
-    /**
      * Gets a random integer between min and max values
      * 
-     * @param min {integer} - Minimum integer to bound the generation
-     * @param max {integer} - Maximum integer to bound the generation
-     * @return {integer} - Random integer
+     * @param {number} min - Minimum integer to bound the generation
+     * @param {number} max - Maximum integer to bound the generation
+     * @returns {number} - Random integer
      **/
     getRandomIntFromInterval(min, max) {
         if (typeof(min) !== "number" || typeof(max) !== "number") {
@@ -145,8 +127,8 @@ Utils.prototype = {
     /**
      * Generate a random string of a specified length
      * 
-     * @param length {integer} - The length of the generated string
-     * @return {string} - Random string
+     * @param {integer} length - The length of the generated string
+     * @returns {string} - Random string
      **/
     generateRandomString(length) {
         if (typeof(length) !== "number") {
@@ -169,13 +151,13 @@ Utils.prototype = {
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2023-06-22 18:26:52</sys_created_on>
         <sys_id>11fed15247672110acf69a21336d435a</sys_id>
-        <sys_mod_count>42</sys_mod_count>
+        <sys_mod_count>43</sys_mod_count>
         <sys_name>Utils</sys_name>
         <sys_package display_value="TMF Mock Payload Generator" source="x_648117_tmf_mock">3b03be1447232110acf69a21336d4362</sys_package>
         <sys_policy/>
         <sys_scope display_value="TMF Mock Payload Generator">3b03be1447232110acf69a21336d4362</sys_scope>
         <sys_update_name>sys_script_include_11fed15247672110acf69a21336d435a</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2023-07-13 16:16:00</sys_updated_on>
+        <sys_updated_on>2023-10-24 22:37:34</sys_updated_on>
     </sys_script_include>
 </record_update>

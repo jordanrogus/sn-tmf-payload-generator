@@ -10,48 +10,46 @@
         <script><![CDATA[var ApiParamInitializationService = Class.create();
 ApiParamInitializationService.prototype = {
     initialize: function() {
-        this.utilsSI = new x_648117_tmf_mock.Utils();
-		this.initializationUtilsSI = new x_648117_tmf_mock.InitializationUtils();
+		this.initializationServiceUtils = new x_648117_tmf_mock.InitializationServiceUtils();
     },
 
     /**
      * Determines helper function to run based on the api selected in the payload generator
      * 
-     * @param payloadGeneratorGr {GlideRecord object} - The payload generator record
-     * @return {null}
+     * @param {GlideRecord Object} payloadGeneratorGr - The payload generator record
+     * @returns {null|undefined} - Function does not return unless invalid parameter passed in
      **/
     initializeApiParams(payloadGeneratorGr) {
-        if (typeof(payloadGeneratorGr) !== "object") {
-            return null;
-        }
-
+		if(!payloadGeneratorGr.isValidField('method_and_endpoint')){
+			return null;
+		}
+		
         var api = payloadGeneratorGr.getValue('method_and_endpoint');
         switch (api) {
             case "post_sn_ind_tmt_orm_order_productOrder":
-                this._generateForTmf622productOrderPost(payloadGeneratorGr.getUniqueValue());
+                this._generateForTmf622productOrderPost(payloadGeneratorGr);
                 break;
 			default:
 				gs.error(gs.getMessage("Switch statement in 'ApiParamInitializationService' Script Include found no match"));
-				return null;
         }
     },
 
     /**
      * Initialize api parameter records
      * 
-     * @param payloadGeneratorSysId {string} - The payload generator record as sys_id
-     * @return {null}
+     * @param {GlideRecord Object} payloadGeneratorGr - The payload generator record
+     * @returns {undefined} - Function does not return
      **/
-    _generateForTmf622productOrderPost(payloadGeneratorSysId) {
+    _generateForTmf622productOrderPost(payloadGeneratorGr) {
         var apiParams = Constants.API_PARAM_MAP;
         for (var i = 0; i < apiParams.length; i++) {
             var insertApiParamsGr = new GlideRecord('x_648117_tmf_mock_api_parameters');
             insertApiParamsGr.newRecord();
-            insertApiParamsGr.setValue('payload_generator', payloadGeneratorSysId);
+            insertApiParamsGr.setValue('payload_generator', payloadGeneratorGr.getUniqueValue());
             insertApiParamsGr.setValue('type', apiParams[i].type);
             insertApiParamsGr.setValue('query_param', apiParams[i].param);
-			var apiParamDefaultValue = this.initializationUtilsSI.getParamDefaultValue(apiParams[i]);
-			if (apiParamDefaultValue !== null){
+			var apiParamDefaultValue = this.initializationServiceUtils.getParamDefaultValue(apiParams[i]);
+			if (apiParamDefaultValue){
 				insertApiParamsGr.setValue('query_param_value', apiParamDefaultValue);
 			}
             insertApiParamsGr.insert();
@@ -63,13 +61,13 @@ ApiParamInitializationService.prototype = {
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2023-06-26 17:17:46</sys_created_on>
         <sys_id>ff85fd6f47a32110acf69a21336d4366</sys_id>
-        <sys_mod_count>24</sys_mod_count>
+        <sys_mod_count>34</sys_mod_count>
         <sys_name>ApiParamInitializationService</sys_name>
         <sys_package display_value="TMF Mock Payload Generator" source="x_648117_tmf_mock">3b03be1447232110acf69a21336d4362</sys_package>
         <sys_policy/>
         <sys_scope display_value="TMF Mock Payload Generator">3b03be1447232110acf69a21336d4362</sys_scope>
         <sys_update_name>sys_script_include_ff85fd6f47a32110acf69a21336d4366</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2023-07-13 16:17:30</sys_updated_on>
+        <sys_updated_on>2023-10-25 15:18:48</sys_updated_on>
     </sys_script_include>
 </record_update>

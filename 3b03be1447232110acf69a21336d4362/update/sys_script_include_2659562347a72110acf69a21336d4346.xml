@@ -14,6 +14,7 @@ Constants.prototype = {
     type: 'Constants'
 };
 
+// Map of attributes for Core Data
 Constants.CORE_DATA_ATTRIBUTE_MAP = [
 	{field: "account", reference: true, reference_table: "customer_account", default: ""},
 	{field: "channel", reference: true, reference_table: "sn_prd_pm_distribution_channel", default: ""},
@@ -25,27 +26,31 @@ Constants.CORE_DATA_ATTRIBUTE_MAP = [
 	{field: "requestedStartDate", reference: false, default: ""},
 ];
 
+// Core Data that can be duplicated per Payload Generator record
 Constants.ALLOWED_DUPLICATE_CORE_DATA_ATTRIBUTE = ['note'];
 
+// Map of attributes for API Parameters
 Constants.API_PARAM_MAP = [
 	{type: "query", param: "mode", default: ""}, 
 	{type: "other", param: "api_trigger_quantity", default: 1}
 ];
 
+// API Paramters that can be duplicated per Payload Generator record
 Constants.ALLOWED_DUPLICATE_API_PARAM = [''];
 
+// All external ID field names used in OOTB tables leveraged by this application
 Constants.EXTERNAL_ID_FIELD_NAMES = ['sn_tmt_core_external_id', 'external_id', 'sn_prd_invt_external_id'];]]></script>
         <sys_class_name>sys_script_include</sys_class_name>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2023-06-26 19:54:14</sys_created_on>
         <sys_id>2659562347a72110acf69a21336d4346</sys_id>
-        <sys_mod_count>12</sys_mod_count>
+        <sys_mod_count>13</sys_mod_count>
         <sys_name>Constants</sys_name>
         <sys_package display_value="TMF Mock Payload Generator" source="x_648117_tmf_mock">3b03be1447232110acf69a21336d4362</sys_package>
         <sys_policy/>
         <sys_scope display_value="TMF Mock Payload Generator">3b03be1447232110acf69a21336d4362</sys_scope>
         <sys_update_name>sys_script_include_2659562347a72110acf69a21336d4346</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2023-07-06 16:36:27</sys_updated_on>
+        <sys_updated_on>2023-10-24 21:32:58</sys_updated_on>
     </sys_script_include>
 </record_update>

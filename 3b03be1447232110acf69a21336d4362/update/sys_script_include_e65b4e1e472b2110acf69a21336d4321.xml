@@ -10,47 +10,45 @@
         <script><![CDATA[var CoreOrderDataInitializationService = Class.create();
 CoreOrderDataInitializationService.prototype = {
     initialize: function() {
-        this.utilsSI = new x_648117_tmf_mock.Utils();
-		this.initializationUtilsSI = new x_648117_tmf_mock.InitializationUtils();
+		this.initializationServiceUtils = new x_648117_tmf_mock.InitializationServiceUtils();
     },
 
     /**
      * Determines helper function to run based on the api selected in the payload generator
      * 
-     * @param payloadGeneratorGr {GlideRecord object} - The payload generator record
-     * @return {null}
+     * @param {GlideRecord Object} payloadGeneratorGr - The payload generator record
+     * @returns {null|undefined} - Function does not return unless invalid parameter passed in
      **/
     initializeCoreOrderData(payloadGeneratorGr) {
-        if (typeof(payloadGeneratorGr) != "object") {
-            return null;
-        }
+		if(!payloadGeneratorGr.isValidField('method_and_endpoint')){
+			return null;
+		}
 
         var api = payloadGeneratorGr.getValue('method_and_endpoint');
         switch (api) {
             case "post_sn_ind_tmt_orm_order_productOrder":
-                this._generateForTmf622productOrderPost(payloadGeneratorGr.getUniqueValue());
+                this._generateForTmf622productOrderPost(payloadGeneratorGr);
                 break;
 			default:
-				gs.error(gs.getMessage("Switch statement in 'ApiParamInitializationService' Script Include found no match"));
-				return null;
+				gs.error(gs.getMessage("Switch statement in 'CoreOrderDataInitializationService' Script Include found no match"));
         }
     },
 
     /**
      * Initialize core order data records
      * 
-     * @param payloadGeneratorSysId {string} - The payload generator record as sys_id
-     * @return {null}
+     * @param {GlideRecord Object} payloadGeneratorGr - The payload generator record
+     * @returns {undefined} - Function does not return
      **/
-    _generateForTmf622productOrderPost(payloadGeneratorSysId) {
+    _generateForTmf622productOrderPost(payloadGeneratorGr) {
         var coreDataAttributes = Constants.CORE_DATA_ATTRIBUTE_MAP;
         for (var i = 0; i < coreDataAttributes.length; i++) {
             var insertCoreDataGr = new GlideRecord('x_648117_tmf_mock_core_order_data');
             insertCoreDataGr.newRecord();
-            insertCoreDataGr.setValue('payload_generator', payloadGeneratorSysId);
+            insertCoreDataGr.setValue('payload_generator', payloadGeneratorGr.getUniqueValue());
             insertCoreDataGr.setValue('attribute', coreDataAttributes[i].field);
-			var apiParamDefaultValue = this.initializationUtilsSI.getParamDefaultValue(coreDataAttributes[i]);
-			if (apiParamDefaultValue !== null){
+			var apiParamDefaultValue = this.initializationServiceUtils.getParamDefaultValue(coreDataAttributes[i]);
+			if (apiParamDefaultValue){
 				insertCoreDataGr.setValue('value', apiParamDefaultValue);
 			}
             insertCoreDataGr.insert();
@@ -62,13 +60,13 @@ CoreOrderDataInitializationService.prototype = {
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2023-06-22 21:48:54</sys_created_on>
         <sys_id>e65b4e1e472b2110acf69a21336d4321</sys_id>
-        <sys_mod_count>18</sys_mod_count>
+        <sys_mod_count>25</sys_mod_count>
         <sys_name>CoreOrderDataInitializationService</sys_name>
         <sys_package display_value="TMF Mock Payload Generator" source="x_648117_tmf_mock">3b03be1447232110acf69a21336d4362</sys_package>
         <sys_policy/>
         <sys_scope display_value="TMF Mock Payload Generator">3b03be1447232110acf69a21336d4362</sys_scope>
         <sys_update_name>sys_script_include_e65b4e1e472b2110acf69a21336d4321</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2023-07-13 16:17:18</sys_updated_on>
+        <sys_updated_on>2023-10-25 15:19:07</sys_updated_on>
     </sys_script_include>
 </record_update>

@@ -10,22 +10,27 @@
         <script><![CDATA[var TMFAPISubmissionService = Class.create();
 TMFAPISubmissionService.prototype = {
     initialize: function() {
-        this.utilsSI = new x_648117_tmf_mock.Utils();
+        this.utils = new x_648117_tmf_mock.Utils();
     },
 
     /**
      * Submits a payload against the TMF 622 Product Order API synchronously from a Payload Generator record
      * 
-     * @param payloadGeneratorSysId {string} - Payload Generator record to query
-     * @return {object} - Object containing a message and a boolean denoting API error
+     * @param {string} payloadGeneratorSysId - Payload Generator record to query as sysid
+     * @returns {Object} obj - Object containing a message and a boolean denoting API error
+     * @returns {string} msg - Error message
+     * @returns {boolean} error - If error occured
      **/
     tmf622productOrderPostSubmitSynch(payloadGeneratorSysId) {
         if (typeof(payloadGeneratorSysId) !== "string") {
-            return null;
+            return {
+                msg: "Invalid payload generator record",
+                error: true
+            };
         }
-
+		
         var instanceUrl = gs.getProperty('glide.servlet.uri');
-        var payloadGeneratorGr = this.utilsSI.getRecordFromSysId('x_648117_tmf_mock_payload_generator', payloadGeneratorSysId);
+        var payloadGeneratorGr = this.utils.getRecordFromSysId('x_648117_tmf_mock_payload_generator', payloadGeneratorSysId);
 
         var request = new sn_ws.RESTMessageV2();
         request.setEndpoint(instanceUrl + 'api/sn_ind_tmt_orm/order/productOrder');
@@ -77,8 +82,8 @@ TMFAPISubmissionService.prototype = {
     /**
      * Submits a payload against the TMF 622 Product Order API asynchronously from a Payload Generator record
      * 
-     * @param payloadGeneratorSysId {string} - Payload Generator record to query
-     * @return {null}
+     * @param {string} payloadGeneratorSysId - Payload Generator record to query
+     * @returns {null|undefined} - Function does not return unless invalid parameter passed in
      **/
     tmf622productOrderPostSubmitAsynch(payloadGeneratorSysId) {
         if (typeof(payloadGeneratorSysId) !== "string") {
@@ -86,7 +91,7 @@ TMFAPISubmissionService.prototype = {
         }
 
         var instanceUrl = gs.getProperty('glide.servlet.uri');
-        var payloadGeneratorGr = this.utilsSI.getRecordFromSysId('x_648117_tmf_mock_payload_generator', payloadGeneratorSysId);
+        var payloadGeneratorGr = this.utils.getRecordFromSysId('x_648117_tmf_mock_payload_generator', payloadGeneratorSysId);
 
         var request = new sn_ws.RESTMessageV2();
         request.setEndpoint(instanceUrl + 'api/sn_ind_tmt_orm/order/productOrder');
@@ -106,8 +111,8 @@ TMFAPISubmissionService.prototype = {
     /**
      * Get the API Trigger Quantity API parameter
      * 
-     * @param payloadGeneratorSysId {string} - Payload Generator record to query
-     * @return {integer} - The value of the API Trigger Quantity API parameter, defaulting to 1
+     * @param {string} payloadGeneratorSysId - Payload Generator record to query
+     * @returns {integer} - The value of the API Trigger Quantity API parameter, defaulting to 1
      **/
     getAPITriggerQuantity(payloadGeneratorSysId) {
         var quantity = 1; // Default to 1
@@ -115,8 +120,7 @@ TMFAPISubmissionService.prototype = {
             return quantity;
         }
 
-        var utilsSI = new x_648117_tmf_mock.Utils();
-        var apiParamsGr = utilsSI.getRecords('x_648117_tmf_mock_api_parameters', 'payload_generator=' + payloadGeneratorSysId + '^query_param=api_trigger_quantity');
+        var apiParamsGr = this.utils.getRecords('x_648117_tmf_mock_api_parameters', 'payload_generator=' + payloadGeneratorSysId + '^query_param=api_trigger_quantity');
         if (apiParamsGr) {
             if (apiParamsGr.next()) {
                 var value = apiParamsGr.getValue('query_param_value');
@@ -134,13 +138,14 @@ TMFAPISubmissionService.prototype = {
     /**
      * Get all query params from a payload generator record
      * 
-     * @param payloadGeneratorSysId {string} - Payload Generator record to query
-     * @return {array} - Array of query params stored as objects of name/value pairs
+     * @param {string} payloadGeneratorSysId - Payload Generator record to query
+     * @returns {Object[]} obj - Array of query params stored as objects of name/value pairs
+     * @returns {string} obj.name - Query param name
+     * @returns {string} obj.value - Query param value
      **/
     _getQueryParams(payloadGeneratorSysId) {
         var array = [];
-        var utilsSI = new x_648117_tmf_mock.Utils();
-        var apiParamsGr = utilsSI.getRecords('x_648117_tmf_mock_api_parameters', 'payload_generator=' + payloadGeneratorSysId + '^type=query');
+        var apiParamsGr = this.utils.getRecords('x_648117_tmf_mock_api_parameters', 'payload_generator=' + payloadGeneratorSysId + '^type=query');
         if (apiParamsGr) {
             while (apiParamsGr.next()) {
                 if (!apiParamsGr.query_param_value.nil()) {
@@ -160,13 +165,13 @@ TMFAPISubmissionService.prototype = {
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2023-06-29 19:47:23</sys_created_on>
         <sys_id>f8c279a047372110acf69a21336d43af</sys_id>
-        <sys_mod_count>35</sys_mod_count>
+        <sys_mod_count>37</sys_mod_count>
         <sys_name>TMFAPISubmissionService</sys_name>
         <sys_package display_value="TMF Mock Payload Generator" source="x_648117_tmf_mock">3b03be1447232110acf69a21336d4362</sys_package>
         <sys_policy/>
         <sys_scope display_value="TMF Mock Payload Generator">3b03be1447232110acf69a21336d4362</sys_scope>
         <sys_update_name>sys_script_include_f8c279a047372110acf69a21336d43af</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2023-07-13 16:53:04</sys_updated_on>
+        <sys_updated_on>2023-10-25 15:23:59</sys_updated_on>
     </sys_script_include>
 </record_update>
