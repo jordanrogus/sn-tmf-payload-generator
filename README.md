@@ -4,6 +4,7 @@ The implementation of SN Telco products that utilize TMF APIs may face delays du
 
 Version History
 - v1.0.0 - July 2023 - Initial release with TMF622 POST compatability
+- v1.3.0 - October 2023 - Improvements to handling price and minor defect resolution.
 
 Features
 1.	TMF622 (Product Order) POST compatibility for generating mock payloads from a ServiceNow modelled Product Offering using no-code interfaces.
