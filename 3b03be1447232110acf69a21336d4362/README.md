@@ -26,5 +26,5 @@ If you find yourself unable to import your repository due to the presence of fil
    Currently listed dependencies:
    * Customer Service
    * Product Inventory Advanced
-   * Order Management for Telecom, Media & Tech
+   * Order Management
    * Product Catalog Management Core
