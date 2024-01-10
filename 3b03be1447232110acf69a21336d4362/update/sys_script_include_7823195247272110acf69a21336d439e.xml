@@ -34,7 +34,7 @@ ProductItemUtils.prototype = {
 
         var itemsGr = new GlideRecord('x_648117_tmf_mock_items');
         itemsGr.addQuery('payload_generator', payloadGenerator);
-		itemsGr.addQuery('unique_line_item', "false");
+        itemsGr.addQuery('unique_line_item', "false");
         itemsGr.addQuery('sys_id', '!=', sourceItemSysId.toString());
         itemsGr.query();
         while (itemsGr.next()) {
@@ -55,10 +55,10 @@ ProductItemUtils.prototype = {
         if (typeof(itemSysId) !== "string") {
             return null;
         }
-		
+
         var itemGr = this.utils.getRecordFromSysId('x_648117_tmf_mock_items', itemSysId);
         var dupItem;
-		
+
         if (typeof(payloadGeneratorSysId) === "string") {
             var fieldMapItem = {
                 payload_generator: payloadGeneratorSysId
@@ -67,7 +67,7 @@ ProductItemUtils.prototype = {
         } else {
             dupItem = this.utils.generateDuplicateRecord('x_648117_tmf_mock_items', itemSysId);
         }
-		
+
         var itemRelationshipsGr = this.utils.getRecords('x_648117_tmf_mock_item_relationship', 'source_item=' + itemSysId);
         if (itemRelationshipsGr) {
             while (itemRelationshipsGr.next()) {
@@ -95,54 +95,78 @@ ProductItemUtils.prototype = {
                 this.utils.generateDuplicateRecord('x_648117_tmf_mock_related_party', relatedPartyGr.getUniqueValue(), fieldMapRelatedParty);
             }
         }
-		return dupItem;
+        return dupItem;
     },
-	
-	/**
+
+    /**
      * Retrieves all product specifications from a product offering
      * 
      * @param {GlideRecord Object} productOfferingGr - Product Offering
      * @returns {string} - Encoded query for related product specifications
      **/
     getProductSpecificationsFromOffering(productOfferingGr) {
-		var topProductSpecification = productOfferingGr.getValue('product_specification');
-		var hierarchy = this.getProductSpecificationsInHierarchy(topProductSpecification, []);
-		hierarchy.push(topProductSpecification);
-        return 'sys_idIN' + hierarchy.toString();
+        var topProductSpecification = productOfferingGr.getValue('product_specification');
+        var entireHierarchyArr = this.getAllSpecificationsInHierarchy(topProductSpecification, [topProductSpecification]);
+        var productHierarchyArr = this.filterSpecifications(entireHierarchyArr, "sys_class_name=sn_prd_pm_product_specification");
+        return 'sys_idIN' + productHierarchyArr.toString();
     },
-	
-	/**
-     * Retrieves all child product specifications from a passed in product spec using recursion
+
+    /**
+     * Retrieves all child specifications from a passed in parent using recursion
      * 
-     * @param {string} productSpecificationSysId - Product spec to query for children
-	 * @param {Array} array - Array to update with product specs
-     * @returns {Array} - Array of product specification sys_ids
+     * @param {string} specificationSysId - Spec to query for children
+     * @param {Array} array - Array to update with specifications
+     * @returns {Array} - Array of specification sys_ids
      **/
-	getProductSpecificationsInHierarchy(productSpecificationSysId, array){
-		var specRelationshipGr = new GlideRecord("sn_prd_pm_specification_relationship");
-        specRelationshipGr.addQuery("source", productSpecificationSysId);
-		specRelationshipGr.addQuery("specification_type", "sn_prd_pm_product_specification");
-		specRelationshipGr.query();
-		while(specRelationshipGr.next()){
-			array.push(specRelationshipGr.getValue('target'));
-			this.getProductSpecificationsInHierarchy(specRelationshipGr.getValue('target'), array);
-		}
-		return array;
-	},
-	
+    getAllSpecificationsInHierarchy(specificationSysId, array) {
+        var specRelationshipGr = new GlideRecord("sn_prd_pm_specification_relationship");
+        specRelationshipGr.addNotNullQuery("source");
+        specRelationshipGr.addNotNullQuery("target");
+        specRelationshipGr.addQuery("source", specificationSysId);
+        specRelationshipGr.query();
+        while (specRelationshipGr.next()) {
+            var specificationTarget = specRelationshipGr.getValue('target');
+            array.push(specificationTarget);
+            this.getAllSpecificationsInHierarchy(specificationTarget, array);
+        }
+        return array;
+    },
+
+    /**
+     * Filters an array of specifications
+     * 
+     * @param {Array} specificationArray - Array of specifications to filter
+     * @param {string} encodedQuery - Query to filter specifications
+     * @returns {Array} - Array of filtered specification sys_ids
+     **/
+    filterSpecifications(specificationArray, encodedQuery) {
+        var filteredSpecifications = [];
+
+        var specificationGr = new GlideRecord("sn_prd_pm_specification");
+        specificationGr.addQuery("sys_id", "IN", specificationArray.toString());
+        if (encodedQuery) {
+            specificationGr.addEncodedQuery(encodedQuery);
+        }
+        specificationGr.query();
+        while (specificationGr.next()) {
+            filteredSpecifications.push(specificationGr.getUniqueValue());
+        }
+        return filteredSpecifications;
+    },
+
     type: 'ProductItemUtils'
 };]]></script>
         <sys_class_name>sys_script_include</sys_class_name>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2023-06-22 17:40:32</sys_created_on>
         <sys_id>7823195247272110acf69a21336d439e</sys_id>
-        <sys_mod_count>85</sys_mod_count>
+        <sys_mod_count>104</sys_mod_count>
         <sys_name>ProductItemUtils</sys_name>
         <sys_package display_value="TMF Mock Payload Generator" source="x_648117_tmf_mock">3b03be1447232110acf69a21336d4362</sys_package>
         <sys_policy/>
         <sys_scope display_value="TMF Mock Payload Generator">3b03be1447232110acf69a21336d4362</sys_scope>
         <sys_update_name>sys_script_include_7823195247272110acf69a21336d439e</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2023-10-25 17:01:29</sys_updated_on>
+        <sys_updated_on>2023-10-26 17:27:53</sys_updated_on>
     </sys_script_include>
 </record_update>

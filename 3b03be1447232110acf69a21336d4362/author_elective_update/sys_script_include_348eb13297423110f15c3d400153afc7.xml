@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_include">
+    <sys_script_include action="DELETE">
+        <access>package_private</access>
+        <active>true</active>
+        <api_name>x_648117_tmf_mock.ProductItemUtils</api_name>
+        <caller_access/>
+        <client_callable>false</client_callable>
+        <description>Utility functions for the Product Item (x_648117_tmf_mock_items) table.</description>
+        <name>ProductItemUtils</name>
+        <script><![CDATA[var ProductItemUtils = Class.create();
+ProductItemUtils.prototype = {
+    initialize: function() {
+        this.utils = new x_648117_tmf_mock.Utils();
+    },
+
+    /**
+     * Retrieves related items from a passed in item. Excludes item that have 'Unique Line Item per Qty?' selected.
+     * 
+     * @param {string} sourceItemSysId - Source item to use in query
+     * @returns {string} - Encoded query for related items
+     **/
+    getRelatedOrderItems(sourceItemSysId) {
+        if (typeof(sourceItemSysId) !== "string") {
+            return null;
+        }
+
+        var sourceItemGr = this.utils.getRecordFromSysId("x_648117_tmf_mock_items", sourceItemSysId);
+        var payloadGenerator = sourceItemGr.getValue('payload_generator');
+        if (!payloadGenerator) {
+            return;
+        }
+
+        var items = [];
+
+        var itemsGr = new GlideRecord('x_648117_tmf_mock_items');
+        itemsGr.addQuery('payload_generator', payloadGenerator);
+        itemsGr.addQuery('unique_line_item', "false");
+        itemsGr.addQuery('sys_id', '!=', sourceItemSysId.toString());
+        itemsGr.query();
+        while (itemsGr.next()) {
+            items.push(itemsGr.getUniqueValue());
+        }
+
+        return 'sys_idIN' + items.toString();
+    },
+
+    /**
+     * Copies an item and all child records
+     * 
+     * @param {string} itemSysId - The item to copy as sys_id
+     * @param {string} [payloadGeneratorSysId] - Optionally a payload generator to use in the copied item
+     * @returns {string} - Sys_id of the copied item
+     **/
+    copyItemHierarchy(itemSysId, payloadGeneratorSysId) {
+        if (typeof(itemSysId) !== "string") {
+            return null;
+        }
+
+        var itemGr = this.utils.getRecordFromSysId('x_648117_tmf_mock_items', itemSysId);
+        var dupItem;
+
+        if (typeof(payloadGeneratorSysId) === "string") {
+            var fieldMapItem = {
+                payload_generator: payloadGeneratorSysId
+            };
+            dupItem = this.utils.generateDuplicateRecord('x_648117_tmf_mock_items', itemSysId, fieldMapItem);
+        } else {
+            dupItem = this.utils.generateDuplicateRecord('x_648117_tmf_mock_items', itemSysId);
+        }
+
+        var itemRelationshipsGr = this.utils.getRecords('x_648117_tmf_mock_item_relationship', 'source_item=' + itemSysId);
+        if (itemRelationshipsGr) {
+            while (itemRelationshipsGr.next()) {
+                var fieldMapItemRelationship = {};
+                if (payloadGeneratorSysId) {
+                    fieldMapItemRelationship = {
+                        source_item: dupItem,
+                        target_item: ""
+                    };
+                } else {
+                    fieldMapItemRelationship = {
+                        source_item: dupItem
+                    };
+                }
+                this.utils.generateDuplicateRecord('x_648117_tmf_mock_item_relationship', itemRelationshipsGr.getUniqueValue(), fieldMapItemRelationship);
+            }
+        }
+
+        var relatedPartyGr = this.utils.getRecords('x_648117_tmf_mock_related_party', 'item=' + itemSysId);
+        if (relatedPartyGr) {
+            while (relatedPartyGr.next()) {
+                var fieldMapRelatedParty = {
+                    item: dupItem
+                };
+                this.utils.generateDuplicateRecord('x_648117_tmf_mock_related_party', relatedPartyGr.getUniqueValue(), fieldMapRelatedParty);
+            }
+        }
+        return dupItem;
+    },
+
+    /**
+     * Retrieves all product specifications from a product offering
+     * 
+     * @param {GlideRecord Object} productOfferingGr - Product Offering
+     * @returns {string} - Encoded query for related product specifications
+     **/
+    getProductSpecificationsFromOffering(productOfferingGr) {
+        var topProductSpecification = productOfferingGr.getValue('product_specification');
+		var hierarchyArr = this.getProductSpecificationsInHierarchy(topProductSpecification, [topProductSpecification]);
+        return 'sys_idIN' + hierarchyArr.toString();
+    },
+
+    /**
+     * Retrieves all child product specifications from a passed in product spec using recursion
+     * 
+     * @param {string} productSpecificationSysId - Product spec to query for children
+     * @param {Array} array - Array to update with product specs
+     * @returns {Array} - Array of product specification sys_ids
+     **/
+    getProductSpecificationsInHierarchy(productSpecificationSysId, array) {
+        var specRelationshipGr = new GlideRecord("sn_prd_pm_specification_relationship");
+		specRelationshipGr.addNotNullQuery("source");
+		specRelationshipGr.addNotNullQuery("target");
+        specRelationshipGr.addQuery("source", productSpecificationSysId);
+		specRelationshipGr.addQuery("target.sys_class_name", "sn_prd_pm_product_specification");
+        specRelationshipGr.addQuery("specification_type", "sn_prd_pm_product_specification");
+        specRelationshipGr.query();
+        while (specRelationshipGr.next()) {
+            var specificationTarget = specRelationshipGr.getValue('target');
+            array.push(specificationTarget);
+            this.getProductSpecificationsInHierarchy(specificationTarget, array);
+        }
+        return array;
+    },
+    type: 'ProductItemUtils'
+};]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-10-26 16:38:08</sys_created_on>
+        <sys_id>348eb13297423110f15c3d400153afc7</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>ProductItemUtils</sys_name>
+        <sys_package display_value="TMF Mock Payload Generator" source="x_648117_tmf_mock">3b03be1447232110acf69a21336d4362</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="TMF Mock Payload Generator">3b03be1447232110acf69a21336d4362</sys_scope>
+        <sys_update_name>sys_script_include_348eb13297423110f15c3d400153afc7</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-10-26 16:38:08</sys_updated_on>
+    </sys_script_include>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="TMF Mock Payload Generator">3b03be1447232110acf69a21336d4362</application>
+        <file_path/>
+        <instance_id>0011340bdb86f7c891232f17d4961925</instance_id>
+        <instance_name>dev88101</instance_name>
+        <name>sys_script_include_348eb13297423110f15c3d400153afc7</name>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="sys_script_include"&gt;&lt;sys_script_include action="INSERT_OR_UPDATE"&gt;&lt;access&gt;package_private&lt;/access&gt;&lt;active&gt;true&lt;/active&gt;&lt;api_name&gt;x_648117_tmf_mock.ProductItemUtils&lt;/api_name&gt;&lt;caller_access/&gt;&lt;client_callable&gt;false&lt;/client_callable&gt;&lt;description&gt;Utility functions for the Product Item (x_648117_tmf_mock_items) table.&lt;/description&gt;&lt;name&gt;ProductItemUtils&lt;/name&gt;&lt;script&gt;&lt;![CDATA[var ProductItemUtils = Class.create();
+ProductItemUtils.prototype = {
+    initialize: function() {
+        this.utils = new x_648117_tmf_mock.Utils();
+    },
+
+    /**
+     * Retrieves related items from a passed in item. Excludes item that have 'Unique Line Item per Qty?' selected.
+     * 
+     * @param {string} sourceItemSysId - Source item to use in query
+     * @returns {string} - Encoded query for related items
+     **/
+    getRelatedOrderItems(sourceItemSysId) {
+        if (typeof(sourceItemSysId) !== "string") {
+            return null;
+        }
+
+        var sourceItemGr = this.utils.getRecordFromSysId("x_648117_tmf_mock_items", sourceItemSysId);
+        var payloadGenerator = sourceItemGr.getValue('payload_generator');
+        if (!payloadGenerator) {
+            return;
+        }
+
+        var items = [];
+
+        var itemsGr = new GlideRecord('x_648117_tmf_mock_items');
+        itemsGr.addQuery('payload_generator', payloadGenerator);
+        itemsGr.addQuery('unique_line_item', "false");
+        itemsGr.addQuery('sys_id', '!=', sourceItemSysId.toString());
+        itemsGr.query();
+        while (itemsGr.next()) {
+            items.push(itemsGr.getUniqueValue());
+        }
+
+        return 'sys_idIN' + items.toString();
+    },
+
+    /**
+     * Copies an item and all child records
+     * 
+     * @param {string} itemSysId - The item to copy as sys_id
+     * @param {string} [payloadGeneratorSysId] - Optionally a payload generator to use in the copied item
+     * @returns {string} - Sys_id of the copied item
+     **/
+    copyItemHierarchy(itemSysId, payloadGeneratorSysId) {
+        if (typeof(itemSysId) !== "string") {
+            return null;
+        }
+
+        var itemGr = this.utils.getRecordFromSysId('x_648117_tmf_mock_items', itemSysId);
+        var dupItem;
+
+        if (typeof(payloadGeneratorSysId) === "string") {
+            var fieldMapItem = {
+                payload_generator: payloadGeneratorSysId
+            };
+            dupItem = this.utils.generateDuplicateRecord('x_648117_tmf_mock_items', itemSysId, fieldMapItem);
+        } else {
+            dupItem = this.utils.generateDuplicateRecord('x_648117_tmf_mock_items', itemSysId);
+        }
+
+        var itemRelationshipsGr = this.utils.getRecords('x_648117_tmf_mock_item_relationship', 'source_item=' + itemSysId);
+        if (itemRelationshipsGr) {
+            while (itemRelationshipsGr.next()) {
+                var fieldMapItemRelationship = {};
+                if (payloadGeneratorSysId) {
+                    fieldMapItemRelationship = {
+                        source_item: dupItem,
+                        target_item: ""
+                    };
+                } else {
+                    fieldMapItemRelationship = {
+                        source_item: dupItem
+                    };
+                }
+                this.utils.generateDuplicateRecord('x_648117_tmf_mock_item_relationship', itemRelationshipsGr.getUniqueValue(), fieldMapItemRelationship);
+            }
+        }
+
+        var relatedPartyGr = this.utils.getRecords('x_648117_tmf_mock_related_party', 'item=' + itemSysId);
+        if (relatedPartyGr) {
+            while (relatedPartyGr.next()) {
+                var fieldMapRelatedParty = {
+                    item: dupItem
+                };
+                this.utils.generateDuplicateRecord('x_648117_tmf_mock_related_party', relatedPartyGr.getUniqueValue(), fieldMapRelatedParty);
+            }
+        }
+        return dupItem;
+    },
+
+    /**
+     * Retrieves all product specifications from a product offering
+     * 
+     * @param {GlideRecord Object} productOfferingGr - Product Offering
+     * @returns {string} - Encoded query for related product specifications
+     **/
+    getProductSpecificationsFromOffering(productOfferingGr) {
+        var topProductSpecification = productOfferingGr.getValue('product_specification');
+		var hierarchyArr = this.getProductSpecificationsInHierarchy(topProductSpecification, [topProductSpecification]);
+        return 'sys_idIN' + hierarchyArr.toString();
+    },
+
+    /**
+     * Retrieves all child product specifications from a passed in product spec using recursion
+     * 
+     * @param {string} productSpecificationSysId - Product spec to query for children
+     * @param {Array} array - Array to update with product specs
+     * @returns {Array} - Array of product specification sys_ids
+     **/
+    getProductSpecificationsInHierarchy(productSpecificationSysId, array) {
+        var specRelationshipGr = new GlideRecord("sn_prd_pm_specification_relationship");
+		specRelationshipGr.addNotNullQuery("source");
+		specRelationshipGr.addNotNullQuery("target");
+        specRelationshipGr.addQuery("source", productSpecificationSysId);
+		specRelationshipGr.addQuery("target.sys_class_name", "sn_prd_pm_product_specification");
+        specRelationshipGr.addQuery("specification_type", "sn_prd_pm_product_specification");
+        specRelationshipGr.query();
+        while (specRelationshipGr.next()) {
+            var specificationTarget = specRelationshipGr.getValue('target');
+            array.push(specificationTarget);
+            this.getProductSpecificationsInHierarchy(specificationTarget, array);
+        }
+        return array;
+    },
+    type: 'ProductItemUtils'
+};]]&gt;&lt;/script&gt;&lt;sys_class_name&gt;sys_script_include&lt;/sys_class_name&gt;&lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2023-10-26 16:38:08&lt;/sys_created_on&gt;&lt;sys_id&gt;348eb13297423110f15c3d400153afc7&lt;/sys_id&gt;&lt;sys_mod_count&gt;0&lt;/sys_mod_count&gt;&lt;sys_name&gt;ProductItemUtils&lt;/sys_name&gt;&lt;sys_package display_value="TMF Mock Payload Generator" source="x_648117_tmf_mock"&gt;3b03be1447232110acf69a21336d4362&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="TMF Mock Payload Generator"&gt;3b03be1447232110acf69a21336d4362&lt;/sys_scope&gt;&lt;sys_update_name&gt;sys_script_include_348eb13297423110f15c3d400153afc7&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2023-10-26 16:38:08&lt;/sys_updated_on&gt;&lt;/sys_script_include&gt;&lt;/record_update&gt;</payload>
+        <payload_hash>-2025999238</payload_hash>
+        <record_name>ProductItemUtils</record_name>
+        <reverted_from/>
+        <source>169580ce97b43110f15c3d400153afc0</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-10-26 16:38:08</sys_created_on>
+        <sys_id>788eb13297423110f15c3d400153afc9</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>18b6cd9b26e0000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-10-26 16:38:08</sys_updated_on>
+        <type>Script Include</type>
+        <update_guid>bc8eb132da4231100899c3a1374574c8</update_guid>
+        <update_guid_history>bc8eb132da4231100899c3a1374574c8:-2025999238</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete/>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-10-26 16:38:25</sys_created_on>
+        <sys_db_object display_value="" name="sys_script_include">sys_script_include</sys_db_object>
+        <sys_id>d90e01ca01ee46d0a7bbeb76e1a90440</sys_id>
+        <sys_metadata>348eb13297423110f15c3d400153afc7</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>ProductItemUtils</sys_name>
+        <sys_package display_value="TMF Mock Payload Generator" source="x_648117_tmf_mock">3b03be1447232110acf69a21336d4362</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="TMF Mock Payload Generator">3b03be1447232110acf69a21336d4362</sys_scope>
+        <sys_scope_delete display_value="">0c35d3e32cda4d5c8f4377e805ad9a10</sys_scope_delete>
+        <sys_update_name>sys_script_include_348eb13297423110f15c3d400153afc7</sys_update_name>
+        <sys_update_version display_value="sys_script_include_348eb13297423110f15c3d400153afc7">788eb13297423110f15c3d400153afc9</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-10-26 16:38:25</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>
